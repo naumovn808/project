@@ -3,7 +3,7 @@ import './Header.css'
 
 const header = () => (
     <div className='header'>
-        <img src="/Partyshaker.png" alt="Partyshaker"/>
+        <img src="/Partyshaker.png" alt="Partyshaker_header"/>
     </div>
 );
 
