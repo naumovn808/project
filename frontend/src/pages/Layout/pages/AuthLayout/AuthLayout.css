@@ -1,0 +1,12 @@
+.container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content__outlet {
+	flex: 1;
+	margin: 50px auto;
+}
