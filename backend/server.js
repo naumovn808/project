@@ -1,0 +1,11 @@
+const express = require('express')
+const CookieParser = require('cookie-parser')
+const AuthRouter = require('./routes/auth')
+const ProductRouter = require('./routes/products')
+require('dotenv').config()
+const app = express()
+app.use(express.json())
+app.use(CookieParser())
+
+app.use('/auth', AuthRouter)
+app.use('/products', ProductRouter)
