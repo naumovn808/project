@@ -1,17 +1,17 @@
 import './App.css';
-import Header from './Components/Header/Header';
-import Footer from './Components/Footer/Footer';
+import Auth_Header from './components/Auth_Header/Auth_Header';
+import Auth_Footer from './components/Auth_Footer/Auth_Footer'
 
 function App() {
   return (
     <>
     <div className='app'>
-      <Header />
+      <Auth_Header />
     <div className='main-content'>
 
 
       </div> 
-      <Footer />   
+      <Auth_Footer />
       </div>
       </>
   );
