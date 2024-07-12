@@ -11,6 +11,9 @@
     display: flex;
     align-items: center;
 }
+.footerRight {
+    text-align: right;
+}
 
 .footerLogo {
     width: 50px;
@@ -32,17 +35,15 @@
     flex-direction: column;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 320px) {
     .footer {
-        background-color: #252232;
-        display: flex;
+        background-color: #181528;
         flex-direction: column;
-        text-align: start;
     }
     .round {
         position: absolute;
-        margin-left: 100px;
-        margin-bottom: 90px;
+        margin-left: 110px;
+        margin-bottom: 140px;
         background-color:#181528;
         border: 8px solid #252232;
         border-radius: 50%;
@@ -58,11 +59,15 @@
         align-items: center;
         margin: 0;   
     }
-    .phone_bg {
-        background-color: #181528;
-    }
+ /* line Сломан, пока фикса не знаю */
     .line {
-        border-bottom: 1px solid #48455F;
+        border-bottom: 2px solid white;
         margin-bottom: 10px;
+    }
+    .footer_a {
+        margin-right: 130px;
+    }
+    .footerRight {
+        margin-right: 9px;
     }
 } 
