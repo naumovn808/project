@@ -5,6 +5,7 @@
     padding: 20px;
     background-color: #181528;
     color: #fff;
+    flex-wrap: wrap;
 }
 
 .footerLeft {
@@ -34,40 +35,45 @@
     display: flex;
     flex-direction: column;
 }
-
 @media (max-width: 320px) {
     .footer {
-        background-color: #181528;
-        flex-direction: column;
+      background-color: #181528;
+      flex-direction: column;
+          gap: 24px;
+          border-bottom-right-radius: 20px;
+          border-bottom-left-radius: 20px;
     }
     .round {
-        position: absolute;
-        margin-left: 110px;
-        margin-bottom: 140px;
-        background-color:#181528;
-        border: 8px solid #252232;
-        border-radius: 50%;
-        width: 48px;
+      position: absolute;
+          top: 30px;
+          left: 120px;
+      background-color: #181528;
+      border: 8px solid #252232;
+      border-radius: 50%;
+      width: 48px;
+          padding: 8px;
     }
     .round img {
-        width: 100%;
-        height: 100%;
+      width: 100%;
+      height: 100%;
     }
     .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0;   
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
     }
- /* line Сломан, пока фикса не знаю */
-    .line {
-        border-bottom: 2px solid white;
-        margin-bottom: 10px;
-    }
+      .footerInfo{
+          border-bottom: 1px solid rgb(72, 69, 95);
+          margin-top: 50px;                                                                                         
+      }
     .footer_a {
-        margin-right: 130px;
+      margin-right: 130px;
+    }
+    .footer p {
+        margin-top: -10px;
     }
     .footerRight {
-        margin-right: 9px;
+      margin-right: 10px;
     }
-} 
+  }
