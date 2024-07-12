@@ -2,6 +2,7 @@ import './App.css';
 import Auth_Header from './components/Auth_Header/Auth_Header';
 import Auth_Footer from './components/Auth_Footer/Auth_Footer'
 
+
 function App() {
   return (
     <>
