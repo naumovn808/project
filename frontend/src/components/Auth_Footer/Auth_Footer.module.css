@@ -35,15 +35,18 @@
 @media (max-width: 768px) {
     .footer {
         background-color: #252232;
+        display: flex;
+        flex-direction: column;
+        text-align: start;
     }
     .round {
         position: absolute;
-        right: 50%;
-        left: 50%;
+        margin-left: 100px;
+        margin-bottom: 90px;
         background-color:#181528;
-        border: 8px solid gray;
+        border: 8px solid #252232;
         border-radius: 50%;
-        width: 72px;
+        width: 48px;
     }
     .round img {
         width: 100%;
@@ -53,6 +56,13 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: 0;
+        margin: 0;   
+    }
+    .phone_bg {
+        background-color: #181528;
+    }
+    .line {
+        border-bottom: 1px solid #48455F;
+        margin-bottom: 10px;
     }
 } 
