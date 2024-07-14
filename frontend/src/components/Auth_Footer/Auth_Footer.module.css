@@ -1,79 +1,74 @@
 .footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: #181528;
-    color: #fff;
-    flex-wrap: wrap;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	background-color: #181528;
+	padding: 27px 27px 32px 27px;
 }
 
-.footerLeft {
-    display: flex;
-    align-items: center;
-}
-.footerRight {
-    text-align: right;
+.round__mobile {
+	display: none;
 }
 
-.footerLogo {
-    width: 50px;
-    margin-right: 10px;
+.information {
+	display: flex;
 }
 
-.footerRight a {
-    color: #DCAB55;
-    text-decoration: none;
+.footer__logo {
+	margin-right: 11px;
 }
 
-.footerLeft a {
-    color: #DCAB55;
-    text-decoration: none;
+.information__name {
+	font-weight: 500;
+	margin-bottom: 3px;
 }
 
-.footerInfo {
-    display: flex;
-    flex-direction: column;
+.information__link,
+.privacy__policy {
+	color: var(--yellow-color);
+	text-decoration: none;
+	font-weight: 500;
 }
+
+.privacy__policy:hover {
+	transition: 200ms;
+	color: #ffcb72;
+}
+
 @media (max-width: 320px) {
-    .footer {
-      background-color: #181528;
-      flex-direction: column;
-          gap: 24px;
-          border-bottom-right-radius: 20px;
-          border-bottom-left-radius: 20px;
+	.footer {
+        display: flex;
+        flex-direction: column;
+        padding: 0px 16px 40px 16px;
+	}
+
+    .information{
+        position: relative;
+        bottom: 30px;
+		border-bottom: 1px solid rgb(72, 69, 95);
+        padding-bottom: 20px;
     }
-    .round {
-      position: absolute;
-          top: 30px;
-          left: 120px;
-      background-color: #181528;
-      border: 8px solid #252232;
-      border-radius: 50%;
-      width: 48px;
-          padding: 8px;
+
+	.round__mobile {
+        /* width: 83px;
+        height: 83px; */
+		display: block;
+        margin: 0 auto;
+        position: relative;
+		bottom: 40px;
+		background-color: #181528;
+		border: 8px solid #252232;
+		border-radius: 50%;
+        padding: 6px;
+	}
+
+	.round {
+		display: none;
+	}
+
+    .information__name,
+    .information__link,
+    .privacy__policy{
+        font-size: 13px;
     }
-    .round img {
-      width: 100%;
-      height: 100%;
-    }
-    .container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0;
-    }
-      .footerInfo{
-          border-bottom: 1px solid rgb(72, 69, 95);
-          margin-top: 50px;                                                                                         
-      }
-    .footer_a {
-      margin-right: 130px;
-    }
-    .footer p {
-        margin-top: -10px;
-    }
-    .footerRight {
-      margin-right: 10px;
-    }
-  }
+}

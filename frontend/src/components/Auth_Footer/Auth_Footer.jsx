@@ -1,27 +1,32 @@
 import React from "react";
 import styles from "./Auth_Footer.module.css";
 
-const Footer = () => (
-  <div className={styles.footer}>
-    <div className={styles.footerLeft}>
-      <div className={styles.round}>
-        <img src="/footer_logo.png" alt="PartyShaker Logo" className={styles.footerLogo} />
-      </div>
-      <div className={styles.container}>
-        <div className={styles.footerInfo}>
-          <p className={styles.footer_p}>Partyshaker</p>
-          <p>
-            <a className={styles.footer_a} href="mailto:info@partyshaker.ru">
-              info@partyshaker.ru
-            </a>
-          </p>
-        </div>
-      </div>
-    </div>
-    <div className={styles.footerRight}>
-      <a href="#">Политика конфиденциальности</a>
-    </div>
-  </div>
-);
+const Auth_Footer = () => {
+	return (
+		<footer className={styles.footer}>
+			<div className={styles.round__mobile}>
+				<img src="/footer_logo.png" alt="logo" className={styles.footer__logo__mobile} />
+			</div>
+			<div className={styles.information}>
+				<div className={styles.round}>
+					<img src="/footer_logo.png" alt="logo" className={styles.footer__logo} />
+				</div>
+				<div>
+					<p className={styles.information__name}>Partyshaker</p>
+					<a className={styles.information__link} href="mailto:info@partyshaker.ru">
+						info@partyshaker.ru
+					</a>
+				</div>
+			</div>
+			<div>
+				{/* LINK */}
+				<a href="#" className={styles.privacy__policy}>
+					Политика конфиденциальности
+				</a>
+				<div></div>
+			</div>
+		</footer>
+	);
+};
 
-export default Footer;
+export default Auth_Footer;

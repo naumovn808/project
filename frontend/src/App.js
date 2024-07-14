@@ -1,18 +1,12 @@
-import './App.css';
-import Auth_Header from './components/Auth_Header/Auth_Header';
-import Auth_Footer from './components/Auth_Footer/Auth_Footer'
+// import './App.css';
+import AuthLayout from './pages/Layouts/AuthLayout/AuthLayout';
 
 
 function App() {
   return (
     <>
     <div className='app'>
-      <Auth_Header />
-    <div className='main-content'>
-
-
-      </div> 
-      <Auth_Footer />
+      <AuthLayout/>
       </div>
       </>
   );
