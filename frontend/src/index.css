@@ -9,7 +9,8 @@
 
 :root{
 	/* --primary-color: rgb(214, 220, 225); */
-	--yellow-color: #dcab55;
+	--yellow-color: rgb(248, 193, 92);
+	--yellow-hover-color: rgb(255, 216, 145);
 	--input-color: #48455F;
 	--purple-color: #6D45E6;
 	--primary-font: 'Montserrat', sans-serif;

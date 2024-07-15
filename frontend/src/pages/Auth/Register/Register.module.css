@@ -1,5 +1,59 @@
-.test{
-    width: 10px;
-    height: 10px;
+.register__title {
+	font-size: 30px;
+	margin-bottom: 30px;
 }
 
+.field__text {
+	font-size: 13px;
+	font-weight: 600;
+	margin-bottom: 4px;
+	color: #d6dce1;
+}
+
+.field {
+	margin-bottom: 20px;
+}
+
+.field__text__password {
+	margin-top: 4px;
+	color: #98a1ae;
+	font-size: 13px;
+	font-weight: 500;
+}
+
+.links {
+	display: flex;
+	justify-content: start;
+	flex-wrap: wrap;
+	gap: 20px;
+	margin-top: 40px;
+}
+
+.links__login {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+	gap: 4px;
+	cursor: pointer;
+}
+
+.links a {
+	text-decoration: none;
+	color: var(--yellow-color);
+}
+
+.links a:hover {
+	transition: 200ms;
+	color: var(--yellow-hover-color);
+}
+
+.reset__password{
+	color: rgb(255, 120, 102);
+	margin-bottom: 4px;
+}
+
+@media (max-width: 320px) {
+	.register__title{
+		font-size: 28px;
+	}
+}

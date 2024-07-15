@@ -1,16 +1,40 @@
-.input {
-    width: 100%;
-    font-size: 16px;
-    /* height: 48px; */
-    border-radius: 10px;
-    outline: none;
-    border: 2px solid #48455F;
-    background-color: #48455F;
-    color: white;
-    padding: 18px 20px;
-
+.container {
+    display: flex;
+    align-items: center;
+	width: 100%;
+	border-radius: 10px;
+	border: 2px solid #48455f;
+	background-color: #48455f;
+	padding: 10px 10px;
 }
 
-.input:focus-within {
-    border: 2px solid #5f5b7c;
+.input{
+    font-size: 16px;
+    color: white;
+    width: 100%;
+    background-color: #48455f;
+    outline: none;
+    padding: 4px 6px;
+    border: none;
+}
+
+.container:focus-within {
+	border: 2px solid #5f5b7c;
+}
+
+.eye{
+    width: 20px;
+	height: 18px;
+    position: relative;
+	right: 2px;
+    top: 4px;
+}
+
+.eye__hide {
+	width: 20px;
+	height: 14px;
+	position: relative;
+	right: 2px;
+    top: 2px;
+    margin-left: 3px;
 }
