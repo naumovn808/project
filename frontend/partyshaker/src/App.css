@@ -3,3 +3,7 @@
   flex-direction: column;
   min-height: 100vh;
 }
+.main-content {
+  height: 800px;
+  padding: 50px;
+}

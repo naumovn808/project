@@ -1,0 +1,20 @@
+[{
+    "image": "./cartImg1.png",
+    "title": "first img"
+},
+
+{
+  "image": "./cartImg2.png",
+  "title": "second img"
+},
+{
+    "image": "./cartImg3.png",
+    "title": "third img"
+},
+{
+  "image": "./cartImg3.png",
+  "title": "third img"
+}
+
+]
+

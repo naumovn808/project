@@ -1,6 +1,7 @@
 import './App.css';
 import Header from './Components/Header/Header';
-import Footer from './Components/Footer/Footer';
+import Footer from './Components/Footer/Footer'
+import ProductCard from './Components/ProductCart/ProductCart';
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
     <div className='app'>
       <Header />
     <div className='main-content'>
+      <ProductCard />
 
 
       </div> 

@@ -1,0 +1,58 @@
+[
+  {
+    "id": 1,
+    "name": "Наслаждение",
+    "price": 300,
+    "ingredients": ["салями", "руккола", "помидоры", "оливки"],
+    "rating": 4.5,
+    "image": "http://batona.net/uploads/posts/2016-10/1477645364_28.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Такос",
+    "price": 280,
+    "rating": 4.5,
+    "ingredients": ["острый перец", "лепёшка", "фарш"],
+    "image": "http://batona.net/uploads/posts/2016-10/1477645273_23.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Аццки острая",
+    "price": 320,
+    "rating": 4.5,
+    "ingredients": ["Острый соус", "грибы", "помидоры", "оливки"],
+    "image": "http://batona.net/uploads/posts/2016-10/1477645300_24.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Жаркое с сыром",
+    "price": 290,
+    "rating": 4.5,
+    "ingredients": ["Картофель", "сыр", "перец", "фарш"],
+    "image": "http://batona.net/uploads/posts/2016-10/1477645308_25.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Цезарь с курицей",
+    "price": 290,
+    "rating": 4.5,
+    "ingredients": ["Острый перец", "лепёшка", "фарш"],
+    "image": "http://batona.net/uploads/posts/2016-10/1477645282_26.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Зелёный салат",
+    "price": 290,
+    "rating": 4.5,
+    "ingredients": ["Салями", "руккола", "помидоры", "оливки"],
+    "image": "http://batona.net/uploads/posts/2016-10/1477645324_27.jpg"
+  },
+  {
+    "id": 7,
+    "name": "Зелёный салат",
+    "price": 290,
+    "rating": 4.5,
+    "ingredients": ["Салями", "руккола", "помидоры", "оливки"],
+    "image": "http://batona.net/uploads/posts/2016-10/1477645324_27.jpg"
+  }
+]
