@@ -1,8 +1,8 @@
 import React from 'react'
-import './Header.css'
+import style from  './Header.module.css'
 
 const header = () => (
-    <div className='header'>
+    <div className={style['header']}>
         <img src="/Partyshaker.png" alt="Partyshaker_header"/>
     </div>
 );
