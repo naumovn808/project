@@ -1,0 +1,27 @@
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #181528;
+    color: #fff;
+}
+.footer-left {
+    display: flex;
+    align-items: center;
+}
+.footer-logo {
+    width: 50px;
+    margin-right: 10px;
+}
+.footer-right {
+    text-align: right;
+}
+.footer-right a {
+ color: #DCAB55;
+ text-decoration: none;
+}
+.footer-left a {
+    color: #DCAB55;
+    text-decoration: none;
+   }
