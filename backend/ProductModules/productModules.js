@@ -3,7 +3,7 @@ const { body } = require('express-validator')
 
 
 const ProductSchema = new mongoose.Schema({
-    photo: {
+    imageUrl: {
         type: String,
         required: true,
         unique: true,
@@ -29,7 +29,7 @@ const ProductSchema = new mongoose.Schema({
 });
 
 export const ProductValidation = [
-    body('photo', 'Заполнение обязательно'),
+    body('imageUrl', 'Заполнение обязательно').isURL(),
     body('title', 'Должно быть название, не менее 4 символов').isLength({ min: 4 }),
     body('description', 'Информация об этом товаре'),
 ];

@@ -1,46 +1,58 @@
 const express = require('express');
 const multer = require('multer');
-const fs = require('fs');
 const path = require('path');
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT || 3000;
 
-const uploadDir = 'uploads';
-if (!fs.existsSync(uploadDir)) {
-    fs.mkdirSync(uploadDir);
-}
+let cocktails = [];
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, uploadDir);
+        cb(null, 'public/images/');
     },
     filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname));
+        cb(null, `${Date.now()}-${file.originalname}`);
     }
 });
-
 const upload = multer({ storage });
 
 app.use(express.json());
-app.use('/uploads', express.static(path.join(__dirname, uploadDir)));
 
-let drinks = [];
+app.use('/images', express.static(path.join(__dirname, 'public/images')));
 
-app.get('/drinks', (req, res) => {
-    res.json(drinks);
+app.get('/cocktails', (req, res) => {
+    res.json(cocktails);
 });
 
-app.post('/drinks', upload.single('image'), async (req, res) => {
-    if (!req.file) {
-        return res.status(400).send('No file uploaded.');
-    }
+app.post('/cocktails', upload.single('image'), (req, res) => {
     const { name, description, rating } = req.body;
-    const imageUrl = `/uploads/${req.file.filename}`;
-    const newDrink = { id: drinks.length + 1, name, description, rating, imageUrl };
-    drinks.push(newDrink);
-    res.status(201).json(newDrink);
+    const newCocktail = { id: cocktails.length + 1, name, description, rating, image: req.file.filename };
+    cocktails.push(newCocktail);
+    res.status(201).json(newCocktail);
 });
 
-app.listen(port, () => {
-    console.log(`Server is running on http://localhost:${port}`);
+app.put('/cocktails/:id', upload.single('image'), (req, res) => {
+    const { id } = req.params;
+    const { name, description, rating } = req.body;
+    const cocktailIndex = cocktails.findIndex(c => c.id === parseInt(id));
+    if (cocktailIndex === -1) {
+        return res.status(404).json({ error: 'Cocktail not found' });
+    }
+    const updatedCocktail = { id: parseInt(id), name, description, rating, image: req.file.filename };
+    cocktails[cocktailIndex] = updatedCocktail;
+    res.json(updatedCocktail);
+});
+
+app.delete('/cocktails/:id', (req, res) => {
+    const { id } = req.params;
+    const cocktailIndex = cocktails.findIndex(c => c.id === parseInt(id));
+    if (cocktailIndex === -1) {
+        return res.status(404).json({ error: 'Cocktail not found' });
+    }
+    const deletedCocktail = cocktails.splice(cocktailIndex, 1)[0];
+    res.json(deletedCocktail);
+});
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
