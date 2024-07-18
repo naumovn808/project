@@ -8,32 +8,32 @@ import Login from './pages/Auth/Login/Login.jsx';
 import Error from './pages/Error/Error.jsx';
 
 const router = createBrowserRouter([
-    {
-        path: "auth",
-        element: <AuthLayout />,
-        children: [
-            {
-                path: "login",
-                element: <Login />,
-                children: [],
-            },
-            {
-                path: "register",
-                element: <Register />,
-                children: [],
-            },
-        ],
-    },
+  {
+    path: "auth",
+    element: <AuthLayout />,
+    children: [
+      {
+        path: "login",
+        element: <Login />,
+        children: [],
+      },
+      {
+        path: "register",
+        element: <Register />,
+        children: [],
+      },
+    ],
+  },
 
-    {
-        path: "*",
-        element: <Error />,
-    },
+  {
+    path: "*",
+    element: <Error />,
+  },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <React.StrictMode>
-        <RouterProvider router={router} />
-    </React.StrictMode>
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
 );

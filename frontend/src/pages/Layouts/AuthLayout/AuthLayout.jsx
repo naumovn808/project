@@ -5,17 +5,17 @@ import AuthHeader from "../../../components/Auth_Header/Auth_Header.jsx";
 import AuthFooter from "../../../components/Auth_Footer/Auth_Footer.jsx";
 
 const AuthLayout = () => {
-	return (
-		<div className={styles.container__outlet}>
-			<div>
-				<AuthHeader />
-				<div className={styles.outlet__card}>
-					<Outlet />
-				</div>
-			</div>
-			<AuthFooter />
-		</div>
-	);
+  return (
+    <div className={styles.container__outlet}>
+      <div>
+        <AuthHeader />
+        <div className={styles.outlet__card}>
+          <Outlet />
+        </div>
+      </div>
+      <AuthFooter />
+    </div>
+  );
 };
 
 export default AuthLayout;
