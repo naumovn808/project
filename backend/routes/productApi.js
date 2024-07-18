@@ -1,3 +1,7 @@
+const express = require('express')
+const multer = require('multer')
+const router = express.Router()
+
 let cocktails = [];
 
 const storage = multer.diskStorage({
@@ -10,22 +14,22 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-app.use(express.json());
+router.use(express.json());
 
-app.use('/images', express.static(path.join(__dirname, 'public/images')));
+router.use('/images', express.static(path.join(__dirname, 'public/images')));
 
-app.get('/cocktails', (req, res) => {
+router.get('/cocktails', (req, res) => {
     res.json(cocktails);
 });
 
-app.post('/cocktails', upload.single('image'), (req, res) => {
+router.post('/cocktails', upload.single('image'), (req, res) => {
     const { name, description, rating } = req.body;
     const newCocktail = { id: cocktails.length + 1, name, description, rating, image: req.file.filename };
     cocktails.push(newCocktail);
     res.status(201).json(newCocktail);
 });
 
-app.put('/cocktails/:id', upload.single('image'), (req, res) => {
+router.put('/cocktails/:id', upload.single('image'), (req, res) => {
     const { id } = req.params;
     const { name, description, rating } = req.body;
     const cocktailIndex = cocktails.findIndex(c => c.id === parseInt(id));
@@ -37,7 +41,7 @@ app.put('/cocktails/:id', upload.single('image'), (req, res) => {
     res.json(updatedCocktail);
 });
 
-app.delete('/cocktails/:id', (req, res) => {
+router.delete('/cocktails/:id', (req, res) => {
     const { id } = req.params;
     const cocktailIndex = cocktails.findIndex(c => c.id === parseInt(id));
     if (cocktailIndex === -1) {
