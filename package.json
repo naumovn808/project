@@ -4,7 +4,8 @@
   "description": "Этот проект представляет собой полностековое приложение, построенное с использованием Node.js и React.",
   "main": "eslentrc.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
@@ -17,5 +18,15 @@
     "eslint-plugin-jsx-a11y": "^6.9.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-react": "^7.34.3"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-validator": "^7.1.0",
+    "joi": "^13.7.0",
+    "mongoose": "^8.5.1",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^3.1.4"
   }
 }
