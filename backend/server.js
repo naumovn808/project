@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const express = require('express')
 const CookieParser = require('cookie-parser')
 const AuthRouter = require('./routes/auth')
@@ -46,4 +45,3 @@ passport.deserializeUser(function (user, cb) {
 app.listen(PORT, () => {
 	console.log(`Server is running on port http://localhost:${PORT}`)
 })
->>>>>>> main
