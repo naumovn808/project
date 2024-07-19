@@ -13,7 +13,7 @@ const AuthLayout = () => {
 					<Outlet />
 				</div>
 			</div>
-			<AuthFooter />
+			<AuthFooter isAuthPage={true} />
 		</div>
 	);
 };

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./Register.module.css";
 import Input from "../../../components/Input/Input.jsx";
 import Button from "../../../components/Button/Button.jsx";
+import Auth_Footer from "../../../components/Auth_Footer/Auth_Footer.jsx";
 
 const Register = () => {
 	const navigate = useNavigate();
@@ -47,6 +48,7 @@ const Register = () => {
 	};
 
 	return (
+		<>
 		<div className={styles.register}>
 			<h1 className={styles.register__title}>Регистрация</h1>
 			<form className={styles.form} onSubmit={handleSumbit}>
@@ -59,8 +61,7 @@ const Register = () => {
 							name="email"
 							type="email"
 							value={formData.email}
-							onChange={handleChange}
-						/>
+							onChange={handleChange} />
 					</label>
 				</div>
 
@@ -76,8 +77,7 @@ const Register = () => {
 							defaultEye={true}
 							showPassword={changeStateEye}
 							value={formData.password}
-							onChange={handleChange}
-						/>
+							onChange={handleChange} />
 						<p className={styles.field__text__password}>Не менее 8 символов</p>
 					</label>
 					{lengthPassword ? (
@@ -105,6 +105,7 @@ const Register = () => {
 				</div>
 			</form>
 		</div>
+		</>
 	);
 };
 

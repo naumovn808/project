@@ -6,6 +6,7 @@ import Register from './pages/Auth/Register/Register.jsx';
 import AuthLayout from './pages/Layouts/AuthLayout/AuthLayout.jsx';
 import Login from './pages/Auth/Login/Login.jsx';
 import Error from './pages/Error/Error.jsx';
+import Main from './pages/Layouts/Main/Main.jsx'
 
 const router = createBrowserRouter([
     {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
         path: "*",
         element: <Error />,
     },
+    {
+        path: "main",
+        element: <Main/>
+    }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
