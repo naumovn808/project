@@ -1,6 +1,6 @@
 .container {
-    display: flex;
-    align-items: center;
+	display: flex;
+	align-items: center;
 	width: 100%;
 	border-radius: 10px;
 	border: 2px solid #48455f;
@@ -8,26 +8,26 @@
 	padding: 10px 10px;
 }
 
-.input{
-    font-size: 16px;
-    color: white;
-    width: 100%;
-    background-color: #48455f;
-    outline: none;
-    padding: 4px 6px;
-    border: none;
+.input {
+	font-size: 16px;
+	color: white;
+	width: 100%;
+	background-color: #48455f;
+	outline: none;
+	padding: 4px 6px;
+	border: none;
 }
 
 .container:focus-within {
 	border: 2px solid #5f5b7c;
 }
 
-.eye{
-    width: 20px;
+.eye {
+	width: 20px;
 	height: 18px;
-    position: relative;
+	position: relative;
 	right: 2px;
-    top: 4px;
+	top: 4px;
 }
 
 .eye__hide {
@@ -35,6 +35,13 @@
 	height: 14px;
 	position: relative;
 	right: 2px;
-    top: 2px;
-    margin-left: 3px;
+	top: 2px;
+	margin-left: 3px;
+}
+
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover,
+.input:-webkit-autofill:focus {
+    -webkit-text-fill-color: white;
+    -webkit-box-shadow: 0 0 0 50px #48455f inset
 }
