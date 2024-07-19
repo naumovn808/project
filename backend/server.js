@@ -1,5 +1,4 @@
 <<<<<<< HEAD
-=======
 const express = require('express')
 const CookieParser = require('cookie-parser')
 const AuthRouter = require('./routes/auth')
