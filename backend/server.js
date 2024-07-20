@@ -13,18 +13,23 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 app.use(CookieParser())
+app.use(express.urlencoded({ extended: true }))
 app.use(
 	session({
 		secret: process.env.SESSION_SECRET,
-		resave: false,
-		saveUninitialized: false,
+		resave: true,
+		saveUninitialized: true,
 	})
 )
 app.use(passport.initialize())
 app.use(passport.session())
 app.use('/auth', AuthRouter)
 app.use('/products', ProductRouter)
+app.get('/receiver.html', (req, res) => {
+	res.redirect('http://localhost:5500/_receiver.html')
+})
 app.get('/', authenticateToken, (req, res) => {
+	console.log(req.user)
 	res.send(req.user)
 })
 mongoose.connect(
