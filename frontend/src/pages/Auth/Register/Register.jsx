@@ -4,7 +4,7 @@ import styles from "./Register.module.css";
 import Input from "../../../components/Input/Input.jsx";
 import Button from "../../../components/Button/Button.jsx";
 // import Title from "../../../components/Title/Title.jsx";
-import axios from '../../../utils/axios.js'
+import axios from "../../../utils/axios.js";
 
 const Register = () => {
 	const navigate = useNavigate();
@@ -41,6 +41,7 @@ const Register = () => {
 		const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 		const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 		const validateRegex = emailRegex.test(formData.email) && passwordRegex.test(formData.password);
+		const email = formData.email;
 
 		//  find
 		const findUser = false;
@@ -49,8 +50,8 @@ const Register = () => {
 			setCheckRegex(false);
 			if (!findUser) {
 				try {
-					await axios.post("register", formData);
-					// navigate('/');
+					// await axios.post("register", formData);
+					navigate("registerSend", { state: { email } });
 				} catch (error) {
 					console.error(error);
 				}
@@ -102,8 +103,8 @@ const Register = () => {
 				<div className={styles.links}>
 					{checkRegex ? (
 						<div className={styles.reset__password}>
-							Пароль должен содержать не менее 8 символов <br />и включать в себя хотя бы одну букву <br /> 
-							и одну цифру.
+							Пароль должен содержать не менее 8 символов <br />и включать в себя хотя бы одну букву{" "}
+							<br />и одну цифру.
 						</div>
 					) : (
 						<></>

@@ -5,6 +5,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Register from './pages/Auth/Register/Register.jsx';
 import AuthLayout from './pages/Layouts/AuthLayout/AuthLayout.jsx';
 import Login from './pages/Auth/Login/Login.jsx';
+import RegisterSend from './pages/Auth/RegisterSend/RegisterSend.jsx';
 import Error from './pages/Error/Error.jsx';
 
 const router = createBrowserRouter([
@@ -15,12 +16,14 @@ const router = createBrowserRouter([
             {
                 path: "login",
                 element: <Login />,
-                children: [],
             },
             {
                 path: "register",
                 element: <Register />,
-                children: [],
+            },
+            {
+                path: "register/registerSend",
+                element: <RegisterSend />,
             },
         ],
     },
