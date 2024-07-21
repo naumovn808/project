@@ -10,8 +10,12 @@
 	display: none;
 }
 
-.information {
+.information, .information_main {
 	display: flex;
+	margin-right: 70px;
+}
+.footer__logo__mobile_main {
+	display: none;
 }
 
 .footer__logo {
@@ -21,6 +25,35 @@
 .information__name {
 	font-weight: 500;
 	margin-bottom: 3px;
+}
+.footer_drinks a {
+	color: var(--yellow-color);
+	text-decoration: none;
+}
+.footer_drinks {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	margin-left: 400px;
+}
+.footer_command {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	margin-left: 200px;
+}
+.footer_command a {
+	color: var(--yellow-color);
+	text-decoration: none;
+}
+.footer_mobile_app img {
+	width: 100px;
+	border-radius: 5%;
+	margin-top: 20px;
+	margin-left: 190px;
+}
+.footer_mobile_app {
+	margin-left: 300px;
 }
 
 .information__link,
@@ -41,6 +74,9 @@
         flex-direction: column;
         padding: 0px 16px 40px 16px;
 	}
+	.footer__logo__mobile_main {
+		display: block;
+	}
 
     .information{
         position: relative;
@@ -50,8 +86,6 @@
     }
 
 	.round__mobile {
-        /* width: 83px;
-        height: 83px; */
 		display: block;
         margin: 0 auto;
         position: relative;
@@ -71,4 +105,58 @@
     .privacy__policy{
         font-size: 13px;
     }
+}
+@media (max-width: 320px) {
+	.footer {
+        display: flex;
+        flex-direction: column;
+        padding: 0px 16px 40px 16px;
+	}
+
+	.information_main {
+		display: flex;
+		flex-direction: column;
+
+	}
+
+	.round__mobile_main {
+		width: 87px;
+		display: block;
+        margin-left: 90px; 
+        position: relative;
+		bottom: 40px;
+		background-color: #181528;
+		border: 8px solid #252232;
+		border-radius: 50%;
+        padding: 6px;
+	}
+	.footer__logo__mobile_main {
+		margin-left: 5px;
+	}
+	.footer_drinks, .footer_command {
+		margin-left: 0px;
+		gap: 20px;
+		padding-bottom: 10px;
+	}
+	.footer_command {
+		border-bottom: 1px solid rgb(72, 69, 95);
+		padding-bottom: 20px;
+	}
+
+    .information__name,
+    .information__link,
+	.footer_drinks,
+	.footer_command,
+	.footer_mobile_app {
+		font-size: 13px;
+	}
+	.main_info {
+		border-bottom: 1px solid rgb(72, 69, 95);
+		padding-bottom: 20px;
+		margin-bottom: 20px;
+	}
+	.footer_mobile_app {
+		display: none;
+	}
+
 }

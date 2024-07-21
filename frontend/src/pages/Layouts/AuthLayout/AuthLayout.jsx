@@ -8,12 +8,12 @@ const AuthLayout = () => {
 	return (
 		<div className={styles.container__outlet}>
 			<div>
-				<AuthHeader />
+				<AuthHeader isAuthPage={true} />
 				<div className={styles.outlet__card}>
 					<Outlet />
 				</div>
 			</div>
-			<AuthFooter />
+			<AuthFooter isAuthPage={true} />
 		</div>
 	);
 };
