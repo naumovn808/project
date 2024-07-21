@@ -51,7 +51,7 @@ const Register = () => {
 			if (!findUser) {
 				try {
 					// await axios.post("register", formData);
-					navigate("registerSend", { state: { email } });
+					navigate("send", { state: { email } });
 				} catch (error) {
 					console.error(error);
 				}
@@ -112,7 +112,7 @@ const Register = () => {
 					{isUser ? (
 						<div>
 							<p className={styles.reset__password}>Такой аккаунт уже есть.</p>
-							<Link to="*">Сбросьте пароль</Link>
+							<Link to="/auth/reset/newpassword">Сбросьте пароль</Link>
 						</div>
 					) : (
 						<></>
