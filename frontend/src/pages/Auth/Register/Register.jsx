@@ -4,7 +4,6 @@ import styles from "./Register.module.css";
 import Input from "../../../components/Input/Input.jsx";
 import Button from "../../../components/Button/Button.jsx";
 import axios from "../../../utils/axios.js";
-import Auth_Footer from "../../../components/Auth_Footer/Auth_Footer.jsx";
 
 
 const Register = () => {
