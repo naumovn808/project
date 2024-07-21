@@ -3,11 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./Register.module.css";
 import Input from "../../../components/Input/Input.jsx";
 import Button from "../../../components/Button/Button.jsx";
+import axios from "../../../utils/axios.js";
 import Auth_Footer from "../../../components/Auth_Footer/Auth_Footer.jsx";
+
 
 const Register = () => {
 	const navigate = useNavigate();
-	const [lengthPassword, setLengthPassword] = useState(false);
+	const [checkRegex, setCheckRegex] = useState(false);
 	const [isUser, setIsUser] = useState(false);
 	const [isPasswordVisible, setIsPasswordVisible] = useState(true);
 	const [hidePassword, setHidePassword] = useState();
@@ -30,26 +32,42 @@ const Register = () => {
 		setIsPasswordVisible(e);
 	};
 
-	function checkPasswordLenght(password) {
-		password.length < 8 ? setLengthPassword(true) : setLengthPassword(false);
-	}
-
 	// function checkUser() {
 
 	// }
 
-	const handleSumbit = (e) => {
+	const handleSumbit = async (e) => {
 		e.preventDefault();
-		console.log(formData);
-		if (isUser && lengthPassword){
-			// axios
+
+		const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+		const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+		const validateRegex = emailRegex.test(formData.email) && passwordRegex.test(formData.password);
+		const email = formData.email;
+
+		//  find
+		const findUser = false;
+
+		if (validateRegex) {
+			setCheckRegex(false);
+			if (!findUser) {
+				try {
+					// await axios.post("register", formData);
+					navigate("registerSend", { state: { email } });
+				} catch (error) {
+					console.error(error);
+				}
+			} else {
+				setIsUser(true);
+			}
+		} else {
+			setCheckRegex(true);
 		}
-		checkPasswordLenght(formData.password);
 	};
 
 	return (
 		<>
 		<div className={styles.register}>
+			{/* <Title className={styles.register__title}>Регистрация</Title> */}
 			<h1 className={styles.register__title}>Регистрация</h1>
 			<form className={styles.form} onSubmit={handleSumbit}>
 				<div className={styles.field}>
@@ -74,20 +92,24 @@ const Register = () => {
 							name="password"
 							type={hidePassword}
 							isEyeVisible={true}
-							defaultEye={true}
+							defaultEye={false}
 							showPassword={changeStateEye}
 							value={formData.password}
 							onChange={handleChange} />
 						<p className={styles.field__text__password}>Не менее 8 символов</p>
 					</label>
-					{lengthPassword ? (
-						<div className={styles.reset__password}>Пароль должен содержать не менее 8 символов</div>
-					) : (
-						<></>
-					)}
 				</div>
 
 				<div className={styles.links}>
+					{checkRegex ? (
+						<div className={styles.reset__password}>
+							Пароль должен содержать не менее 8 символов <br />и включать в себя хотя бы одну букву{" "}
+							<br />и одну цифру.
+						</div>
+					) : (
+						<></>
+					)}
+
 					{isUser ? (
 						<div>
 							<p className={styles.reset__password}>Такой аккаунт уже есть.</p>
