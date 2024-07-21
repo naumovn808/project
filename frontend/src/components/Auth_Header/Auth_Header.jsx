@@ -1,9 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Auth_Header.module.css';
 import Input from '../Input/Input'
 import { Search, GlassWater, Dices, Martini } from 'lucide-react'
 
 const Header = ({isAuthPage}) => {
+    const [placeholder, setPlaceholder] = useState("Коктейль / ингредиент");
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth <= 320) {
+                setPlaceholder("Коктейль / ингредиент")
+            } else {
+                setPlaceholder("Коктейль или ингредиент");
+            }
+        };
+
+        handleResize();
+
+        window.addEventListener('resize', handleResize)
+
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
     if (isAuthPage) {
         return (
     <div className={styles.header}>
@@ -19,7 +36,7 @@ const Header = ({isAuthPage}) => {
         <Search className={styles.searchIcon} size={18} />   
         <Input 
         className={styles.searchInput}
-        placeholder="Коктейль или ингредиент"
+        placeholder={placeholder}
         type="search"
         />
         </div>
