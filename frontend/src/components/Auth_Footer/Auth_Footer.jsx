@@ -1,10 +1,28 @@
 import React from "react";
 import styles from "./Auth_Footer.module.css";
+import SocialButton from "../SocialButton/SocialButton"
 
 const Auth_Footer = ({isAuthPage}) => {
-	if (isAuthPage) {
-
-
+		const renderMobileDownloadButtons = () => (
+			<div className={styles.mobile_download_buttons}>
+			  <p>Скачайте мобильное приложение</p>
+			  <div className={styles.buttons_container}>
+				<SocialButton 
+				  iconSrc="/Apple.png"
+				  text="App Store"
+				  borderRadius="8px"
+				  padding="8px 12px"
+				/>
+				<SocialButton 
+				  iconSrc="/GooglePlay.png"
+				  text="Google Play"
+				  borderRadius='8px'
+				  padding="8px 12px"
+				/>
+			  </div>
+			</div>
+		  );
+		if (isAuthPage) {
 	return (
 		<footer className={styles.footer}>
 			<div className={styles.round__mobile}>
@@ -28,10 +46,12 @@ const Auth_Footer = ({isAuthPage}) => {
 				</a>
 				<div></div>
 			</div>
+			{renderMobileDownloadButtons()}
 		</footer>
 	);
 };
 	return (
+		
 		<footer className={styles.footer}>
 		<div className={styles.round__mobile_main}>
 			<img src="/footer_logo.png" alt="logo" className={styles.footer__logo__mobile_main} />
@@ -60,6 +80,7 @@ const Auth_Footer = ({isAuthPage}) => {
 				<img src="/it_academy.png" alt="academy" />
 			</div>
 		</div>
+		{renderMobileDownloadButtons()}
 	</footer>
 	)
 };
