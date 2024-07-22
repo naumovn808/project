@@ -10,7 +10,7 @@ passport.use(
 		{
 			clientID: process.env.GOOGLE_CLIENT_ID,
 			clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-			callbackURL: '/auth/login/oauth/google/redirect',
+			callbackURL: process.env.GOOGLE_REDIRECT_URI,
 			scope: ['profile', 'email'],
 		},
 		async function verify(issuer, profile, cb) {
@@ -45,8 +45,7 @@ router.get(
 		const user = req.user
 		const accessToken = jwt.sign(
 			{
-				_id: user._id,
-				img: user.userPhotoLink,
+				id: user._id,
 			},
 			process.env.JWT_SECRET,
 			{
@@ -55,7 +54,7 @@ router.get(
 		)
 		const refreshToken = jwt.sign(
 			{
-				_id: user._id,
+				id: user._id,
 				img: user.userPhotoLink,
 			},
 			process.env.REFRESH_TOKEN_SECRET

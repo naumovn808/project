@@ -22,7 +22,7 @@ const updateAccessToken = async (req, res, next) => {
 				)
 
 				const newAccessToken = jwt.sign(
-					{ username: decodedRefresh.username },
+					{ _id: decodedRefresh._id },
 					process.env.JWT_SECRET,
 					{ expiresIn: '15m' }
 				)
@@ -52,15 +52,17 @@ router.get('/login', (req, res) => {
 router.post('/register', async (req, res) => {
 	const { email, password } = req.body
 	try {
-		const hashedPassword = await bcrypt.hash(password, 10)
-		await new UserSchema.create({
+		const user = await UserSchema.findOne({ email: email })
+		if (user)
+			return res.status(409).send({ massage: 'User has already registered' })
+		await UserSchema.create({
 			socialId: null,
 			familyName: null,
 			userPhotoLink: null,
 			username: null,
 			givenName: null,
 			email: email,
-			password: hashedPassword,
+			password: password,
 		})
 		res.redirect('/auth/login')
 	} catch (error) {
@@ -74,17 +76,15 @@ router.post('/login', async (req, res) => {
 	try {
 		const user = await UserSchema.findOne({ email: email })
 		if (!user) return res.status(404).send('User not found')
-		const validPassword = await bcrypt.compare(password, user.password)
+		const validPassword = await user.comparePassword(password, user.password)
 		console.log('Valid password:', validPassword)
 		if (!validPassword) return res.status(401).send('Invalid password')
-
-		req.user = user
-
-		const accessToken = jwt.sign({ user }, process.env.JWT_SECRET, {
+		req.user = { id: user._id }
+		const accessToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
 			expiresIn: '15m',
 		})
 		const refreshToken = jwt.sign(
-			{ id: user._id, email: user.email },
+			{ id: user._id },
 			process.env.REFRESH_TOKEN_SECRET
 		)
 		res.cookie('accessToken', accessToken, { httpOnly: true })

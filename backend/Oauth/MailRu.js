@@ -38,7 +38,7 @@ router.get('/login/oauth/mailru/redirect', async (req, res) => {
 		).then(res => res.json())
 		let user = await UserSchema.findOne({ socialId: userData.id })
 		if (!user) {
-			user = new UserSchema({
+			user = new UserSchema.create({
 				socialId: userData?.id,
 				familyName: userData.first_name,
 				givenName: userData.last_name,
@@ -51,8 +51,7 @@ router.get('/login/oauth/mailru/redirect', async (req, res) => {
 			req.user = user
 			const accessToken = jwt.sign(
 				{
-					_id: user._id,
-					img: user.userPhotoLink,
+					id: user._id,
 				},
 				process.env.JWT_SECRET,
 				{
@@ -61,8 +60,7 @@ router.get('/login/oauth/mailru/redirect', async (req, res) => {
 			)
 			const refreshToken = jwt.sign(
 				{
-					_id: user._id,
-					img: user.userPhotoLink,
+					id: user._id,
 				},
 				process.env.REFRESH_TOKEN_SECRET
 			)
@@ -72,8 +70,7 @@ router.get('/login/oauth/mailru/redirect', async (req, res) => {
 			req.user = user
 			const accessToken = jwt.sign(
 				{
-					_id: user._id,
-					img: user.userPhotoLink,
+					id: user._id,
 				},
 				process.env.JWT_SECRET,
 				{
@@ -82,8 +79,7 @@ router.get('/login/oauth/mailru/redirect', async (req, res) => {
 			)
 			const refreshToken = jwt.sign(
 				{
-					_id: user._id,
-					img: user.userPhotoLink,
+					id: user._id,
 				},
 				process.env.REFRESH_TOKEN_SECRET
 			)
