@@ -64,7 +64,6 @@ const Register = () => {
 	};
 
 	return (
-		<>
 		<div className={styles.register}>
 			{/* <Title className={styles.register__title}>Регистрация</Title> */}
 			<h1 className={styles.register__title}>Регистрация</h1>
@@ -126,7 +125,6 @@ const Register = () => {
 				</div>
 			</form>
 		</div>
-		</>
 	);
 };
 
