@@ -1,0 +1,43 @@
+.modal_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 0 clamp(0.25rem, -0.357rem + 3.04vw, 2.375rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal_window {
+  width: 100%;
+  max-width: 640px;
+  padding: clamp(16px, 0.714rem + 1.43vw, 32px);
+  border-radius: var(--Card-Border-Radius, 20px);
+  box-shadow: 1px 1px 0px 0px #48455f inset, 0px 4px 8px -2px #181528;
+  position: relative;
+  background-color: #363247;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.modal_top_content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .modal_title {
+    font-size: clamp(1.375rem, 1.196rem + 0.89vw, 2rem);
+  }
+  .close_button {
+    top: 24px;
+    right: 24px;
+    font-size: 24px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+  }
+}
