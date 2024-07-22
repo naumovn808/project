@@ -70,6 +70,9 @@
 .mobile_download_buttons {
 	display: none;
 }
+.nav {
+	display: none;
+}
 
 @media (max-width: 320px) {
 	.footer {
@@ -181,5 +184,50 @@
 		font-size: 13px;
 		margin-bottom: 10px;
 	}
-
+	.nav {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		background-color: #252232	;
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		padding: 10px 16px;
+		border-top: 1px solid #252232;
+	}
+	.navItem {
+		display: flex;
+		align-items: center;
+		text-decoration: none;
+		color: white;
+	}	
+	.navItemLine {
+		display: flex;
+		align-items: center;
+		text-decoration: none;
+		color: white;
+		border-bottom: 3px solid #9747FF;
+		padding-bottom: 5px;
+	}
+	.navIcon {
+		width: 24px;
+		height: 24px;
+	}
+	.navText {
+		font-size: 14px;
+		margin-left: 8px;
+	}
+	.yellowIcon {
+		color: #ffcb72;
+	}
+	.profileImage {
+		width: 24px;
+		height: 24px;
+		border-radius: 50%;
+		object-fit: cover;
+	}
+	.footer {
+		padding-bottom: 60px;
+	}	
 }

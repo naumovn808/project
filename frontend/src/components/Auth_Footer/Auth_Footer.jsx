@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Auth_Footer.module.css";
 import SocialButton from "../SocialButton/SocialButton"
-
+import { Dices, GlassWater, Martini } from "lucide-react";
 const Auth_Footer = ({isAuthPage}) => {
 		const renderMobileDownloadButtons = () => (
 			<div className={styles.mobile_download_buttons}>
@@ -81,8 +81,23 @@ const Auth_Footer = ({isAuthPage}) => {
 			</div>
 		</div>
 		{renderMobileDownloadButtons()}
+		<nav className={styles.nav}>
+				<a href="#" className={styles.navItemLine}>
+					<Martini className={`${styles.navIcon} ${styles.activeNavItem}`}/>
+					<span className={styles.navText}>Коктейли</span>
+				</a>
+				<a href="#" className={styles.navItem}>
+					<GlassWater className={`${styles.navIcon} ${styles.yellowIcon}` }/>
+				</a>
+				<a href="#" className={styles.navItem}>
+					<Dices className={`${styles.navIcon} ${styles.yellowIcon}`}/>
+				</a>
+				<a href="#" className={styles.navItem}>
+					<img src="profile-icon.png" alt="profile" className={styles.profileImage} />
+				</a>
+			</nav>
 	</footer>
-	)
+	);
 };
 	
 	

@@ -8,12 +8,8 @@ import SocialButton from "../../../components/SocialButton/SocialButton";
 const Main = () => {
     return (
         <div className={styles.main_page}>
-            <Auth_Header/>
+            <Auth_Header/>            
             <Auth_Footer/>
-            <SocialButton
-            iconSrc="/VK.png"
-            text="ВКонтакте"
-            />
         </div>
 
 
