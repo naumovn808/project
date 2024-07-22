@@ -1,0 +1,16 @@
+.login__title{
+    font-size: 30px;
+	margin-bottom: 30px;
+}
+
+.buttons{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+@media (max-width: 320px) {
+	.login__title{
+		font-size: 28px;
+	}
+}
