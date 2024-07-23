@@ -1,14 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../../../components/Button/Button";
 import styles from "./PasswordSend.module.css";
 import { useLocation } from "react-router-dom";
+import PopUpNotification from "../../../components/popUpNotification/popUpNotification";
 
 const PasswordSend = () => {
     const location = useLocation();
 	const email = location.state?.email;
+
+	const [showPopup, setShowPopup] = useState(false);
+
+	const handleClose = () => setShowPopup(false);
     
 	return (
 		<div className={styles.passwordSend}>
+			<div>
+				{showPopup && (
+					<PopUpNotification
+					message='Отправили ссылку на ваш email'
+					isSuccess={true}
+					onClose={handleClose}
+					backgroundColor='#48455F'
+					textColor="#fff"
+					iconColor='#4CAF50'
+					/>
+				)}
+				<button onClick={() => setShowPopup(true)}>Show Popup</button>
+			</div>
 			<h1 className={styles.passwordSend__title}>Проверьте почту</h1>
 			<div className={styles.passwordSend__text}>
 				<p>
