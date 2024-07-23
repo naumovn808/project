@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import style from "./ProfileDeleteModal.module.css";
 import Title from "../Title/Title";
 
@@ -23,11 +22,5 @@ const ProfileDeleteModal = ({ isOpen, onClose, children }) => {
     </div>
   );
 };
-
-// ProfileDeleteModal.propTypes = {
-//   isOpen: PropTypes.bool.isRequired,
-//   onClose: PropTypes.func.isRequired,
-//   children: PropTypes.node.isRequired,
-// };
 
 export default ProfileDeleteModal;

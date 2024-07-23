@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import Title from "../Title/Title";
-import Input from "../Input/Input";
-import Button from "../Button/Button";
-import ProfileDeleteModal from "../ProfileDeleteModal/ProfileDeleteModal";
-import Description from "../Description/Description";
+import Title from "../../components/Title/Title";
+import Input from "../../components/Input/Input";
+import Button from "../../components/Button/Button";
+import ProfileDeleteModal from "../../components/ProfileDeleteModal/ProfileDeleteModal";
+import Description from "../../components/Description/Description";
 import axios from "axios";
 import classNames from "classnames";
 import style from "./ProfileForm.module.css";
+import ProfileAvatar from "../../components/ProfileAvatar/ProfileAvatar";
+import ProfilePicture from "../../components/ProfilePicture/ProfilePicture";
 
 const ProfileForm = ({ userId }) => {
   const [name, setName] = useState("");
@@ -45,17 +47,9 @@ const ProfileForm = ({ userId }) => {
   useEffect(() => {
     const fetchUserImage = async (error) => {
       try {
-        const response = await axios`(/auth/users/${userId}/image)`;
-        if (response) {
-          const imageDate = await response.json();
-          const imageUrl = URL.createObjectURL(imageDate);
-          setUserImage(imageUrl);
-        } else {
-          console.log(error);
-        }
+        //axios
       } catch (error) {
-        console.error("Error fetching user image:", error);
-        setUserImage(error);
+        // console.error("Error fetching user image:", error);
       }
     };
     fetchUserImage();
@@ -150,40 +144,18 @@ const ProfileForm = ({ userId }) => {
           />
         </form>
         <div className={style.profile_details_block}>
+          <ProfilePicture />
           <div
             className={classNames(
               style.profile_details_block,
               style.profile_bg_border
             )}
           >
-            <div className={style.profile_user_photo_update}>
-              {userImage ? <img src={userImage} alt="User-Image" /> : <></>}
-              <Description
-                className={style.profile_text}
-                children={
-                  "Пока вы не выбрали свое удачное фото, мы заняли для него местечко прикольной картинкой"
-                }
-              />
-            </div>
-            <div className={style.profile_modal_buttons}>
-              <Button className={style.profile_btn} title={"Выбрать фото"} />
-              {userImage ? (
-                <span className={style.profile_modal_trash}>
-                  <img src="/Trash.svg" alt="Trash" />
-                  Удалить
-                </span>
-              ) : (
-                ""
-              )}
-            </div>
-          </div>
-          <div
-            className={classNames(
-              style.profile_details_block,
-              style.profile_bg_border
-            )}
-          >
-            <Button className={style.profile_btn} title={"Сменить пароль"} />
+            <Button
+              className={style.profile_btn}
+              title={"Сменить пароль"}
+              onClick={handleOpenModal}
+            />
             <Description
               className={style.profile_changer_email_text}
               children={
@@ -254,6 +226,7 @@ const ProfileForm = ({ userId }) => {
               </div>
               <div className={style.modal_buttons}>
                 <Button
+                  onClick={handleCloseModal}
                   title={"Не удалять"}
                   className={style.profile_modal_button}
                 />
