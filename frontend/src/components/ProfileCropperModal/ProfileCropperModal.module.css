@@ -1,0 +1,76 @@
+.cropper_modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cropper_modal__content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  background: #363247;
+  padding: 16px 32px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+}
+
+.cropper_modal__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.cropper_modal__header > h2 {
+  font-size: 32px;
+}
+
+.cropper_modal__close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.cropper_modal__cropper_container {
+  position: relative;
+}
+
+.cropper_modal__circle_overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px; /* Adjust size as needed */
+  height: 200px; /* Adjust size as needed */
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  border: 2px dashed #fff;
+}
+
+.cropper_modal__button {
+  width: 100%;
+  max-width: 255px;
+  display: block;
+  margin: 8px 12px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #6d45e6;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0px 2px 1px 1px #000;
+  transition: ease 0.4s;
+  &:hover {
+    background-color: #5329cf;
+  }
+}

@@ -152,6 +152,12 @@
   color: #98a1ae;
 }
 
+@media screen and (max-width: 425px) {
+  .profile_modal_buttons {
+    flex-direction: column;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .profile {
     flex-direction: column-reverse;
