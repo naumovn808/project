@@ -9,6 +9,7 @@ const NewPassword = () => {
 	const [password, setPassword] = useState("");
 	const [isPasswordVisible, setIsPasswordVisible] = useState(true);
 	const [hidePassword, setHidePassword] = useState();
+	const [message, setMessage] = useState("");
 
 	useEffect(() => {
 		setHidePassword(isPasswordVisible ? "text" : "password");
@@ -21,25 +22,45 @@ const NewPassword = () => {
 	const handleChange = (e) => {
 		const passwordValue = e.target.value;
 		setPassword(passwordValue);
+		setTimeout(() => {
+			validateRegex(passwordValue);
+		}, 1200);
 	};
+
+	function validateRegex(value) {
+		if (value === "") {
+			setMessage("");
+		} else if (!/^.{8,}$/.test(value)) {
+			setMessage("Пароль должен содержать не менее 8 символов");
+		} else {
+			if (!/^[A-Za-z0-9]+$/.test(value)) {
+				setMessage("Пароль должен содержать латинские буквы и цифры");
+			} else {
+				if (/^\d+$/.test(value)) {
+					setMessage("Пароль должен содержать хотя бы одну букву");
+				} else if (/^[A-Za-z]+$/.test(value)) {
+					setMessage("Пароль должен содержать хотя бы одну цифру");
+				} else {
+					setMessage("");
+					return true;
+				}
+			}
+		}
+	}
 
 	const handleSumbit = async (e) => {
 		e.preventDefault();
+		const validate = validateRegex(password);
 
-		const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-		const validateRegex = passwordRegex.test(password);
-
-		if (validateRegex) {
+		if (validate) {
 			try {
 				// axios
-				navigate("auth/login");
+				navigate("/auth/login");
 			} catch (error) {
 				console.error(error);
 			}
 		} else {
-			console.log(
-				"Пароль должен содержать не менее 8 символов и включать в себя хотя бы одну букву и одну цифру."
-			);
+			setMessage("Невалидный пароль");
 		}
 	};
 
@@ -63,6 +84,7 @@ const NewPassword = () => {
 						<p className={styles.field__text__password}>Не менее 8 символов</p>
 					</label>
 				</div>
+				{message}
 				<Button type="submit" title={"Сохранить и войти"} />
 			</form>
 		</div>
