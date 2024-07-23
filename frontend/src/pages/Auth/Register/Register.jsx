@@ -5,13 +5,12 @@ import Input from "../../../components/Input/Input.jsx";
 import Button from "../../../components/Button/Button.jsx";
 import axios from "../../../utils/axios.js";
 
-
 const Register = () => {
 	const navigate = useNavigate();
-	const [checkRegex, setCheckRegex] = useState(false);
 	const [isUser, setIsUser] = useState(false);
 	const [isPasswordVisible, setIsPasswordVisible] = useState(true);
 	const [hidePassword, setHidePassword] = useState();
+	const [message, setMessage] = useState("");
 
 	const [formData, setFormData] = useState({
 		email: "",
@@ -25,11 +24,50 @@ const Register = () => {
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setFormData({ ...formData, [name]: value });
+		setTimeout(() => {
+			validateRegex(name, value);
+		}, 1200);
 	};
 
 	const changeStateEye = (e) => {
 		setIsPasswordVisible(e);
 	};
+
+	function validateRegex(name, value) {
+		const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+		if (name === "email") {
+			if (value === "") {
+				setMessage("");
+			} else if (!emailRegex.test(value)) {
+				setMessage("Неверный адрес электронной почты");
+			} else {
+				setMessage("");
+				return true
+			}
+		}
+
+		if (name === "password") {
+			if (value === "") {
+				setMessage("");
+			} else if (!/^.{8,}$/.test(value)) {
+				setMessage("Пароль должен содержать не менее 8 символов");
+			} else {
+				if (!/^[A-Za-z0-9]+$/.test(value)) {
+					setMessage("Пароль должен содержать только латинские буквы");
+				} else {
+					if (/^\d+$/.test(value)) {
+						setMessage("Пароль должен содержать хотя бы одну букву");
+					} else if (/^[A-Za-z]+$/.test(value)) {
+						setMessage("Пароль должен содержать хотя бы одну цифру");
+					} else {
+						setMessage("");
+						return true
+					}
+				}
+			}
+		}
+	}
 
 	// function checkUser() {
 
@@ -37,17 +75,13 @@ const Register = () => {
 
 	const handleSumbit = async (e) => {
 		e.preventDefault();
-
-		const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-		const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-		const validateRegex = emailRegex.test(formData.email) && passwordRegex.test(formData.password);
 		const email = formData.email;
+		const validate = validateRegex("password", formData.password) && validateRegex("email", formData.email);
 
 		//  find
 		const findUser = false;
 
-		if (validateRegex) {
-			setCheckRegex(false);
+		if (validate) {
 			if (!findUser) {
 				try {
 					// await axios.post("register", formData);
@@ -58,8 +92,10 @@ const Register = () => {
 			} else {
 				setIsUser(true);
 			}
+		} else if (formData.email && formData.password === "") {
+			setMessage("Введите данные");
 		} else {
-			setCheckRegex(true);
+			setMessage("Неверный email или пароль");
 		}
 	};
 
@@ -77,7 +113,8 @@ const Register = () => {
 							name="email"
 							type="email"
 							value={formData.email}
-							onChange={handleChange} />
+							onChange={handleChange}
+						/>
 					</label>
 				</div>
 
@@ -93,21 +130,14 @@ const Register = () => {
 							defaultEye={false}
 							showPassword={changeStateEye}
 							value={formData.password}
-							onChange={handleChange} />
+							onChange={handleChange}
+						/>
 						<p className={styles.field__text__password}>Не менее 8 символов</p>
 					</label>
+					{message}
 				</div>
 
 				<div className={styles.links}>
-					{checkRegex ? (
-						<div className={styles.reset__password}>
-							Пароль должен содержать не менее 8 символов <br />и включать в себя хотя бы одну букву{" "}
-							<br />и одну цифру.
-						</div>
-					) : (
-						<></>
-					)}
-
 					{isUser ? (
 						<div>
 							<p className={styles.reset__password}>Такой аккаунт уже есть.</p>
