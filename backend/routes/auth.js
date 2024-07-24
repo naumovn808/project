@@ -46,7 +46,7 @@ router.use(updateAccessToken)
 router.get('/reset', (req, res) => {
 	res.send('hi Nikita')
 })
-router.get('/reset/password/:token', (req, res) => {
+router.get('/reset/password/:token', resetToken, (req, res) => {
 	res.redirect('opaopa')
 })
 router.get('/register', (req, res) => {
@@ -133,7 +133,7 @@ router.post('/reset', async (req, res) => {
 		res.status(500).send({ err })
 	}
 })
-router.post('/reset/password/:token', async (req, res) => {
+router.post('/reset/password/:token', resetToken, async (req, res) => {
 	try {
 		const { NewPassword } = req.body
 		const { email } = req.user
