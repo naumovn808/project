@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import cn from "classnames";
 import styles from "./Input.module.css";
 
-const Input = ({ className, showPassword, defaultEye, isEyeVisible = false, ...props }) => {
+const Input = ({ className, containerClassName, showPassword, defaultEye, isEyeVisible = false, ...props }) => {
 	const [eye, setEye] = useState("/eye.png");
 	const [isEye, setIsEye] = useState(defaultEye);
 
@@ -18,7 +18,7 @@ const Input = ({ className, showPassword, defaultEye, isEyeVisible = false, ...p
 	};
 
 	return (
-		<div className={styles.container}>
+		<div className={cn(styles.container, containerClassName)}>
 			<input className={cn(styles.input, className)} {...props} />
 			{isEyeVisible ? (
 				<div onClick={handleChange}>

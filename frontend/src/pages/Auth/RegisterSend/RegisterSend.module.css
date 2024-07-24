@@ -1,0 +1,27 @@
+.RegisterSend__title{
+    font-size: 30px;
+	margin-bottom: 30px;
+}
+
+
+.RegisterSend__text{
+    color: rgb(214, 220, 225);
+    font-weight: 500;
+    margin-bottom: 32px;
+}
+
+.RegisterSend__text b{
+    color: white;
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 480px){
+    .button{
+        margin-bottom: 16px;
+    }
+}
