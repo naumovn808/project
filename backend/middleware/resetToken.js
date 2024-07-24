@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken')
 
-function authenticateToken(req, res, next) {
-	const token = req.cookies.accessToken
+const resetToken = (req, res, next) => {
+	const token = req.params.token
 	if (!token) {
-		return res.status(401).send({ message: 'Unauthorized User!!!' })
+		return res.status(403).send({ message: 'Token is not valid' })
 	}
 
 	jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
@@ -12,10 +12,8 @@ function authenticateToken(req, res, next) {
 			return res.sendStatus(403)
 		}
 		req.user = user
-		console.log('Authenticated user:', user)
 		next()
 	})
 }
 
-module.exports = authenticateToken
-
+module.exports = resetToken
