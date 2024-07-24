@@ -5,10 +5,8 @@ const userSchema = new mongoose.Schema(
 		socialId: { type: String },
 		familyName: { type: String },
 		givenName: { type: String },
-		username: {
-			type: String,
-		},
-		email: { type: String, required: true, unique: true },
+		username: { type: String },
+		email: { type: String, required: true },
 		password: { type: String, require: true },
 		userPhotoLink: { type: String },
 	},

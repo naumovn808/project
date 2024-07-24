@@ -1,9 +1,12 @@
 const express = require('express')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const resetToken = require('../middleware/resetToken')
 const GoogleOauth = require('../Oauth/Google')
 const UserSchema = require('../models/UserSchema')
 const MailRuOauth = require('../Oauth/MailRu')
+const nodemailer = require('nodemailer')
+const sendgrid = require('nodemailer-sendgrid-transport')
 const router = express.Router()
 const updateAccessToken = async (req, res, next) => {
 	const accessToken =
@@ -39,14 +42,20 @@ const updateAccessToken = async (req, res, next) => {
 }
 router.use(updateAccessToken)
 
-// GEt REquest for login register
+// GEt REquest
+router.get('/reset', (req, res) => {
+	res.send('hi Nikita')
+})
+router.get('/reset/password/:token', (req, res) => {
+	res.redirect('opaopa')
+})
 router.get('/register', (req, res) => {
-	res.send('hi')
+	res.send('lala')
 })
 router.get('/login', (req, res) => {
 	res.send('hi')
 })
-///   GEt REquest for login register //
+///   GEt REquest  //
 
 // Post REquests for LOg Regist
 router.post('/register', async (req, res) => {
@@ -70,7 +79,6 @@ router.post('/register', async (req, res) => {
 		res.status(500).send('Error registering user')
 	}
 })
-
 router.post('/login', async (req, res) => {
 	const { email, password } = req.body
 	try {
@@ -96,6 +104,48 @@ router.post('/login', async (req, res) => {
 	}
 })
 //   ENd Post REquests for LOg Regist   //
+
+// Reset
+router.post('/reset', async (req, res) => {
+	try {
+		const { email } = req.body
+		const user = await UserSchema.findOne({ email: email })
+		if (!user) return res.status(404).send({ message: 'user not found' })
+		const resetToken = jwt.sign({ email: user.email }, process.env.JWT_SECRET, {
+			expiresIn: '1h',
+		})
+		const transporter = nodemailer.createTransport(
+			sendgrid({
+				auth: { api_key: process.env.SENDGRID_API_KEY },
+			})
+		)
+		transporter.sendMail({
+			to: email,
+			from: 'afruzmalikov65@gmail.com',
+			subject: 'RESET PASSWORD',
+			html: `
+		<a href="http://localhost:1000/auth/reset/password/${resetToken}"
+		`,
+		})
+		res.cookie('resetToken', resetToken, { httpOnly: true })
+		res.sendStatus(200)
+	} catch (err) {
+		res.status(500).send({ err })
+	}
+})
+router.post('/reset/password/:token', async (req, res) => {
+	try {
+		const { NewPassword } = req.body
+		const { email } = req.user
+		const user = await UserSchema.findOne({ email: email })
+		user.updateOne({ password: NewPassword })
+		await user.save()
+		res.status(303).redirect('/register')
+	} catch (error) {
+		res.status(500).send({ message: error })
+	}
+})
+//
 
 // Google
 router.use(GoogleOauth)

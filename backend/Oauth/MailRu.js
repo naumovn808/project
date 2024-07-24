@@ -38,7 +38,7 @@ router.get('/login/oauth/mailru/redirect', async (req, res) => {
 		).then(res => res.json())
 		let user = await UserSchema.findOne({ socialId: userData.id })
 		if (!user) {
-			user = new UserSchema.create({
+			user = await UserSchema.create({
 				socialId: userData?.id,
 				familyName: userData.first_name,
 				givenName: userData.last_name,
