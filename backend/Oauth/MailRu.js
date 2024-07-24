@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken')
 const UserSchema = require('../models/UserSchema')
 require('dotenv').config()
 const router = express.Router()
+
 router.get('/login/oauth/mailru', async (req, res) => {
 	try {
 		const urlAuth = `https://oauth.mail.ru/login?client_id=${process.env.MAIlRU_CLIENT_ID}&response_type=code&scope=userinfo&redirect_uri=${process.env.MAIlRU_REDIRECT_URI}&state=some_state`

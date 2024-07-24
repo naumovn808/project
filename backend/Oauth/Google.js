@@ -1,68 +1,55 @@
 const express = require('express')
-const GoogleStrategy = require('passport-google-oidc')
 const passport = require('passport')
-const jwt = require('jsonwebtoken')
+const GoogleStrategy = require('passport-google-oidc')
 const UserSchema = require('../models/UserSchema')
 const router = express.Router()
 require('dotenv').config()
+
+router.get(
+	'/login/oauth/google',
+	passport.authenticate('google', { scope: ['profile', 'email'] })
+)
+
+router.get(
+	'/login/oauth/google/redirect',
+	passport.authenticate('google', {
+		successRedirect: '/',
+		failureRedirect: '/auth/login',
+	})
+)
 passport.use(
 	new GoogleStrategy(
 		{
 			clientID: process.env.GOOGLE_CLIENT_ID,
 			clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-			callbackURL: process.env.GOOGLE_REDIRECT_URI,
+			callbackURL: '/auth/login/oauth/google/redirect',
 			scope: ['profile', 'email'],
 		},
-		async function verify(issuer, profile, cb) {
+		async function verify(issuer, userinfo, cb) {
 			try {
-				let user = await UserSchema.findOne({ socialId: profile.id })
+				// Check if user already exists in the database
+				let user = await UserSchema.findOne({ socialId: userinfo.id })
+
 				if (!user) {
+					// Create a new user if not found
 					user = new UserSchema({
-						socialId: profile.id,
-						familyName: profile.name.familyName,
-						givenName: profile.name.givenName,
-						email: profile.emails[0].value,
-						username: 'user' + Date.now(),
-						password: 'user' + profile.id,
+						socialId: userinfo.id,
+						familyName: userinfo.name.familyName,
+						givenName: userinfo.name.givenName,
+						email: userinfo.emails[0].value,
+						username: userinfo.name.givenName + userinfo.name.familyName + '7',
+						password: 'user' + userinfo.id,
 						userPhotoLink: null,
 					})
 					await user.save()
 				}
+
 				return cb(null, user)
 			} catch (err) {
 				return cb(err, null)
 			}
 		}
 	)
-)
-
-router.get('/login/oauth/google', passport.authenticate('google'))
-
-router.get(
-	'/login/oauth/google/redirect',
-	passport.authenticate('google', { failureRedirect: '/login' }),
-	(req, res) => {
-		const user = req.user
-		const accessToken = jwt.sign(
-			{
-				id: user._id,
-			},
-			process.env.JWT_SECRET,
-			{
-				expiresIn: '15m',
-			}
-		)
-		const refreshToken = jwt.sign(
-			{
-				id: user._id,
-				img: user.userPhotoLink,
-			},
-			process.env.REFRESH_TOKEN_SECRET
-		)
-		res.cookie('accessToken', accessToken, { httpOnly: true })
-		res.cookie('refreshToken', refreshToken, { httpOnly: true })
-		res.redirect('/')
-	}
 )
 
 module.exports = router

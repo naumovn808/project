@@ -3,8 +3,11 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const resetToken = require('../middleware/resetToken')
 const GoogleOauth = require('../Oauth/Google')
-const UserSchema = require('../models/UserSchema')
+const OkOauth = require('../Oauth/Ok')
+const VkOauth = require('../Oauth/Vk')
+const YandexOauth = require('../Oauth/Yandex')
 const MailRuOauth = require('../Oauth/MailRu')
+const UserSchema = require('../models/UserSchema')
 const nodemailer = require('nodemailer')
 const sendgrid = require('nodemailer-sendgrid-transport')
 const router = express.Router()
@@ -147,12 +150,12 @@ router.post('/reset/password/:token', resetToken, async (req, res) => {
 })
 //
 
-// Google
+// Oauth
 router.use(GoogleOauth)
-//   END Google //
-
-// Mail.ru
 router.use(MailRuOauth)
-// End  MAil.ru //
+router.use(OkOauth)
+router.use(VkOauth)
+router.use(YandexOauth)
+// End  Oauth //
 
 module.exports = router
