@@ -3,12 +3,14 @@ import styles from "./Login.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import Input from "../../../components/Input/Input.jsx";
 import Button from "../../../components/Button/Button.jsx";
+import MSG from "../../../components/popUpNotification/popUpNotification.jsx";
 
 const Login = () => {
 	const navigate = useNavigate();
-	const [error, setError] = useState(false)
+	const [error, setError] = useState(false);
 	const [isPasswordVisible, setIsPasswordVisible] = useState(true);
 	const [hidePassword, setHidePassword] = useState();
+	const [message, setMessage] = useState("");
 
 	const [formData, setFormData] = useState({
 		email: "",
@@ -22,22 +24,68 @@ const Login = () => {
 	const handleChange = (e) => {
 		const { name, value } = e.target;
 		setFormData({ ...formData, [name]: value });
+		setTimeout(() => {
+			validateRegex(name, value);
+		}, 1200);
 	};
 
 	const changeStateEye = (e) => {
 		setIsPasswordVisible(e);
 	};
 
+	function validateRegex(name, value) {
+		const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+		if (name === "email") {
+			if (value === "") {
+				setMessage("");
+			} else if (!emailRegex.test(value)) {
+				setMessage("Неверный адрес электронной почты");
+			} else {
+				setMessage("");
+				return true;
+			}
+		}
+
+		if (name === "password") {
+			if (value === "") {
+				setMessage("");
+			} else if (!/^.{8,}$/.test(value)) {
+				setMessage("Пароль должен содержать не менее 8 символов");
+			} else {
+				if (!/^[A-Za-z0-9]+$/.test(value)) {
+					setMessage("Пароль должен содержать латинские буквы и цифры");
+				} else {
+					if (/^\d+$/.test(value)) {
+						setMessage("Пароль должен содержать хотя бы одну букву");
+					} else if (/^[A-Za-z]+$/.test(value)) {
+						setMessage("Пароль должен содержать хотя бы одну цифру");
+					} else {
+						setMessage("");
+						return true;
+					}
+				}
+			}
+		}
+	}
+
 	const handleSumbit = async (e) => {
 		e.preventDefault();
+		const validate = validateRegex("password", formData.password) && validateRegex("email", formData.email);
 
-		try {
-            // await axios.post("login", formData);
-            navigate("/");
-        } catch (error) {
-            setError(true)
-            console.error(error);
-        }
+		if (validate) {
+			try {
+				// await axios.post("login", formData);
+				navigate("/");
+			} catch (error) {
+				setError(true);
+				console.error(error);
+			}
+		} else if (formData.email && formData.password === "") {
+			setMessage("Введите данные");
+		} else {
+			setMessage("Неверный email или пароль");
+		}
 	};
 
 	return (
@@ -77,7 +125,7 @@ const Login = () => {
 						</div>
 					</label>
 				</div>
-
+				{!message ? <></> : <MSG iconColor={"brown"} isSuccess={false} message={message} />}
 				<div className={styles.links}>
 					{error ? (
 						<div className={styles.reset__password}>

@@ -4,6 +4,7 @@ import styles from "./Register.module.css";
 import Input from "../../../components/Input/Input.jsx";
 import Button from "../../../components/Button/Button.jsx";
 import axios from "../../../utils/axios.js";
+import MSG from '../../../components/popUpNotification/popUpNotification.jsx'
 
 const Register = () => {
 	const navigate = useNavigate();
@@ -134,7 +135,7 @@ const Register = () => {
 						/>
 						<p className={styles.field__text__password}>Не менее 8 символов</p>
 					</label>
-					{message}
+					{!message ? <></> : <MSG iconColor={'brown'} isSuccess={false} message={message}/>}
 				</div>
 
 				<div className={styles.links}>
