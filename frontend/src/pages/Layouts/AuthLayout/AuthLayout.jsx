@@ -6,19 +6,6 @@ import AuthFooter from "../../../components/Auth_Footer/Auth_Footer.jsx";
 import LoginClick from "../../Auth/LoginClick/LoginClick.jsx";
 
 const AuthLayout = () => {
-<<<<<<< HEAD
-  return (
-    <div className={styles.container__outlet}>
-      <div>
-        <AuthHeader />
-        <div className={styles.outlet__card}>
-          <Outlet />
-        </div>
-      </div>
-      <AuthFooter />
-    </div>
-  );
-=======
 	const location = useLocation();
 	const navigate = useNavigate();
 
@@ -44,7 +31,6 @@ const AuthLayout = () => {
 			<AuthFooter isAuthPage={true} />
 		</div>
 	);
->>>>>>> friend-repo/development
 };
 
 export default AuthLayout;

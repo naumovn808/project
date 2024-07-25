@@ -5,15 +5,6 @@
   background-color: #181528;
   padding: 27px 27px 32px 27px;
 }
-<<<<<<< HEAD
-
-.round__mobile {
-  display: none;
-}
-
-.information {
-  display: flex;
-=======
 .round__mobile, .round__mobile_main {
 	display: none;
 }
@@ -23,7 +14,6 @@
 }
 .footer__logo__mobile_main {
 	display: none;
->>>>>>> friend-repo/development
 }
 .footer__logo {
   margin-right: 11px;
@@ -32,18 +22,9 @@
   font-weight: 500;
   margin-bottom: 3px;
 }
-<<<<<<< HEAD
-
-.information__link,
-.privacy__policy {
-  color: var(--yellow-color);
-  text-decoration: none;
-  font-weight: 500;
-=======
 .footer_drinks a, .footer_command a, .information__link, .privacy__policy {
 	color: var(--yellow-color);
 	text-decoration: none;
->>>>>>> friend-repo/development
 }
 .footer_drinks, .footer_command {
 	display: flex;
@@ -282,13 +263,6 @@
 	}
 }
 @media (max-width: 320px) {
-<<<<<<< HEAD
-  .footer {
-    display: flex;
-    flex-direction: column;
-    padding: 0px 16px 40px 16px;
-  }
-=======
 	.footer {
         display: flex;
         flex-direction: column;
@@ -297,7 +271,6 @@
 	.footer__logo__mobile_main {
 		display: block;
 	}
->>>>>>> friend-repo/development
 
   .information {
     position: relative;
@@ -306,20 +279,6 @@
     padding-bottom: 20px;
   }
 
-<<<<<<< HEAD
-  .round__mobile {
-    /* width: 83px;
-        height: 83px; */
-    display: block;
-    margin: 0 auto;
-    position: relative;
-    bottom: 40px;
-    background-color: #181528;
-    border: 8px solid #252232;
-    border-radius: 50%;
-    padding: 6px;
-  }
-=======
 	.round__mobile {
 		display: block;
         margin: 0 auto;
@@ -330,19 +289,11 @@
 		border-radius: 50%;
         padding: 6px;
 	}
->>>>>>> friend-repo/development
 
   .round {
     display: none;
   }
 
-<<<<<<< HEAD
-  .information__name,
-  .information__link,
-  .privacy__policy {
-    font-size: 13px;
-  }
-=======
     .information__name,
     .information__link,
     .privacy__policy{
@@ -467,5 +418,4 @@
 	.footer {
 		padding-bottom: 60px;
 	}	
->>>>>>> friend-repo/development
 }

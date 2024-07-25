@@ -1,9 +1,8 @@
 import React from "react";
 import axios from "axios";
 import ProfileCropperModal from "../ProfileCropperModal/ProfileCropperModal";
-import Button from "../Button/Button";
-import style from "./ProfilePicture.module.css";
 import classNames from "classnames";
+import style from "./ProfilePicture.module.css";
 
 const ProfilePicture = () => {
   const [image, setImage] = React.useState(null);

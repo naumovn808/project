@@ -1,45 +1,16 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Register from './pages/Auth/Register/Register.jsx';
+import * as React from "react";
+import * as ReactDOM from "react-dom/client";
 import AuthLayout from './pages/Layouts/AuthLayout/AuthLayout.jsx';
-import Login from './pages/Auth/Login/Login.jsx';
-import RegisterSend from './pages/Auth/RegisterSend/RegisterSend.jsx';
-import Error from './pages/Error/Error.jsx';
-<<<<<<< HEAD
-import ProfileForm from './pages/ProfileForm/ProfileForm.jsx';
-
-const router = createBrowserRouter([
-  {
-    path: "auth",
-    element: <AuthLayout />,
-    children: [
-      {
-        path: "login",
-        element: <Login />,
-        children: [],
-      },
-      {
-        path: "register",
-        element: <Register />,
-        children: [],
-      },
-    ],
-    path: "profile",
-    element: <ProfileForm />,
-    children: []
-  },
-
-  {
-    path: "*",
-    element: <Error />,
-  },
-=======
 import Main from './pages/Layouts/Main/Main.jsx';
+import Login from './pages/Auth/Login/Login.jsx'
+import Register from './pages/Auth/Register/Register.jsx'
+import RegisterSend from './pages/Auth/RegisterSend/RegisterSend.jsx'
 import PasswordReset from './pages/Auth/PasswordReset/PasswordReset.jsx';
 import PasswordSend from './pages/Auth/PasswordSend/PasswordSend.jsx';
 import NewPassword from './pages/Auth/NewPassword/NewPassword.jsx';
+import Error from './pages/Error/Error.jsx';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import ProfileForm from './pages/ProfileForm/ProfileForm.jsx';
 
 const router = createBrowserRouter([
     {
@@ -72,6 +43,9 @@ const router = createBrowserRouter([
             },
 
         ],
+        path: "profile",
+        element: <ProfileForm />,
+        children: []
     },
 
     {
@@ -82,12 +56,11 @@ const router = createBrowserRouter([
         path: "main",
         element: <Main />
     }
->>>>>>> friend-repo/development
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+    <React.StrictMode>
+        <RouterProvider router={router} />
+    </React.StrictMode>
 );

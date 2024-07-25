@@ -7,7 +7,6 @@ import Description from "../../components/Description/Description";
 import axios from "axios";
 import classNames from "classnames";
 import style from "./ProfileForm.module.css";
-import ProfileAvatar from "../../components/ProfileAvatar/ProfileAvatar";
 import ProfilePicture from "../../components/ProfilePicture/ProfilePicture";
 
 const ProfileForm = ({ userId }) => {
