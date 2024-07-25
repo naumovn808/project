@@ -1,17 +1,3 @@
-<<<<<<< HEAD
-import React from "react";
-import styles from "./Auth_Header.module.css";
-
-const Header = () => (
-  <div className={styles.header}>
-    <img
-      src="/Partyshaker.png"
-      alt="Partyshaker_header"
-      className={styles.headerImg}
-    />
-  </div>
-);
-=======
 import React, { useEffect, useState } from 'react';
 import styles from './Auth_Header.module.css';
 import Input from '../Input/Input'
@@ -74,6 +60,5 @@ const Header = ({isAuthPage}) => {
  </header>
     )
 };
->>>>>>> friend-repo/development
 
 export default Header;

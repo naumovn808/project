@@ -7,39 +7,11 @@ import AuthLayout from './pages/Layouts/AuthLayout/AuthLayout.jsx';
 import Login from './pages/Auth/Login/Login.jsx';
 import RegisterSend from './pages/Auth/RegisterSend/RegisterSend.jsx';
 import Error from './pages/Error/Error.jsx';
-<<<<<<< HEAD
-import ProfileForm from './pages/ProfileForm/ProfileForm.jsx';
-
-const router = createBrowserRouter([
-  {
-    path: "auth",
-    element: <AuthLayout />,
-    children: [
-      {
-        path: "login",
-        element: <Login />,
-        children: [],
-      },
-      {
-        path: "register",
-        element: <Register />,
-        children: [],
-      },
-    ],
-    path: "profile",
-    element: <ProfileForm />,
-    children: []
-  },
-
-  {
-    path: "*",
-    element: <Error />,
-  },
-=======
 import Main from './pages/Layouts/Main/Main.jsx';
 import PasswordReset from './pages/Auth/PasswordReset/PasswordReset.jsx';
 import PasswordSend from './pages/Auth/PasswordSend/PasswordSend.jsx';
 import NewPassword from './pages/Auth/NewPassword/NewPassword.jsx';
+import ProfileForm from './pages/ProfileForm/ProfileForm.jsx';
 
 const router = createBrowserRouter([
     {
@@ -72,6 +44,9 @@ const router = createBrowserRouter([
             },
 
         ],
+        path: '/profile',
+        element: <ProfileForm />,
+        children: []
     },
 
     {
@@ -82,12 +57,11 @@ const router = createBrowserRouter([
         path: "main",
         element: <Main />
     }
->>>>>>> friend-repo/development
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+    <React.StrictMode>
+        <RouterProvider router={router} />
+    </React.StrictMode>
 );
