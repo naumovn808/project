@@ -5,6 +5,7 @@
   background-color: #181528;
   padding: 27px 27px 32px 27px;
 }
+<<<<<<< HEAD
 
 .round__mobile {
   display: none;
@@ -12,35 +13,291 @@
 
 .information {
   display: flex;
+=======
+.round__mobile, .round__mobile_main {
+	display: none;
 }
-
+.information, .information_main {
+	display: flex;
+	margin-right: 70px;
+}
+.footer__logo__mobile_main {
+	display: none;
+>>>>>>> friend-repo/development
+}
 .footer__logo {
   margin-right: 11px;
 }
-
 .information__name {
   font-weight: 500;
   margin-bottom: 3px;
 }
+<<<<<<< HEAD
 
 .information__link,
 .privacy__policy {
   color: var(--yellow-color);
   text-decoration: none;
   font-weight: 500;
+=======
+.footer_drinks a, .footer_command a, .information__link, .privacy__policy {
+	color: var(--yellow-color);
+	text-decoration: none;
+>>>>>>> friend-repo/development
 }
-
+.footer_drinks, .footer_command {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+.footer_drinks {
+	margin-left: 400px;
+}
+.footer_command {
+	margin-left: 200px;
+}
+.footer_mobile_app {
+	margin-left: 300px;
+}
+.footer_mobile_app img {
+	width: 100px;
+	border-radius: 5px;
+	margin-top: 20px;
+	margin-left: 190px;
+}
 .privacy__policy:hover {
   transition: 200ms;
   color: #ffcb72;
 }
+.mobile_download_buttons {
+	display: none;
+}
+.nav {
+	display: none;
+}
+@media (max-width: 1900px) {
+	.footer_mobile_app {
+		margin-left: 100px;
+	}
+}
+@media (max-width: 1600px) {
+	.footer_mobile_app {
+		margin-left: 50px;
+	}
+}
+@media (max-width: 1500px) {
+	.main_info {
+		padding-right: 220px;
+	}
+	.footer_drinks {
+		margin-left: 1px;
+		margin-right: 0px;
+	}
+}
+@media (max-width: 1400px) {
+	.main_info {
+		padding-right: 129px;
+	}
+	.footer_drinks {
+		margin-left: 1px;
+		margin-right: 0px;
+	}
+}
 
+@media (max-width: 1200px) {
+	.footer {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+	}
+	.information_main {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		width: 100%;
+		margin-bottom: 20px;
+	}
+	.round {
+		order: -1;
+		margin-right: 20px;
+	}
+	.main_info {
+		flex: 1;
+		min-width: 200px;
+	}
+	.footer_drinks,
+	.footer_command {
+		flex: 1;
+		min-width: 150px;
+		margin-left: 0;
+	}
+	.footer_mobile_app {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin-top: 20px;
+		margin-left: 0;
+	}
+	.footer_mobile_app p {
+		margin-bottom: 10px;
+		text-align: center;
+	}
+	.footer_mobile_app img {
+		margin-left: 0;
+		margin-top: 0;;
+	}
+}
+@media (max-width: 992px) {
+	.footer {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 20px;
+	}
+	.information, .information_main {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+	.round {
+		padding-bottom: 15px;
+	}
+	.main_info, .footer_drinks, .footer_command, .footer_mobile_app {
+		width: 100%;
+		margin-left: 0;
+		margin-bottom: 20px;
+	}
+}
+@media (max-width: 768px) {
+	.footer {
+		padding: 0px 16px 40px 16px
+	}
+	.round__mobile, .round__mobile_main {
+		display: block;
+		margin: 0 auto;
+		position: relative;
+		bottom: 40px;
+		background-color: #181528;
+		border: 8px solid #252232;
+		border-radius: 50%;
+		padding: 6px;
+	}
+	.round {
+		display: none;
+	}
+
+	.footer__logo__mobile_main {
+		display: block;
+		margin-left: 5px;
+	}
+	.information, .information_main {
+		flex-direction: column;
+	}
+	.information {
+		border-bottom: 1px solid rgb(72, 69, 95);
+		padding-bottom: 20px;
+	}
+	.footer_command {
+		border-bottom: 1px solid rgb(72, 69, 95);
+		padding-bottom: 20px;
+		width: 100%;
+	}
+	.information__name,
+	.information__link,
+	.footer_drinks,
+	.footer_command,
+	.footer_mobile_app {
+		font-size: 13px;
+	}
+	.main_info {
+		border-bottom: 1px solid rgb(72, 69, 95);
+		padding-bottom: 20px;
+		margin-bottom: 20px;
+	}
+	.footer_mobile_app {
+		display: none;
+	}
+	.mobile_download_buttons {
+		display: flex;
+		flex-direction: column;
+		margin-top: 20px;
+		width: 100%;
+	}
+	.buttons_container {
+		display: flex;
+		flex-direction: row;
+		gap: 10px;
+		width: 100%;
+		margin-top: 10px;
+	}
+	.mobile_download_buttons p {
+		font-size: 13px;
+		margin-bottom: 10px;
+	}
+	.nav {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		background-color: #252232;
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		padding: 10px 16px;
+		border-top: 1px solid #252232;
+	}
+	.navItem, .navItemLine {
+		display: flex;
+		align-items: center;
+		text-decoration: none;
+		color: white;
+	}
+	.navItemLine {
+		border-bottom: 3px solid #9747FF;
+		padding-bottom: 5px;
+	}
+	.navIcon {
+		width: 24px;
+		height: 24px;
+	}
+	.navText {
+		font-size: 14px;
+		margin-left: 8px;
+	}
+	.yellowIcon {
+		color: #ffcb72;
+	}
+	.profileImage {
+		width: 24px;
+		height: 24px;
+		border-radius: 50%;
+		object-fit: cover;
+	}
+	.footer {
+		padding-bottom: 60px;
+	}
+}
+@media (max-width: 567px) {
+	.buttons_container {
+		flex-direction: column;
+	}
+}
 @media (max-width: 320px) {
+<<<<<<< HEAD
   .footer {
     display: flex;
     flex-direction: column;
     padding: 0px 16px 40px 16px;
   }
+=======
+	.footer {
+        display: flex;
+        flex-direction: column;
+        padding: 0px 16px 40px 16px;
+	}
+	.footer__logo__mobile_main {
+		display: block;
+	}
+>>>>>>> friend-repo/development
 
   .information {
     position: relative;
@@ -49,6 +306,7 @@
     padding-bottom: 20px;
   }
 
+<<<<<<< HEAD
   .round__mobile {
     /* width: 83px;
         height: 83px; */
@@ -61,14 +319,153 @@
     border-radius: 50%;
     padding: 6px;
   }
+=======
+	.round__mobile {
+		display: block;
+        margin: 0 auto;
+        position: relative;
+		bottom: 40px;
+		background-color: #181528;
+		border: 8px solid #252232;
+		border-radius: 50%;
+        padding: 6px;
+	}
+>>>>>>> friend-repo/development
 
   .round {
     display: none;
   }
 
+<<<<<<< HEAD
   .information__name,
   .information__link,
   .privacy__policy {
     font-size: 13px;
   }
+=======
+    .information__name,
+    .information__link,
+    .privacy__policy{
+        font-size: 13px;
+    }
+
+}
+@media (max-width: 320px) {
+	.footer {
+        display: flex;
+        flex-direction: column;
+        padding: 0px 16px 40px 16px;
+	}
+
+	.information_main {
+		display: flex;
+		flex-direction: column;
+
+	}
+
+	.round__mobile_main {
+		width: 87px;
+		display: block;
+        margin-left: 90px; 
+        position: relative;
+		bottom: 40px;
+		background-color: #181528;
+		border: 8px solid #252232;
+		border-radius: 50%;
+        padding: 6px;
+	}
+	.footer__logo__mobile_main {
+		margin-left: 5px;
+	}
+	.footer_drinks, .footer_command {
+		margin-left: 0px;
+		gap: 20px;
+		padding-bottom: 15px;
+	}
+	.footer_command {
+		border-bottom: 1px solid rgb(72, 69, 95);
+		padding-bottom: 20px;
+		width: 288px;
+	}
+
+    .information__name,
+    .information__link,
+	.footer_drinks,
+	.footer_command,
+	.footer_mobile_app {
+		font-size: 13px;
+	}
+	.main_info {
+		border-bottom: 1px solid rgb(72, 69, 95);
+		padding-bottom: 20px;
+		margin-bottom: 20px;
+	}
+	.footer_mobile_app {
+		display: none;
+	}
+	.mobile_download_buttons {
+		display: flex;
+		flex-direction: column;
+		margin-top: 20px;
+		width: 100%;
+		
+	}
+	.buttons_container {
+		display: flex;
+		flex-direction: row;
+		gap: 10px;
+		width: 100%;
+		margin-top: 10px;
+	}
+	.mobile_download_buttons p {
+		font-size: 13px;
+		margin-bottom: 10px;
+	}
+	.nav {
+		display: flex;
+		justify-content: space-between;
+		align-items: flex-start;
+		background-color: #252232	;
+		position: fixed;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		padding: 10px 16px;
+		border-top: 1px solid #252232;
+	}
+	.navItem {
+		display: flex;
+		align-items: center;
+		text-decoration: none;
+		color: white;
+	}	
+	.navItemLine {
+		display: flex;
+		align-items: center;
+		text-decoration: none;
+		color: white;
+		border-bottom: 3px solid #9747FF;
+		padding-bottom: 5px;
+	}
+	.navIcon {
+		width: 24px;
+		height: 24px;
+	}
+	.navText {
+		font-size: 14px;
+		margin-left: 8px;
+	}
+	.yellowIcon {
+		color: #ffcb72;
+	}
+	.profileImage {
+		width: 24px;
+		height: 24px;
+		border-radius: 50%;
+		object-fit: cover;
+	}
+	.footer {
+		padding-bottom: 60px;
+	}	
+>>>>>>> friend-repo/development
 }

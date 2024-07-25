@@ -1,10 +1,11 @@
 import './App.css';
-import Header from './Components/Header/Header';
-import Footer from './Components/Footer/Footer';
+import Auth_Footer from './components/Auth_Footer/Auth_Footer';
+import Auth_Header from './components/Auth_Header/Auth_Header'
 
 function App() {
   return (
     <>
+<<<<<<< HEAD
       <div className='app'>
         <Header />
         <div className='main-content'>
@@ -12,6 +13,15 @@ function App() {
 
         </div>
         <Footer />
+=======
+    <div className='app'>
+      <Auth_Header/>
+    <div className='main-content'>
+
+
+      </div> 
+      <Auth_Footer/>
+>>>>>>> friend-repo/development
       </div>
     </>
   );

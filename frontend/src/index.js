@@ -5,7 +5,9 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Register from './pages/Auth/Register/Register.jsx';
 import AuthLayout from './pages/Layouts/AuthLayout/AuthLayout.jsx';
 import Login from './pages/Auth/Login/Login.jsx';
+import RegisterSend from './pages/Auth/RegisterSend/RegisterSend.jsx';
 import Error from './pages/Error/Error.jsx';
+<<<<<<< HEAD
 import ProfileForm from './pages/ProfileForm/ProfileForm.jsx';
 
 const router = createBrowserRouter([
@@ -33,6 +35,54 @@ const router = createBrowserRouter([
     path: "*",
     element: <Error />,
   },
+=======
+import Main from './pages/Layouts/Main/Main.jsx';
+import PasswordReset from './pages/Auth/PasswordReset/PasswordReset.jsx';
+import PasswordSend from './pages/Auth/PasswordSend/PasswordSend.jsx';
+import NewPassword from './pages/Auth/NewPassword/NewPassword.jsx';
+
+const router = createBrowserRouter([
+    {
+        path: "auth",
+        element: <AuthLayout />,
+        children: [
+            {
+                path: "login",
+                element: <Login />,
+            },
+            {
+                path: "register",
+                element: <Register />,
+            },
+            {
+                path: "register/send",
+                element: <RegisterSend />,
+            },
+            {
+                path: "reset",
+                element: <PasswordReset />,
+            },
+            {
+                path: "reset/send",
+                element: <PasswordSend />,
+            },
+            {
+                path: "reset/newpassword",
+                element: <NewPassword />,
+            },
+
+        ],
+    },
+
+    {
+        path: "*",
+        element: <Error />,
+    },
+    {
+        path: "main",
+        element: <Main />
+    }
+>>>>>>> friend-repo/development
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
