@@ -84,6 +84,46 @@ const CocktailsFilters = () => {
 			isChecked: !prev.isChecked,
 		}));
 	};
+	const [flavors, setFlavors] = useState([
+		"Горький", "Сладкий", "Фруктовый", "Мятный"
+	]);
+	const [selectedFlavors, setSelectedFlavors] = useState([]);
+	const [isFlavorDropdownOpen, setIsFlavorDropdownOpen] = useState(false);
+
+	useEffect(() => {
+		const getDataFilters = async () => {
+			try {
+				const [strengthResponse, sizeDrinksResponse, complexityResponse, flavorsResponse] = await Promise.all([
+		// axios.get("strength"),
+        // axios.get("sizeDrinks"),
+        // axios.get("complexity"),
+        // axios.get("flavors"),
+				]);
+		// setStrength(strengthResponse.data);
+        // setSizeDrinks(sizeDrinksResponse.data);
+        // setComplexity(complexityResponse.data);
+        // setFlavors(flavorsResponse.data);
+			} catch (error) {
+				console.error(error)
+			}
+		};
+		getDataFilters();
+	}, []);
+
+	const toggleFlavorDropdown = () => {
+		setIsFlavorDropdownOpen(!isFlavorDropdownOpen);
+	};
+
+	const handleFlavorSelect = (flavor) => {
+		setSelectedFlavors(prev =>
+			prev.includes(flavor)
+			? prev.filter(f => f !== flavor)
+			: [...prev, flavor]
+		);
+	};
+	const removeFlavor = (flavor) => {
+		setSelectedFlavors(prev => prev.filter(f => f !== flavor));
+	}
 
 	return (
 		<div className={styles.container}>
@@ -130,9 +170,35 @@ const CocktailsFilters = () => {
 				))}
 			</div>
 
-			{/* Search Filter Select */}
-			<div className={styles.select__container}>
-				<div className={styles.select}></div>
+			<div className={styles.flavorSelector}>
+        <button onClick={toggleFlavorDropdown} className={styles.flavorButton}>
+          {selectedFlavors.length > 0 ? `${selectedFlavors.length} вкуса` : '4 вкуса'}
+          <span className={styles.dropdownArrow}>▼</span>
+        </button>
+        {isFlavorDropdownOpen && (
+          <div className={styles.flavorDropdown}>
+            {flavors.map(flavor => (
+              <div 
+                key={flavor} 
+                className={`${styles.flavorOption} ${selectedFlavors.includes(flavor) ? styles.selected : ''}`}
+                onClick={() => handleFlavorSelect(flavor)}
+              >
+                {flavor}
+                {selectedFlavors.includes(flavor) && <span className={styles.checkmark}>✓</span>}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+			<div className={styles.selectedFlavorsContainer}>
+				{selectedFlavors.map(flavor => (
+					<div key={flavor} className={styles.selectedFlavor}>
+						{flavor}
+						<button onClick={() => removeFlavor(flavor)} className={styles.removeFlavor}>
+            			  ×
+            			</button>
+					</div>
+				))}
 			</div>
 
 			{/* Search Filter Input */}
