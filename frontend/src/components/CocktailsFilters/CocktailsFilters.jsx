@@ -2,57 +2,19 @@ import React, { useEffect } from "react";
 import styles from "./CocktailsFilters.module.css";
 import { useState } from "react";
 import axios from "../../utils/axios";
+import FilterButton from "../FilterButton/FilterButton";
 
 const CocktailsFilters = () => {
-	const [entered, setEntered] = useState(true);
-	const [strength, setStrength] = useState([
-		{
-			img: "Apple.png",
-			title: "Безалкогольный",
-		},
-		{
-			img: "Apple.png",
-			title: "Слабоалкогольный",
-		},
-		{
-			img: "Apple.png",
-			title: "Среднеалкогольный",
-		},
-		{
-			img: "Apple.png",
-			title: "Крепкий",
-		},
-	]);
+	const [activeFilters, setActiveFilters] = useState({
+		strength: null,
+		format: null,
+		complexity: null
+	});
 
-	const [sizeDrinks, setSizeDrinks] = useState([
-		{
-			img: "VK.png",
-			title: "Шот",
-		},
-		{
-			img: "VK.png",
-			title: "Шорт",
-		},
-		{
-			img: "VK.png",
-			title: "Лонг",
-		},
-	]);
-
-	const [complexity, setComplexity] = useState([
-		{
-			img: "Google.png",
-			title: "Легко",
-		},
-		{
-			img: "Google.png",
-			title: "Средняя сложность",
-		},
-		{
-			img: "Google.png",
-			title: "Сложно",
-		},
-	]);
+	const [strength, setStrength] = useState([]);
+	const [sizeDrinks, setSizeDrinks] = useState([]);
+  	const [complexity, setComplexity] = useState([]);
+	const [entered, setEntered] = useState(false);
 
 	const [checkBoxState, setCheckBoxState] = useState({
 		isChecked: false,
@@ -64,19 +26,55 @@ const CocktailsFilters = () => {
 		const getDataFilters = async () => {
 			try {
 				const [strengthResponse, sizeDrinksResponse, complexityResponse] = await Promise.all([
-					// axios.get("strength"),
-					// axios.get("sizeDrinks"),
-					// axios.get("complexity"),
+					axios.get("strength"),
+					axios.get("sizeDrinks"),
+					axios.get("complexity"),
 				]);
-				// setStrength(strengthResponse.data);
-				// setSizeDrinks(sizeDrinksResponse.data);
-				// setComplexity(complexityResponse.data);
+				setStrength(strengthResponse.data);
+				setSizeDrinks(sizeDrinksResponse.data);
+				setComplexity(complexityResponse.data);
 			} catch (error) {
 				console.error(error);
 			}
 		};
 		getDataFilters();
 	}, []);
+	const handleFilterClick = (category, value) => {
+		setActiveFilters(prev => ({
+			...prev,
+			[category]: prev[category] === value ? null : value
+		}));
+	};
+	const filterCategories = [
+		{ 
+		  title: "Крепость", 
+		  items: [
+			{ title: "Безалкогольный", icon: "/Child.png" },
+			{ title: "Слабоалкогольный", icon: "/Vector.png" },
+			{ title: "Среднеалкогольный", icon: "/Medium.png" },
+			{ title: "Крепкий", icon: "/Flame.png" }
+		  ],
+		  category: 'strength'
+		},
+		{ 
+		  title: "Формат", 
+		  items: [
+			{ title: "Шот", icon: "/Shot.png" },
+			{ title: "Шорт", icon: "/Short.png" },
+			{ title: "Лонг", icon: "/Long.png" }
+		  ],
+		  category: 'format'
+		},
+		{ 
+		  title: "Сложность", 
+		  items: [
+			{ title: "Легкий", icon: "/Easy.png" },
+			{ title: "Средний", icon: "/MediumDif.png" },
+			{ title: "Сложный", icon: "/Hard.png" }
+		  ],
+		  category: 'complexity'
+		}
+	  ];
 
 	const handleCheckbox = () => {
 		setCheckBoxState((prev) => ({
@@ -147,27 +145,23 @@ const CocktailsFilters = () => {
 
 			{/* Search Filtres*/}
 			<div className={styles.filtres}>
-				{[
-					{ title: "Крепость", items: strength },
-					{ title: "Формат", items: sizeDrinks },
-					{ title: "Сложность", items: complexity },
-				].map(({ title, items }) => (
-					<div key={title} className={styles.filter}>
-						<p className={styles.filter__text}>{title}</p>
-						<div className={styles.filter__buttons}>
-							{items.map((item) => {
-								return (
-									<div key={item.title}>
-										<button className={styles.button__filter}>
-											<img src={item.img} alt="item" width={15} height={18} />
-											{item.title}
-										</button>
-									</div>
-								);
-							})}
-						</div>
+			{filterCategories.map(({ title, items, category}) => (
+				<div key={title} className={styles.filter}>
+					<p className={styles.filter__text}>{title}</p>
+					<div className={styles.filter_buttons}>
+						{items.map((item) => (
+							<FilterButton 
+							key={item.title}
+							label={item.title}
+							icon={<img src={item.icon} alt={item.title} width={15} height={18} />}
+							isActive={activeFilters[category] === item.title}
+							onClick={() => handleFilterClick(category, item.title)}
+							dataAttribute={`${category}-${item.title}`}
+							/>
+						))}
 					</div>
-				))}
+				</div>
+			))}
 			</div>
 
 			<div className={styles.flavorSelector}>

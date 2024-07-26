@@ -1,0 +1,27 @@
+.filterButton {
+    display: flex;
+    align-items: center;
+    padding: 8 20px;
+    border-radius: 20px;
+    border: none;
+    background-color: #48455F;
+    color: #a0a0a0;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+.filterButton:hover {
+    background-color: #3a384d;
+}
+.filterButton.active {
+    background-color: #6d45e6;
+    color: #ffffff;
+}
+.icon {
+    margin-right: 6px;
+    font-size: 16px;
+}
+.label {
+    white-space: nowrap;
+}

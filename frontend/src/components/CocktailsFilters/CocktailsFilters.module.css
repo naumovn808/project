@@ -50,19 +50,13 @@
 }
 
 /* Filtres */
-.filtres {
-	display: flex;
-	flex-direction: column;
-}
+
 
 .filter {
 	margin-top: 28px;
 }
 
 .filter__text {
-	color: #d6dce1;
-	font-size: 15px;
-	font-weight: 600;
 	margin-bottom: 12px;
 }
 
@@ -73,17 +67,7 @@
 }
 
 /* button component */
-.button__filter {
-	display: flex;
-	align-items: center;
-	font-weight: 600;
-	color: #d6dce1;
-	background-color: #48455f;
-	border: 8px solid #48455f;
-	border-radius: 20px;
-	gap: 4px;
-	outline: none;
-}
+
 .flavorSelector {
 	position: relative;
 	margin-top: 20px;
