@@ -8,18 +8,17 @@ import LoginClick from "../../Auth/LoginClick/LoginClick.jsx";
 const AuthLayout = () => {
 	const location = useLocation();
 	const navigate = useNavigate();
+	const path = location.pathname.replace(/\/+$/, "");
 
 	useEffect(() => {
-		if (location.pathname === "/auth") {
-			navigate("/main");
-		}
+		if (path === "/auth") navigate("/main");
 	}, []);
 
 	return (
 		<div className={styles.container__outlet}>
 			<div>
 				<AuthHeader isAuthPage={true} />
-				{location.pathname === "/auth/login" && (
+				{path === "/auth/login" && (
 					<div className={styles.login__card}>
 						<LoginClick />
 					</div>

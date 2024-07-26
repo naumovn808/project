@@ -3,6 +3,7 @@ import styles from "./NewPassword.module.css";
 import Button from "../../../components/Button/Button";
 import { useNavigate } from "react-router-dom";
 import Input from "../../../components/Input/Input";
+import MSG from "../../../components/popUpNotification/popUpNotification";
 
 const NewPassword = () => {
 	const navigate = useNavigate();
@@ -84,7 +85,7 @@ const NewPassword = () => {
 						<p className={styles.field__text__password}>Не менее 8 символов</p>
 					</label>
 				</div>
-				{message}
+				{!message ? <></> : <MSG iconColor={'brown'} isSuccess={false} message={message}/>}
 				<Button type="submit" title={"Сохранить и войти"} />
 			</form>
 		</div>
