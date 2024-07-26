@@ -14,7 +14,7 @@ const CocktailsFilters = () => {
 	const [strength, setStrength] = useState([]);
 	const [sizeDrinks, setSizeDrinks] = useState([]);
   	const [complexity, setComplexity] = useState([]);
-	const [entered, setEntered] = useState(false);
+	const [entered, setEntered] = useState(true);
 
 	const [checkBoxState, setCheckBoxState] = useState({
 		isChecked: false,
