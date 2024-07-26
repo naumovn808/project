@@ -6,9 +6,9 @@ import ProfileDeleteModal from "../../components/ProfileDeleteModal/ProfileDelet
 import Description from "../../components/Description/Description";
 import axios from "axios";
 import classNames from "classnames";
-import style from "./ProfileForm.module.css";
-import ProfileAvatar from "../../components/ProfileAvatar/ProfileAvatar";
 import ProfilePicture from "../../components/ProfilePicture/ProfilePicture";
+import ProfileResetPassword from "../../components/ProfileResetPassword/ProfileResetPassword";
+import style from "./ProfileForm.module.css";
 
 const ProfileForm = ({ userId }) => {
   const [name, setName] = useState("");
@@ -20,8 +20,8 @@ const ProfileForm = ({ userId }) => {
   const [formData, setFormData] = useState();
   const [emailChanged, setEmailChanged] = useState(false);
   const [error, setError] = useState("");
-  const [userImage, setUserImage] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isResetPassword, setIsResetPassword] = useState(false);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -42,6 +42,14 @@ const ProfileForm = ({ userId }) => {
 
   const changeStateEye = (e) => {
     setIsPasswordVisible(e);
+  };
+
+  const handleResetPassword = () => {
+    setIsResetPassword(true);
+  };
+
+  const handleCloseResetPassword = () => {
+    setIsResetPassword(false);
   };
 
   useEffect(() => {
@@ -75,7 +83,7 @@ const ProfileForm = ({ userId }) => {
   };
 
   return (
-    <>
+    <div className={style.profile_container}>
       <Title className={style.profile_top_title}>Изменение профиля</Title>
       <div className={style.profile}>
         <form
@@ -154,14 +162,20 @@ const ProfileForm = ({ userId }) => {
             <Button
               className={style.profile_btn}
               title={"Сменить пароль"}
-              onClick={handleOpenModal}
+              onClick={handleResetPassword}
             />
             <Description
               className={style.profile_changer_email_text}
               children={
-                "Отправим ссылку на текущий email — перейдите по ней для смены пароля"
+                "Отправим ссылку на текущий email — перейдите по ней для смены пароля"
               }
             />
+            {isResetPassword && (
+              <ProfileResetPassword
+                isOpen={isResetPassword}
+                onClose={handleCloseResetPassword}
+              />
+            )}
           </div>
           <div
             className={classNames(
@@ -245,7 +259,7 @@ const ProfileForm = ({ userId }) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

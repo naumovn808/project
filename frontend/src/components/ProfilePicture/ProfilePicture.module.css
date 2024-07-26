@@ -23,6 +23,7 @@
 .profile_picture__image {
   width: 100%;
   max-width: 96px;
+  min-width: 96px;
   height: 96px;
   border-radius: 50%;
   object-fit: cover;

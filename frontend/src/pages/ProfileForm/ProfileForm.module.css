@@ -1,5 +1,12 @@
+.profile_container {
+  max-width: 1440px;
+  margin: clamp(1rem, 0.429rem + 2.86vw, 3rem)
+    clamp(0.25rem, -0.357rem + 3.04vw, 2.375rem);
+}
+
 .profile_top_title {
   font-size: clamp(1.25rem, 0.75rem + 2.5vw, 3rem);
+  margin: 0 0 clamp(1.5rem, 1.25rem + 1.25vw, 2.375rem) 0;
 }
 
 .profile {
@@ -7,7 +14,6 @@
   justify-content: start;
   align-items: start;
   gap: clamp(0.5rem, 0.071rem + 2.14vw, 2rem);
-  margin: 30px clamp(0.25rem, -0.357rem + 3.04vw, 2.375rem);
 }
 
 :where(ul, ol) li {
@@ -167,5 +173,11 @@
     .profile_details_block {
       width: 100%;
     }
+  }
+}
+
+@media screen and (min-width: 1441px) {
+  .profile_container{
+    margin: 0 auto;
   }
 }
