@@ -1,7 +1,7 @@
 .filterButton {
     display: flex;
     align-items: center;
-    padding: 8 20px;
+    padding: 8px 16px;
     border-radius: 20px;
     border: none;
     background-color: #48455F;
@@ -10,6 +10,7 @@
     font-weight: 500;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
+    margin-bottom: 8px;
 }
 .filterButton:hover {
     background-color: #3a384d;
@@ -19,8 +20,10 @@
     color: #ffffff;
 }
 .icon {
-    margin-right: 6px;
+    margin-right: 8px;
     font-size: 16px;
+    display: flex;
+    align-items: center;
 }
 .label {
     white-space: nowrap;

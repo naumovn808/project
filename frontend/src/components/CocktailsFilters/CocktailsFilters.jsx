@@ -49,28 +49,28 @@ const CocktailsFilters = () => {
 		{ 
 		  title: "Крепость", 
 		  items: [
-			{ title: "Безалкогольный", icon: "/Child.png" },
-			{ title: "Слабоалкогольный", icon: "/Vector.png" },
-			{ title: "Среднеалкогольный", icon: "/Medium.png" },
-			{ title: "Крепкий", icon: "/Flame.png" }
+			{ title: "Безалкогольный", icon: <img src="/Child.png" alt="Безалкогольный" width={15} height={18} /> },
+			{ title: "Слабоалкогольный", icon: <img src="/Vector.png" alt="Слабоалкогольный" width={15} height={18} /> },
+			{ title: "Среднеалкогольный", icon: <img src="/Medium.png" alt="Среднеалкогольный" width={15} height={18} /> },
+			{ title: "Крепкий", icon: <img src="/Flame.png" alt="Крепкий" width={15} height={18} /> }
 		  ],
 		  category: 'strength'
 		},
 		{ 
 		  title: "Формат", 
 		  items: [
-			{ title: "Шот", icon: "/Shot.png" },
-			{ title: "Шорт", icon: "/Short.png" },
-			{ title: "Лонг", icon: "/Long.png" }
+			{ title: "Шот", icon: <img src="/Shot.png" alt="Шот" width={15} height={18} /> },
+			{ title: "Шорт", icon: <img src="/Short.png" alt="Шорт" width={15} height={18} /> },
+			{ title: "Лонг", icon: <img src="/Long.png" alt="Лонг" width={15} height={18} /> }
 		  ],
 		  category: 'format'
 		},
 		{ 
 		  title: "Сложность", 
 		  items: [
-			{ title: "Легкий", icon: "/Easy.png" },
-			{ title: "Средний", icon: "/MediumDif.png" },
-			{ title: "Сложный", icon: "/Hard.png" }
+			{ title: "Легкий", icon: <img src="/Easy.png" alt="Легкий" width={15} height={18} /> },
+			{ title: "Средний", icon: <img src="/MediumDif.png" alt="Средний" width={15} height={18} /> },
+			{ title: "Сложный", icon: <img src="/Hard.png" alt="Сложный" width={15} height={18} /> }
 		  ],
 		  category: 'complexity'
 		}
@@ -145,24 +145,24 @@ const CocktailsFilters = () => {
 
 			{/* Search Filtres*/}
 			<div className={styles.filtres}>
-			{filterCategories.map(({ title, items, category}) => (
-				<div key={title} className={styles.filter}>
-					<p className={styles.filter__text}>{title}</p>
-					<div className={styles.filter_buttons}>
-						{items.map((item) => (
-							<FilterButton 
-							key={item.title}
-							label={item.title}
-							icon={<img src={item.icon} alt={item.title} width={15} height={18} />}
-							isActive={activeFilters[category] === item.title}
-							onClick={() => handleFilterClick(category, item.title)}
-							dataAttribute={`${category}-${item.title}`}
-							/>
-						))}
-					</div>
-				</div>
-			))}
-			</div>
+        {filterCategories.map(({ title, items, category }) => (
+          <div key={title} className={styles.filter}>
+            <p className={styles.filter__text}>{title}</p>
+            <div className={styles.filter_buttons}>
+              {items.map((item) => (
+                <FilterButton 
+                  key={item.title}
+                  label={item.title}
+                  icon={item.icon}
+                  isActive={activeFilters[category] === item.title}
+                  onClick={() => handleFilterClick(category, item.title)}
+                  dataAttribute={`${category}-${item.title}`}
+                />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
 
 			<div className={styles.flavorSelector}>
         <button onClick={toggleFlavorDropdown} className={styles.flavorButton}>
