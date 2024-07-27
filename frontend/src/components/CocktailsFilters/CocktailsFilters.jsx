@@ -3,6 +3,7 @@ import styles from "./CocktailsFilters.module.css";
 import { useState } from "react";
 import axios from "../../utils/axios";
 import FilterButton from "../FilterButton/FilterButton";
+import InputWithTags from "../InputWithTags/InputWithTags";
 
 const CocktailsFilters = () => {
 	const [activeFilters, setActiveFilters] = useState({
@@ -195,7 +196,7 @@ const CocktailsFilters = () => {
 				))}
 			</div>
 
-			{/* Search Filter Input */}
+			<InputWithTags />
 		</div>
 	);
 };
