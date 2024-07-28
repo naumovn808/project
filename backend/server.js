@@ -33,7 +33,7 @@ app.get('/', authenticateToken, (req, res) => {
 	res.send(req.user)
 })
 mongoose.connect(
-	'mongodb+srv://afruz:afruz123@patyshaker.xkimpcs.mongodb.net/Patyshaker'
+	'mongodb+srv://azamat2007pro:Partyshaker@partyshaker.6mr1hyx.mongodb.net/'
 )
 passport.serializeUser(function (user, cb) {
 	process.nextTick(function () {

@@ -9,6 +9,7 @@ const SocialButton = ({
     textColor,
     borderRadius,
     padding,
+    onclick
 }) => {
     const buttonStyle = {
         backgroundColor: backgroundColor || '#595975',
@@ -18,7 +19,7 @@ const SocialButton = ({
     };
 
     return (
-        <button className={styles.socialButton} style={buttonStyle}>
+        <button onClick={onclick} className={styles.socialButton} style={buttonStyle}>
             <img src={iconSrc} alt={`${text} icon`} className={styles.icon} />
             <span className={styles.buttonText}>{text}</span>
         </button>
