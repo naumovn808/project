@@ -7,8 +7,8 @@ import style from "./ProfileCropperModal.module.css";
 const ProfileCropperModal = ({ isOpen, imageSrc, onClose, onCrop }) => {
   const cropperRef = useRef(null);
 
-  const handleCrop = () => {
-    const cropper = cropperRef.current.cropper;
+  const handleCrop = async () => {
+    const cropper = await cropperRef.current.cropper;
     onCrop(cropper.getCroppedCanvas().toDataURL());
     onClose();
   };

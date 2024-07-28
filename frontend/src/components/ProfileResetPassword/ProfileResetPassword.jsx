@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Title from "../Title/Title";
 import Input from "../Input/Input";
-import style from "../ProfileResetPassword/ProfileResetPassword.module.css";
-import classNames from "classnames";
 import Button from "../Button/Button";
 import { useNavigate } from "react-router-dom";
+import classNames from "classnames";
+import style from "../ProfileResetPassword/ProfileResetPassword.module.css";
 
 export default function ProfileResetPassword({ isOpen, onClose }) {
   const [newPassword, setNewPassword] = useState("");
@@ -52,8 +52,7 @@ export default function ProfileResetPassword({ isOpen, onClose }) {
       const updatedUserData = {
         newPassword,
       };
-      console.log("Yangi parol:", newPassword);
-      console.log("Tasdiqlangan yangi parol:", confirmNewPassword);
+      console.log("new password:", newPassword);
       navigate(0);
     }
   };
@@ -94,7 +93,6 @@ export default function ProfileResetPassword({ isOpen, onClose }) {
           <label className={style.profile_reset_password__form_label}>
             <span>Введите новый пароль</span>
             <Input
-              // id={hidePassword ? "text" : "password"}
               name="newPassword"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
@@ -118,7 +116,6 @@ export default function ProfileResetPassword({ isOpen, onClose }) {
           <label className={style.profile_reset_password__form_label}>
             <span>Подтвердите новый пароль</span>
             <Input
-              // id={hidePassword ? "text" : "password"}
               name="confirmNewPassword"
               value={confirmNewPassword}
               onChange={(e) => setConfirmNewPassword(e.target.value)}

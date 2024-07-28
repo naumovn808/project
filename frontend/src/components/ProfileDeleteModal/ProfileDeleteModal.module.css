@@ -41,3 +41,35 @@
     border: none;
   }
 }
+
+& .profile_modal_content {
+  .profile_modal_content__lists {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    .profile_modal_content__list {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      &:nth-last-child(1) {
+        margin: 16px 0;
+      }
+    }
+  }
+  .profile_modal_form {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+.modal_buttons {
+  display: flex;
+  justify-content: end;
+  gap: 16px;
+  font-size: 16px;
+  :nth-child(1) {
+    background-color: #48455f;
+  }
+}

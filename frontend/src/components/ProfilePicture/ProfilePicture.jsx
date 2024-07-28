@@ -1,8 +1,8 @@
 import React from "react";
 import axios from "axios";
 import ProfileCropperModal from "../ProfileCropperModal/ProfileCropperModal";
-import style from "./ProfilePicture.module.css";
 import classNames from "classnames";
+import style from "./ProfilePicture.module.css";
 
 const ProfilePicture = () => {
   const [image, setImage] = React.useState(null);
@@ -17,11 +17,11 @@ const ProfilePicture = () => {
       setPreview(savedImage);
     }
   }, []);
-  const handleImageChange = (event) => {
+  const handleImageChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onloadend = () => {
+      reader.onloadend = async () => {
         setImageSrc(reader.result);
         setModalOpen(true);
       };
@@ -48,12 +48,14 @@ const ProfilePicture = () => {
     setPreview(null);
   };
 
+  const defaultAvatar = "/default-avatar.svg";
+
   return (
     <div className={classNames(style.profile_picture, style.profile_bg_border)}>
       <div className={style.profile_picture_avatar_content}>
         <img
-          src={preview || "/default-avatar.svg"}
-          alt="ok"
+          src={preview || defaultAvatar}
+          alt="Default"
           className={style.profile_picture__image}
         />
         {!preview && (
@@ -70,7 +72,7 @@ const ProfilePicture = () => {
             className={style.profile_picture__upload_label}
           >
             <img src="/Camera.svg" alt="camera" />
-            <span>Сменить фото</span>
+            <span>Выбрать фото</span>
           </label>
         </button>
         <input
