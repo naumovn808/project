@@ -153,19 +153,30 @@
 .removeFlavor:hover {
 	background-color: rgba(109, 116, 136, 0.2);
 }
-.resetButton {
-	background-color: #48455F;
-	color: #ffffff;
-	border: none;
-	padding: 10px 20px;
-	border-radius: 20px;
-	cursor: pointer;
-	font-size: 16px;
-	margin-top: 20px;
-	width: 100%;
-	max-width: 200px;
-	transition: background-color 0.3s ease;
+
+.resetButton,
+.scrollTopButton {
+  background: none;
+  border: none;
+  color: #B5A7E5; 
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px;
+  margin-top: 20px;
+  transition: opacity 0.3s ease;
 }
-.resetButton:hover {
-	background-color: #3d3458;
-  }
+.resetButton:hover,
+.scrollTopButton:hover {
+  opacity: 0.8;
+}
+.scrollTopButton {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.scrollTopIcon {
+	margin-right: 8px;
+	font-size: 18px;
+	line-height: 1;
+}

@@ -143,6 +143,12 @@ const resetAllFilters = () => {
 	inputWithTagsRef.current.resetTags();
 	}
 };
+const scrollToTop = () => {
+	window.scrollTo({
+		top: 0,
+		behavior: 'smooth'
+	});
+};
 
 	return (
 		<div className={styles.container}>
@@ -218,9 +224,14 @@ const resetAllFilters = () => {
 
 			<InputWithTags ref={inputWithTagsRef} />
 
-			<button onClick={resetAllFilters} className={styles.resetButton}>
-				Сбросить Фильтры
-			</button>
+		<button onClick={resetAllFilters} className={styles.resetButton}>
+        Сбросить фильтры
+      	</button>
+
+		  <button onClick={scrollToTop} className={styles.scrollTopButton}>
+        <span className={styles.scrollTopIcon}>^</span>
+        Наверх
+      </button>
 		</div>
 	);
 };
