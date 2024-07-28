@@ -4,6 +4,7 @@ import { useState } from "react";
 import axios from "../../utils/axios";
 import FilterButton from "../FilterButton/FilterButton";
 import InputWithTags from "../InputWithTags/InputWithTags";
+import Pagination from "../Pagination/Pagination";
 
 const CocktailsFilters = () => {
 	const [activeFilters, setActiveFilters] = useState({
@@ -150,6 +151,15 @@ const scrollToTop = () => {
 	});
 };
 
+const [currentPage, setCurrentPage] = useState(1);
+const [totalPages, setTotalPages] = useState(28);
+
+const handlePageChange = (pageNumber) => {
+	setCurrentPage(pageNumber)
+
+	// fetchDataForPage(pageNumber)
+};
+
 	return (
 		<div className={styles.container}>
 			{/* Checkbox */}
@@ -232,6 +242,12 @@ const scrollToTop = () => {
         <span className={styles.scrollTopIcon}>^</span>
         Наверх
       </button>
+
+	  <Pagination
+	  currentPage={currentPage}
+	  totalPages={totalPages}
+	  onPageChange={handlePageChange}
+	  />
 		</div>
 	);
 };
