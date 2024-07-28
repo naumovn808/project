@@ -7,7 +7,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #2D2A39;
+    background-color: #252232;
     padding: 0px 16px;
     height: 90px;
 }
@@ -17,7 +17,7 @@
 }
 .logo {
     height: auto;
-    width: 100%;
+    width: 107px;
     max-width: 140px;
 }
 .searchContainer {

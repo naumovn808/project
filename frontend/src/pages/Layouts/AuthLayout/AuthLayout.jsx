@@ -11,7 +11,7 @@ const AuthLayout = () => {
 	const path = location.pathname.replace(/\/+$/, "");
 
 	useEffect(() => {
-		if (path === "/auth") navigate("/main");
+		if (path === "/auth") navigate("/");
 	}, []);
 
 	return (
