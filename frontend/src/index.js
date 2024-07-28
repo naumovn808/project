@@ -11,6 +11,7 @@ import Main from './pages/Layouts/Main/Main.jsx';
 import PasswordReset from './pages/Auth/PasswordReset/PasswordReset.jsx';
 import PasswordSend from './pages/Auth/PasswordSend/PasswordSend.jsx';
 import NewPassword from './pages/Auth/NewPassword/NewPassword.jsx';
+import PageTitres from './pages/PageTitres/PageTitres.jsx';
 
 const router = createBrowserRouter([
     {
@@ -50,9 +51,11 @@ const router = createBrowserRouter([
         element: <Error />,
     },
     {
-        path: "main",
-        element: <Main />
+        path: 'titres',
+        element: <PageTitres />
     }
+
+
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
