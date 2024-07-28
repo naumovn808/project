@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "./CocktailsFilters.module.css";
 import { useState } from "react";
 import axios from "../../utils/axios";
@@ -124,6 +124,24 @@ const CocktailsFilters = () => {
 		setSelectedFlavors(prev => prev.filter(f => f !== flavor));
 	}
 
+	const inputWithTagsRef = useRef();
+
+	const resetAllFilters = () => {
+		setActiveFilters({
+			strength: null,
+			format: null,
+			complexity: null
+		});
+		setSelectedFlavors([]);
+		setCheckBoxState(prev => ({
+			...prev,
+			isChecked: false
+		}));
+		if (inputWithTagsRef.current) {
+			inputWithTagsRef.current.resetTags();
+		}
+	};
+
 	return (
 		<div className={styles.container}>
 			{/* Checkbox */}
@@ -196,7 +214,11 @@ const CocktailsFilters = () => {
 				))}
 			</div>
 
-			<InputWithTags />
+			<InputWithTags ref={inputWithTagsRef} />
+
+			<button onClick={resetAllFilters} className={styles.resetButton}>
+				Сбросить Фильтры
+			</button>
 		</div>
 	);
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, forwardRef, useImperativeHandle } from "react";
 import styles from './InputWithTags.module.css'
 
 const mockFilters = [
@@ -7,11 +7,20 @@ const mockFilters = [
   "Сахарный сироп", "Содовая", "Тоник", "Кола"
 ];
 
-const InputWithTags = () => {
+const InputWithTags = forwardRef((props, ref) => {
   const [inputValue, setInputValue] = useState('');
   const [tags, setTags] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
   const [noResults, setNoResults] = useState(false);
+
+  useImperativeHandle(ref, () => ({
+    resetTags: () => {
+      setTags([]);
+      setInputValue('');
+      setSuggestions([]);
+      setNoResults(false);
+    }
+  }));
 
   const searchFilters = async (query) => {
     // Имитация запроса к бэкенду
@@ -31,7 +40,6 @@ const InputWithTags = () => {
         setNoResults(false);
       }
     }, 300);
-
     return () => clearTimeout(delayDebounceFn);
   }, [inputValue]);
 
@@ -91,6 +99,6 @@ const InputWithTags = () => {
       </div>
     </div>
   );
-};
+});
 
 export default InputWithTags;
