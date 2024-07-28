@@ -7,9 +7,9 @@ import InputWithTags from "../InputWithTags/InputWithTags";
 
 const CocktailsFilters = () => {
 	const [activeFilters, setActiveFilters] = useState({
-		strength: null,
-		format: null,
-		complexity: null
+		strength: [],
+		format: [],
+		complexity: []
 	});
 
 	const [strength, setStrength] = useState([]);
@@ -42,10 +42,12 @@ const CocktailsFilters = () => {
 	}, []);
 	const handleFilterClick = (category, value) => {
 		setActiveFilters(prev => ({
-			...prev,
-			[category]: prev[category] === value ? null : value
+		  ...prev,
+		  [category]: prev[category].includes(value)
+			? prev[category].filter(item => item !== value)
+			: [...prev[category], value]
 		}));
-	};
+	  };
 	const filterCategories = [
 		{ 
 		  title: "Крепость", 
@@ -126,21 +128,21 @@ const CocktailsFilters = () => {
 
 	const inputWithTagsRef = useRef();
 
-	const resetAllFilters = () => {
-		setActiveFilters({
-			strength: null,
-			format: null,
-			complexity: null
-		});
-		setSelectedFlavors([]);
-		setCheckBoxState(prev => ({
-			...prev,
-			isChecked: false
-		}));
-		if (inputWithTagsRef.current) {
-			inputWithTagsRef.current.resetTags();
-		}
-	};
+const resetAllFilters = () => {
+	setActiveFilters({
+	strength: [],
+	format: [],
+	complexity: []
+	});
+	setSelectedFlavors([]);
+	setCheckBoxState(prev => ({
+	...prev,
+	isChecked: false
+	}));
+	if (inputWithTagsRef.current) {
+	inputWithTagsRef.current.resetTags();
+	}
+};
 
 	return (
 		<div className={styles.container}>
@@ -173,7 +175,7 @@ const CocktailsFilters = () => {
                   key={item.title}
                   label={item.title}
                   icon={item.icon}
-                  isActive={activeFilters[category] === item.title}
+                  isActive={activeFilters[category].includes(item.title)}
                   onClick={() => handleFilterClick(category, item.title)}
                   dataAttribute={`${category}-${item.title}`}
                 />
