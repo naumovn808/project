@@ -11,7 +11,7 @@ router.get(
 	'/odnoklassniki/callback',
 	passport.authenticate('odnoklassniki', { failureRedirect: '/auth/login' }),
 	(req, res) => {
-		res.redirect('/')
+        res.redirect('http://localhost:3000/');
 	}
 )
 passport.use(

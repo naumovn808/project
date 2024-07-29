@@ -7,11 +7,11 @@ const GoogleOauth = require('../Oauth/Google')
 const OkOauth = require('../Oauth/Ok')
 const VkOauth = require('../Oauth/Vk')
 const YandexOauth = require('../Oauth/Yandex')
-const MailRuOauth = require('../Oauth/MailRu')
-const UserSchema = require('../models/UserSchema')
-const nodemailer = require('nodemailer')
-const sendgrid = require('nodemailer-sendgrid-transport')
+require('dotenv').config()
+
 const router = express.Router()
+
+// Update access token middleware
 const updateAccessToken = async (req, res, next) => {
 	const accessToken =
 		req.headers.authorization?.split(' ')[1] || req.cookies.accessToken
@@ -22,7 +22,6 @@ const updateAccessToken = async (req, res, next) => {
 			const expiresIn = decoded.exp - now
 			if (expiresIn < 300) {
 				const refreshToken = req.cookies.refreshToken
-
 				const decodedRefresh = jwt.verify(
 					refreshToken,
 					process.env.REFRESH_TOKEN_SECRET
@@ -34,19 +33,18 @@ const updateAccessToken = async (req, res, next) => {
 					{ expiresIn: '15m' }
 				)
 				res.cookie('accessToken', newAccessToken, { httpOnly: true })
-
 				res.setHeader('Authorization', `Bearer ${newAccessToken}`)
 			}
 		} catch (error) {
 			console.error(error)
 		}
 	}
-
 	next()
 }
+
 router.use(updateAccessToken)
 
-// GEt REquest
+// GET Requests
 router.get('/reset', (req, res) => {
 	res.redirect('http://localhost:3000/auth/reset')
 })
@@ -89,7 +87,7 @@ router.post('/register', async (req, res) => {
 			},
 		})
 		transport.sendMail({
-			from: 'afruzmalikov65@gmail.com',
+			from: process.env.EMAIL,
 			to: email,
 			subject: 'activate the email',
 			html: `
@@ -184,7 +182,7 @@ router.post('/reset', async (req, res) => {
 			},
 		})
 		transport.sendMail({
-			from: 'afruzmalikov65@gmail.com',
+			from: process.env.EMAIL,
 			to: email,
 			subject: 'reset a password',
 			html: `
