@@ -11,6 +11,7 @@
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
+		"axios": "^1.7.2",
 		"bcrypt": "^5.1.1",
 		"cookie-parser": "^1.4.6",
 		"cors": "^2.8.5",
@@ -27,6 +28,9 @@
 		"passport-google-oidc": "^0.1.0",
 		"passport-mail": "^1.0.1",
 		"passport-mailru": "^0.0.1",
-		"passport-oauth2": "^1.8.0"
+		"passport-oauth2": "^1.8.0",
+		"passport-odnoklassniki": "^0.2.0",
+		"passport-vkontakte": "^0.5.0",
+		"passport-yandex": "^0.0.5"
 	}
 }

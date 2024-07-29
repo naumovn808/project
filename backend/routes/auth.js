@@ -1,6 +1,7 @@
 const express = require('express')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const activateToken = require('../middleware/activateToken')
 const resetToken = require('../middleware/resetToken')
 const GoogleOauth = require('../Oauth/Google')
 const OkOauth = require('../Oauth/Ok')
@@ -47,16 +48,16 @@ router.use(updateAccessToken)
 
 // GEt REquest
 router.get('/reset', (req, res) => {
-	res.send('hi Nikita')
+	res.redirect('http://localhost:3000/auth/reset')
 })
 router.get('/reset/password/:token', resetToken, (req, res) => {
-	res.redirect('opaopa')
+	res.redirect('http://localhost:3000/auth/reset')
 })
 router.get('/register', (req, res) => {
-	res.send('lala')
+	res.redirect('http://localhost:3000/auth/register')
 })
 router.get('/login', (req, res) => {
-	res.send('hi')
+	res.redirect('http://localhost:3000/auth/login')
 })
 ///   GEt REquest  //
 
@@ -67,19 +68,68 @@ router.post('/register', async (req, res) => {
 		const user = await UserSchema.findOne({ email: email })
 		if (user)
 			return res.status(409).send({ massage: 'User has already registered' })
-		await UserSchema.create({
+		const activeToken = jwt.sign(
+			{ email: email, password: password },
+			process.env.JWT_SECRET,
+			{
+				expiresIn: '30m',
+			}
+		)
+
+		const transport = nodemailer.createTransport({
+			service: 'gmail',
+			auth: {
+				type: 'OAuth2',
+				user: process.env.EMAIL,
+				pass: process.env.PASS,
+				clientId: process.env.GOOGLE_CLIENT_ID,
+				clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+				accessToken: process.env.EMAIL_ACCSES_TOKEN,
+				refreshToken: process.env.EMAIL_REFRESH_TOKEN,
+			},
+		})
+		transport.sendMail({
+			from: 'afruzmalikov65@gmail.com',
+			to: email,
+			subject: 'activate the email',
+			html: `
+			<a href="http://localhost:1000/auth/register/${activeToken}">Activate email</a>
+			`,
+		})
+		res.cookie('activeToken', activeToken, { httpOnly: true })
+		res.status(200).send('email has sended')
+	} catch (error) {
+		console.error(error)
+		res.status(500).send('Error registering user')
+	}
+})
+router.get('/register/:token', activateToken, async (req, res) => {
+	try {
+		const user = await UserSchema.create({
 			socialId: null,
 			familyName: null,
 			userPhotoLink: null,
 			username: null,
 			givenName: null,
-			email: email,
-			password: password,
+			email: req.user.email,
+			password: req.user.password,
 		})
-		res.redirect('/auth/login')
+		const accessToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+			expiresIn: '15m',
+		})
+		const refreshToken = jwt.sign(
+			{ id: user._id },
+			process.env.REFRESH_TOKEN_SECRET,
+			{
+				expiresIn: '30d',
+			}
+		)
+		res.cookie('accessToken', accessToken, { httpOnly: true })
+		res.cookie('refreshToken', refreshToken, { httpOnly: true })
+		res.redirect('/')
 	} catch (error) {
-		console.error(error)
-		res.status(500).send('Error registering user')
+		console.log(error)
+		res.status(500).send(error)
 	}
 })
 router.post('/login', async (req, res) => {
@@ -96,7 +146,10 @@ router.post('/login', async (req, res) => {
 		})
 		const refreshToken = jwt.sign(
 			{ id: user._id },
-			process.env.REFRESH_TOKEN_SECRET
+			process.env.REFRESH_TOKEN_SECRET,
+			{
+				expiresIn: '30d',
+			}
 		)
 		res.cookie('accessToken', accessToken, { httpOnly: true })
 		res.cookie('refreshToken', refreshToken, { httpOnly: true })
@@ -117,18 +170,26 @@ router.post('/reset', async (req, res) => {
 		const resetToken = jwt.sign({ email: user.email }, process.env.JWT_SECRET, {
 			expiresIn: '1h',
 		})
-		const transporter = nodemailer.createTransport(
-			sendgrid({
-				auth: { api_key: process.env.SENDGRID_API_KEY },
-			})
-		)
-		transporter.sendMail({
-			to: email,
+
+		const transport = nodemailer.createTransport({
+			service: 'gmail',
+			auth: {
+				type: 'OAuth2',
+				user: process.env.EMAIL,
+				pass: process.env.PASS,
+				clientId: process.env.GOOGLE_CLIENT_ID,
+				clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+				accessToken: process.env.EMAIL_ACCSES_TOKEN,
+				refreshToken: process.env.EMAIL_REFRESH_TOKEN,
+			},
+		})
+		transport.sendMail({
 			from: 'afruzmalikov65@gmail.com',
-			subject: 'RESET PASSWORD',
+			to: email,
+			subject: 'reset a password',
 			html: `
-		<a href="http://localhost:1000/auth/reset/password/${resetToken}"
-		`,
+			<a href="http://localhost:1000/auth/register/${resetToken}">Activate email</a>
+			`,
 		})
 		res.cookie('resetToken', resetToken, { httpOnly: true })
 		res.sendStatus(200)
@@ -143,7 +204,7 @@ router.post('/reset/password/:token', resetToken, async (req, res) => {
 		const user = await UserSchema.findOne({ email: email })
 		user.updateOne({ password: NewPassword })
 		await user.save()
-		res.status(303).redirect('/register')
+		res.redirect('/login')
 	} catch (error) {
 		res.status(500).send({ message: error })
 	}

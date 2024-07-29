@@ -25,16 +25,13 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use('/auth', AuthRouter)
 app.use('/products', ProductRouter)
-app.get('/receiver.html', (req, res) => {
-	res.redirect('http://localhost:5500/_receiver.html')
-})
-app.get('/', authenticateToken, (req, res) => {
-	console.log(req.user)
-	res.send(req.user)
-})
 mongoose.connect(
-	'mongodb+srv://afruz:afruz123@patyshaker.xkimpcs.mongodb.net/Patyshaker'
+	'mongodb+srv://afruzmalikov65:party1234@cluster0.ptpw2rj.mongodb.net/Patyshaker'
 )
+app.get('/', authenticateToken, (req, res) => {
+	res.redirect('http://localhost:3000/')
+})
+
 passport.serializeUser(function (user, cb) {
 	process.nextTick(function () {
 		cb(null, user)
