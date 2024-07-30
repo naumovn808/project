@@ -82,6 +82,17 @@
 	height: 14px;
 	border: #ffffff03;
 }
+.mobileFilter {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #1f1e2e;
+	z-index: 1000;
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+}
 
 @media (max-width: 490px) {
 	.filters {
@@ -93,11 +104,15 @@
 		display: block;
 		position: fixed;
 		bottom: 65px;
+		z-index: 1001;
 	}
 
 	.content__mobile__buttons {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+	}
+	.mobileFilter {
+		height: 100%;
 	}
 }

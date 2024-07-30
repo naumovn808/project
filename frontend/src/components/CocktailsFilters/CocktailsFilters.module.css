@@ -4,6 +4,45 @@
 	flex-direction: column;
 	flex-wrap: wrap;
 }
+.mobileContainer {
+	max-width: 100%;
+	padding: 20px;
+	box-sizing: border-box;
+}
+.mobileHeader {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #48455F;
+}
+.mobileTitle {
+	font-size: 20px;
+	font-weight: 500;
+	color: #d6dce1;
+	margin: 0;
+}
+.closeButton {
+	background: none;
+	border: none;
+	color: #d6dce1;
+	font-size: 24px;
+	cursor: pointer;
+	padding: 10px;
+}
+.applyButton {
+	margin-top: 20px;
+	padding: 15px;
+	background-color: #6d45e6;
+	color: #ffffff;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	font-size: 16px;
+	font-weight: 500;
+	width: 100%;
+}
 
 /* CheckBox */
 .checkBox {
@@ -194,14 +233,16 @@
 
 .resetButton,
 .scrollTopButton {
-  background: none;
-  border: none;
-  color: #B5A7E5; 
-  cursor: pointer;
-  font-size: 16px;
-  padding: 10px;
-  margin-top: 20px;
-  transition: opacity 0.3s ease;
+background: none;
+border: none;
+color: #B5A7E5;
+cursor: pointer;
+font-size: 16px;
+padding: 15px;
+margin-top: 20px;
+transition: opacity 0.3s ease;
+width: 100%;
+text-align: center;
 }
 .resetButton:hover,
 .scrollTopButton:hover {
@@ -217,4 +258,30 @@
 	margin-right: 8px;
 	font-size: 18px;
 	line-height: 1;
+}
+
+@media (max-width: 490px) {
+	.mobileContainer {
+	  display: flex;
+	  flex-direction: column;
+	}
+	.mobileHeader {
+		position: sticky;
+		top: 0;
+		background-color: #1f1e2e;
+		z-index: 1;
+	}
+  
+	.applyButton {
+	  order: 2;
+	}
+  
+	.checkBox, .filter_buttons, .flavorButton, .flavorOption, .selectedFlavor, .resetButton, .applyButton {
+	  min-height: 44px;
+	  align-items: center;
+	}
+  
+	.filter, .flavorSelector, .selectedFlavorsContainer {
+	  margin-bottom: 20px;
+	}
 }

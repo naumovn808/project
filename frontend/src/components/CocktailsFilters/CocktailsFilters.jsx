@@ -5,7 +5,7 @@ import FilterButton from "../FilterButton/FilterButton";
 import InputWithTags from "../InputWithTags/InputWithTags";
 import Pagination from "../Pagination/Pagination";
 
-const CocktailsFilters = () => {
+const CocktailsFilters = ({ isMobile, onClose }) => {
   const [activeFilters, setActiveFilters] = useState({
     strength: [],
     format: [],
@@ -168,7 +168,16 @@ const CocktailsFilters = () => {
   ];
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${isMobile ? styles.mobileContainer : ''}`}>
+      {isMobile && (
+        <div className={styles.mobileHeader}>
+          <h2 className={styles.mobileTitle}>Фильтр</h2>
+          <button className={styles.closeButton} onClick={onClose}>
+            ✕
+          </button>
+        </div>
+      )}
+      
       {/* Checkbox */}
       {entered ? (
         <div className={styles.checkBox}>
@@ -251,24 +260,34 @@ const CocktailsFilters = () => {
 
       {/* Input With Tags */}
       <InputWithTags ref={inputWithTagsRef} />
-
-      {/* Reset Filters Button */}
-      <button onClick={resetAllFilters} className={styles.resetButton}>
-        Сбросить фильтры
-      </button>
-
-      {/* Scroll to Top Button */}
-      <button onClick={scrollToTop} className={styles.scrollTopButton}>
-        <span className={styles.scrollTopIcon}>^</span>
-        Наверх
-      </button>
-
-      {/* Pagination */}
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        onPageChange={handlePageChange}
-      />
+        {/* Reset Filters и Apply Button для мобильной версии */}
+      {isMobile ? (
+        <>
+          <button onClick={resetAllFilters} className={styles.resetButton}>
+            Сбросить фильтры
+          </button>
+          <button className={styles.applyButton} onClick={onClose}>
+            Применить
+          </button>
+        </>
+      ) : (
+        <>
+          <button onClick={resetAllFilters} className={styles.resetButton}>
+            Сбросить фильтры
+          </button>
+          {/* Scroll to Top Button */}
+          <button onClick={scrollToTop} className={styles.scrollTopButton}>
+            <span className={styles.scrollTopIcon}>^</span>
+            Наверх
+          </button>
+          {/* Pagination */}
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        </>
+      )}
     </div>
   );
 };
