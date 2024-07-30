@@ -53,6 +53,7 @@
 /* mobile */
 .content__mobile {
 	display: none;
+	transition: 600ms ease;
 }
 
 .hidden {
@@ -112,7 +113,17 @@
 		align-items: center;
 		justify-content: space-between;
 	}
+
 	.mobileFilter {
 		height: 100%;
+	}
+
+	.content__mobile.visible {
+		opacity: 1;
+	}
+	
+	.content__mobile.hidden {
+		opacity: 0;
+		pointer-events: none;
 	}
 }
