@@ -27,7 +27,7 @@ passport.use(
                         familyName: userinfo.name.familyName,
                         givenName: userinfo.name.givenName,
                         email: userinfo.emails[0].value,
-                        username: userinfo.name.givenName + userinfo.name.familyName + '7',
+                        username: userinfo.name.givenName + userinfo.name.familyName,
                         password: 'user' + userinfo.id,
                         userPhotoLink: null,
                     });

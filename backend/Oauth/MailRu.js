@@ -61,8 +61,6 @@ router.get('/login/oauth/mailru/redirect', async (req, res) => {
             });
             await user.save();
         }
-
-        // Generate JWT tokens
         const accessToken = jwt.sign(
             { id: user._id },
             process.env.JWT_SECRET,
@@ -73,7 +71,6 @@ router.get('/login/oauth/mailru/redirect', async (req, res) => {
             process.env.REFRESH_TOKEN_SECRET
         );
 
-        // Set cookies and redirect
         res.cookie('accessToken', accessToken, { httpOnly: true });
         res.cookie('refreshToken', refreshToken, { httpOnly: true });
         res.redirect('http://localhost:3000/');

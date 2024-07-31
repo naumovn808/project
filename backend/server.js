@@ -28,13 +28,16 @@ app.use('/products', ProductRouter)
 app.get('/receiver.html', (req, res) => {
 	res.redirect('http://localhost:5500/_receiver.html')
 })
+
 app.get('/', authenticateToken, (req, res) => {
 	console.log(req.user)
 	res.send(req.user)
 })
+
 mongoose.connect(
 	'mongodb+srv://azamat2007pro:Partyshaker@partyshaker.6mr1hyx.mongodb.net/'
 )
+
 passport.serializeUser(function (user, cb) {
 	process.nextTick(function () {
 		cb(null, user)
