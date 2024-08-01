@@ -1,13 +1,4 @@
 {
-<<<<<<< HEAD
-"main": "index.html",
-"name": "nw-pre-gyp-module-test",
-"description": "Node-webkit-based module test.",
-"version": "0.0.1",
-"window": {
-   "show": false
-}
-=======
   "name": "backend",
   "version": "1.0.0",
   "description": "настроил структуру и сделал схемы",
@@ -38,5 +29,4 @@
     "passport-mailru": "^0.0.1",
     "passport-oauth2": "^1.8.0"
   }
->>>>>>> friend-repo/development
 }

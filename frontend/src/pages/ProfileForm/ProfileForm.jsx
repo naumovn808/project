@@ -9,6 +9,7 @@ import Header from "../../components/Auth_Header/Auth_Header";
 import Footer from "../../components/Auth_Footer/Auth_Footer";
 import Button from "../../components/Button/Button";
 import Description from "../../components/Description/Description";
+import ProfileMessageModal from "../../components/ProfileMessageModal/ProfileMessageModal";
 import classNames from "classnames";
 import style from "./ProfileForm.module.css";
 
@@ -18,10 +19,12 @@ const ProfileForm = ({ userId }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isResetPassword, setIsResetPassword] = useState(false);
 
+  let userEmail = "yury.papa@gmail.com";
+
   useEffect(() => {
     const fetchUserImage = async () => {
       try {
-        // Axios 
+        // Axios
       } catch (error) {
         console.error("Error fetching user image:", error);
       }
@@ -31,8 +34,7 @@ const ProfileForm = ({ userId }) => {
 
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
-  const handleResetPassword = () => setIsResetPassword(true);
-  const handleCloseResetPassword = () => setIsResetPassword(false);
+  const handleResetPassword = () => setIsResetPassword((prev) => !prev);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -47,6 +49,7 @@ const ProfileForm = ({ userId }) => {
   return (
     <>
       <Header />
+      <ProfileMessageModal />
       <div className={style.profile_container}>
         <Title className={style.profile_top_title}>Изменение профиля</Title>
         <div className={style.profile}>
@@ -100,9 +103,15 @@ const ProfileForm = ({ userId }) => {
                 }
               />
               {isResetPassword && (
+                <div className={style.profile_reset_password_text}>
+                  <img src="/Success.svg" alt="Success" />
+                  <p>{`Отправили ссылку для смены пароля на ${userEmail}`}</p>
+                </div>
+              )}
+              {isResetPassword && (
                 <ProfileResetPassword
                   isOpen={isResetPassword}
-                  onClose={handleCloseResetPassword}
+                  onClose={handleResetPassword}
                 />
               )}
             </div>

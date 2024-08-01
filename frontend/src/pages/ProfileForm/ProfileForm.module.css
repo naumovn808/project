@@ -2,6 +2,7 @@
   list-style-type: none;
 }
 .profile_container {
+  position: relative;
   max-width: 1920px;
   margin: clamp(1rem, 0.6rem + 2vw, 3rem) clamp(0.25rem, -0.1rem + 1.75vw, 2rem)
     clamp(4.75rem, 4.7rem + 0.25vw, 5rem) clamp(0.25rem, -0.1rem + 1.75vw, 2rem);
@@ -58,6 +59,13 @@
 }
 & .profile_mobile_delete {
   display: none;
+}
+
+.profile_reset_password_text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
 }
 
 .profile_user_photo_update {
@@ -119,7 +127,6 @@
 .profile_modal_title {
   font-size: 32px;
 }
-
 
 .profile_modal_button {
   padding: 8px 12px;
