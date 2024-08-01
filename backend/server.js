@@ -30,8 +30,7 @@ app.get('/receiver.html', (req, res) => {
 })
 
 app.get('/', authenticateToken, (req, res) => {
-	console.log(req.user)
-	res.send(req.user)
+	res.redirect('http://localhost:3000/')
 })
 
 mongoose.connect(
