@@ -5,6 +5,7 @@ import Auth_Footer from "../../../components/Auth_Footer/Auth_Footer";
 import Auth_Header from "../../../components/Auth_Header/Auth_Header";
 import CocktailsFilters from "../../../components/CocktailsFilters/CocktailsFilters";
 import Button from "../../../components/Button/Button";
+import CocktailCard from "../../../components/CocktailCard/CocktailCard";
 
 const Main = () => {
 	const [isButtonsVisible, setIsButtonsVisible] = useState(true);
@@ -83,10 +84,17 @@ const Main = () => {
 				)}
 				<div className={styles.content}>
 					<div className={styles.content__cards}>
-						{[...Array(10)].map((_, i) => (
-							<div key={i} className={styles.card}></div>
-						))}
-						<Outlet />
+					<CocktailCard 
+					name={"Лонг-Айленд"}
+					description={"Пряный, цитрусовый, сла..."}
+					rating={4.5}
+					images={['/Cocktail.png', '/Cocktail2.png', '/Cocktail3.png', '/Cocktail4.png', '/Cocktail5.png', '/Cocktail6.png', '/Cocktail3.png']}
+					tags={[
+						{ name: 'Пряный', icon: '/Flame.png'},
+						{ name: 'Цитруосвый', icon: '/Long.png'},
+						{name: 'Слабоалкогольный', icon: '/MediumDif.png'}
+					]}
+					/>
 					</div>
 					<div className={styles.content__button}>
 						<Button title={"Показать еще коктейли"} className={styles.content__button__add} />
