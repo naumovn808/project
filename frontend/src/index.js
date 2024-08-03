@@ -11,6 +11,7 @@ import Main from './pages/Layouts/Main/Main.jsx';
 import PasswordReset from './pages/Auth/PasswordReset/PasswordReset.jsx';
 import PasswordSend from './pages/Auth/PasswordSend/PasswordSend.jsx';
 import NewPassword from './pages/Auth/NewPassword/NewPassword.jsx';
+import Cocktail from './pages/Cocktail/Cocktail.jsx';
 
 const router = createBrowserRouter([
     {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: <Main />
+    },
+    {
+        path: "cocktail",
+        element: <Cocktail />
     }
 ]);
 
