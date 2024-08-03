@@ -6,6 +6,7 @@ const resetToken = require('../middleware/resetToken')
 const GoogleOauth = require('../Oauth/Google')
 const OkOauth = require('../Oauth/Ok')
 const VkOauth = require('../Oauth/Vk')
+const MailRuOauth = require('../Oauth/MailRu')
 const YandexOauth = require('../Oauth/Yandex')
 require('dotenv').config()
 
@@ -13,36 +14,28 @@ const router = express.Router()
 
 // Update access token middleware
 const updateAccessToken = async (req, res, next) => {
-	const accessToken =
-		req.headers.authorization?.split(' ')[1] || req.cookies.accessToken
-	if (accessToken) {
-		try {
-			const decoded = jwt.verify(accessToken, process.env.JWT_SECRET)
-			const now = Math.floor(Date.now() / 1000)
-			const expiresIn = decoded.exp - now
-			if (expiresIn < 300) {
-				const refreshToken = req.cookies.refreshToken
-				const decodedRefresh = jwt.verify(
-					refreshToken,
-					process.env.REFRESH_TOKEN_SECRET
-				)
+    console.log('Updating access token');
+    const accessToken = req.headers.authorization?.split(' ')[1] || req.cookies.accessToken;
+    if (accessToken) {
+        try {
+            const decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
+            const now = Math.floor(Date.now() / 1000);
+            const expiresIn = decoded.exp - now;
+            if (expiresIn < 300) {
+                const refreshToken = req.cookies.refreshToken;
+                const decodedRefresh = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+                const newAccessToken = jwt.sign({ _id: decodedRefresh._id }, process.env.JWT_SECRET, { expiresIn: '15m' });
+                res.cookie('accessToken', newAccessToken, { httpOnly: true });
+                res.setHeader('Authorization', `Bearer ${newAccessToken}`);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    next();
+};
 
-				const newAccessToken = jwt.sign(
-					{ _id: decodedRefresh._id },
-					process.env.JWT_SECRET,
-					{ expiresIn: '15m' }
-				)
-				res.cookie('accessToken', newAccessToken, { httpOnly: true })
-				res.setHeader('Authorization', `Bearer ${newAccessToken}`)
-			}
-		} catch (error) {
-			console.error(error)
-		}
-	}
-	next()
-}
-
-router.use(updateAccessToken)
+router.use(updateAccessToken);
 
 // GET Requests
 router.get('/reset', (req, res) => {
@@ -89,7 +82,7 @@ router.post('/register', async (req, res) => {
 		transport.sendMail({
 			from: process.env.EMAIL,
 			to: email,
-			subject: 'activate the email',
+			subject: 'Afruz GitGovno!',
 			html: `
 			<a href="http://localhost:1000/auth/register/${activeToken}">Activate email</a>
 			`,
