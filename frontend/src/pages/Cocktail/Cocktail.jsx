@@ -8,6 +8,8 @@ const obj = {
 	description:
 		"Классический коктейль, обладающий своеобразным характером и многогранным вкусом. Сочетание различных спиртных напитков создает гармонию пряностей, сладости, кислотности и освежающих ноток. Он отлично подходит для тех, кто предпочитает насыщенные и энергичные напитки.",
 	taste: "пряный",
+	rating: "4,5",
+	peoplsAssessments: 2967,
 	strength: "Крепкий",
 	format: "Лонг",
 	difficult: "Средняя сложность",
@@ -23,12 +25,15 @@ const obj = {
 };
 
 const Cocktail = () => {
+	const [hoveredRating, setHoveredRating] = useState(0);
+	const [fixedRating, setFixedRating] = useState(null);
 	const [currentImageIndex, setCurrentImageIndex] = useState(0);
 	const [isShareOpen, setIsShareOpen] = useState(false);
+	const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
 	const [isSaved, setIsSaved] = useState(false);
-	const images = Object.values(obj.images);
-	const currentUrl = window.location.href;
-	const socialNetworks = [
+	const [images, setImages] = useState(Object.values(obj.images));
+	const [currentUrl, setCurrentUrl] = useState(window.location.href);
+	const [socialNetworks, setSocialNetworks] = useState([
 		{
 			name: "ВКонтакте",
 			icon: "VK.png",
@@ -74,7 +79,7 @@ const Cocktail = () => {
 			icon: "Viber.png",
 			url: `viber://forward?text=${currentUrl}`,
 		},
-	];
+	]);
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -94,6 +99,32 @@ const Cocktail = () => {
 
 	const handleSaved = () => {
 		setIsSaved(!isSaved);
+	};
+
+	const handleMouseEnter = (rating) => {
+		setHoveredRating(rating);
+	};
+
+	const handleMouseLeave = () => {
+		setHoveredRating(0);
+	};
+
+	const handleRating = (rating) => {
+		setFixedRating(rating);
+	};
+
+	const toggleDesc = () => {
+		setIsDescriptionOpen(!isDescriptionOpen);
+	};
+
+	const getStarSrc = (index) => {
+		if (fixedRating !== null) {
+			return index <= fixedRating ? "silverStar.png" : "emptStar.png";
+		} else if (index <= hoveredRating) {
+			return "silverStar.png";
+		} else {
+			return "emptStar.png";
+		}
 	};
 
 	return (
@@ -130,7 +161,10 @@ const Cocktail = () => {
 					</div>
 
 					<div className={styles.add__save}>
-						<button className={`${styles.save__button} ${isSaved ? styles.saved : ""}`} onClick={handleSaved}>
+						<button
+							className={`${styles.save__button} ${isSaved ? styles.saved : ""}`}
+							onClick={handleSaved}
+						>
 							<img src={isSaved ? "Nosaved.png" : "Saved.png"} alt="error" />
 							{isSaved ? "Убрать из сохраненного" : "Добавить в сохраненное"}
 						</button>
@@ -163,6 +197,43 @@ const Cocktail = () => {
 
 				<div className={styles.right__side}>
 					<h1 className={styles.title}>{obj.name}</h1>
+					<div className={styles.stars}>
+						<div className={styles.rating}>
+							<p className={styles.rating__float}>{obj.rating}</p>
+							{parseInt(obj.rating) >= 4 ? (
+								<img className={styles.rating__star} src="goldStar.png" alt="goldStar" />
+							) : (
+								<img className={styles.rating__star} src="silverStar.png" alt="silverStar" />
+							)}
+							<p className={styles.peoples__assessments}>{obj.peoplsAssessments} оценок</p>
+						</div>
+						<div className={styles.rating}>
+							<span className={styles.peoples__assessments}>Ваша оценка:</span>
+							{[1, 2, 3, 4, 5].map((index) => (
+								<img
+									key={index}
+									className={styles.rating__star}
+									src={getStarSrc(index)}
+									alt="error"
+									onMouseEnter={() => handleMouseEnter(index)}
+									onMouseLeave={handleMouseLeave}
+									onClick={() => handleRating(index)}
+								/>
+							))}
+						</div>
+					</div>
+					<div className={styles.description}>
+						<p className={`${styles.description__text} ${isDescriptionOpen ? styles.open : ""}`}>{obj.description}</p>
+						<button
+							onClick={toggleDesc}
+							className={styles.share__button}
+						>
+							{!isDescriptionOpen ? <span>Показать полное описание</span> : <span>Свернуть описание</span>}
+							<span className={`${styles.arrow} ${isDescriptionOpen ? styles.rotate : ""}`}>
+								<img className={styles.arrow__img} src="ArrowTop.png" alt="arrow" />
+							</span>
+						</button>
+					</div>
 				</div>
 			</div>
 			<Footer />
