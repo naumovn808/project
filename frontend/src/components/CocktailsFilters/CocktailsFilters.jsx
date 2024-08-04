@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { act, useEffect, useRef, useState } from "react";
 import styles from "./CocktailsFilters.module.css";
 import axios from "../../utils/axios";
 import FilterButton from "../FilterButton/FilterButton";
@@ -11,6 +11,8 @@ const CocktailsFilters = ({ isMobile, onClose }) => {
     format: [],
     complexity: []
   });
+
+  const [ingredients, setIngredients] = useState([]);
 
   const [strength, setStrength] = useState([]);
   const [sizeDrinks, setSizeDrinks] = useState([]);
@@ -52,6 +54,31 @@ const CocktailsFilters = ({ isMobile, onClose }) => {
     };
     getDataFilters();
   }, []);
+
+  const applyFilters = async () => {
+    const filterData = {
+      strength: activeFilters.strength,
+      format: activeFilters.format,
+      complexity: activeFilters.complexity,
+      flavors: selectedFlavors,
+      onlySaved: checkBoxState.isChecked,
+      ingredients: ingredients,
+      page: currentPage
+    };
+
+    try {
+      const response = await axios.post("http://localhost:1000/filters", filterData);
+      // Server response processing
+      console.log("Filters have been successfully submitted:", response.data)
+      // Here you can update the state of the component based on the server response
+    } catch (error) {
+      console.error("Error when sending filters:", error)
+    }
+  };
+
+  const handleIngredientChange = (newIngredients) => {
+    setIngredients(newIngredients);
+  };  
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -259,14 +286,17 @@ const CocktailsFilters = ({ isMobile, onClose }) => {
       </div>
 
       {/* Input With Tags */}
-      <InputWithTags ref={inputWithTagsRef} />
+      <InputWithTags ref={inputWithTagsRef} onChange={handleIngredientChange} />
         {/* Reset Filters и Apply Button для мобильной версии */}
       {isMobile ? (
         <>
           <button onClick={resetAllFilters} className={styles.resetButton}>
             Сбросить фильтры
           </button>
-          <button className={styles.applyButton} onClick={onClose}>
+          <button className={styles.applyButton} onClick={() => {
+            applyFilters()
+            onClose()
+          }}>
             Применить
           </button>
         </>
@@ -284,7 +314,10 @@ const CocktailsFilters = ({ isMobile, onClose }) => {
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
-            onPageChange={handlePageChange}
+            onPageChange={(page) => {
+              setCurrentPage(page);
+              applyFilters();
+            }}
           />
         </>
       )}
