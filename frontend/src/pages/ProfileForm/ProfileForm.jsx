@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Title from "../../components/Title/Title";
 import ProfileDeleteModal from "../../components/ProfileDeleteModal/ProfileDeleteModal";
 import ProfilePicture from "../../components/ProfilePicture/ProfilePicture";
@@ -9,47 +9,68 @@ import Header from "../../components/Auth_Header/Auth_Header";
 import Footer from "../../components/Auth_Footer/Auth_Footer";
 import Button from "../../components/Button/Button";
 import Description from "../../components/Description/Description";
-import ProfileMessageModal from "../../components/ProfileMessageModal/ProfileMessageModal";
+import axios from "axios";
 import classNames from "classnames";
 import style from "./ProfileForm.module.css";
 
 const ProfileForm = ({ userId }) => {
-  const [formData, setFormData] = useState({});
-  const [error, setError] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    surname: "",
+    email: "",
+    password: "",
+    picture: "",
+  });
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isResetPassword, setIsResetPassword] = useState(false);
-
-  let userEmail = "yury.papa@gmail.com";
+  const [isMessageModal, setIsMessageModal] = useState(false);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
-    const fetchUserImage = async () => {
+    const fetchUserData = async () => {
       try {
-        // Axios
+        const response = await axios.get(`http://localhost:5000/users`);
+        setFormData(response.data);
       } catch (error) {
-        console.error("Error fetching user image:", error);
+        console.error("Error fetching user data:", error);
       }
     };
-    fetchUserImage();
+    fetchUserData();
   }, [userId]);
 
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
+
   const handleResetPassword = () => setIsResetPassword((prev) => !prev);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const { name, surname, nickname, email } = formData;
+  const handleUpdateUser = async () => {
+    try {
+      await axios.put(`http://localhost:5000/users${userId}`, formData);
+      setMessage("User information updated successfully");
+      setIsMessageModal(true);
+    } catch (error) {
+      console.error("Error updating user data:", error);
+      setMessage("Failed to update user information");
+      setIsMessageModal(true);
+    }
+  };
 
-    if (!name || !surname || !nickname || !email) {
-      setError("Основная информация не может быть пустой");
-      return;
+  const handleDeleteAccount = async () => {
+    try {
+      await axios.delete(`http://localhost:5000/users${userId}`);
+      setMessage("Account deleted successfully");
+      setIsMessageModal(true);
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error("Error deleting account:", error);
+      setMessage("Failed to delete account");
+      setIsMessageModal(true);
     }
   };
 
   return (
     <>
       <Header />
-      <ProfileMessageModal />
       <div className={style.profile_container}>
         <Title className={style.profile_top_title}>Изменение профиля</Title>
         <div className={style.profile}>
@@ -78,10 +99,12 @@ const ProfileForm = ({ userId }) => {
             <ProfileDeleteModal
               isOpen={isModalOpen}
               onClose={handleCloseModal}
+              onDelete={handleDeleteAccount}
+              message={message}
             />
           </div>
           <ProfileExit />
-          <ProfileMainInfo />
+          <ProfileMainInfo handleUpdateUser={handleUpdateUser} />
           <div className={style.profile_details_block}>
             <ProfilePicture />
             <div
@@ -105,13 +128,15 @@ const ProfileForm = ({ userId }) => {
               {isResetPassword && (
                 <div className={style.profile_reset_password_text}>
                   <img src="/Success.svg" alt="Success" />
-                  <p>{`Отправили ссылку для смены пароля на ${userEmail}`}</p>
+                  <p>Отправили ссылку для смены пароля на</p>
                 </div>
               )}
               {isResetPassword && (
                 <ProfileResetPassword
                   isOpen={isResetPassword}
                   onClose={handleResetPassword}
+                  onUpdate={handleUpdateUser}
+                  message={message}
                 />
               )}
             </div>
@@ -131,6 +156,7 @@ const ProfileForm = ({ userId }) => {
                 <ProfileDeleteModal
                   isOpen={isModalOpen}
                   onClose={handleCloseModal}
+                  onDelete={handleDeleteAccount}
                 />
               )}
               <Description

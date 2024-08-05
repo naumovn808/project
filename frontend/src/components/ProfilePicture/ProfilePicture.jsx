@@ -32,7 +32,7 @@ const ProfilePicture = () => {
   const handleCrop = (croppedImage) => {
     setPreview(croppedImage);
     axios
-      .post("http://localhost:3000/upload", { file: croppedImage })
+      .post("http://localhost:5000/upload", { file: croppedImage })
       .then((response) => {
         localStorage.setItem("profileImage", response.data.filePath);
         setImage(response.data.filePath);

@@ -5,17 +5,22 @@ import Input from "../Input/Input";
 import { useNavigate } from "react-router-dom";
 import classNames from "classnames";
 import style from "./ProfileMainInfo.module.css";
+import ProfileMessageModal from "../ProfileMessageModal/ProfileMessageModal";
+import axios from "axios";
 
-export default function ProfileMainInfo() {
+export default function ProfileMainInfo({ userId }) {
   const [errorField, setErrorField] = useState({});
-  const navigate = useNavigate();
-
+  const [showMessageModal, setShowMessageModal] = useState(false);
+  const [message, setMessage] = useState("");
+  const [isIcon, setIsIcon] = useState("");
+  const [messageColor, setMessageColor] = useState("");
   const [formData, setFormData] = useState({
     newName: "",
     surName: "",
     nickName: "",
     newEmail: "",
   });
+  const navigate = useNavigate();
 
   const validateInfo = ({ newName, surName, nickName, newEmail }) => {
     const errors = {};
@@ -49,26 +54,68 @@ export default function ProfileMainInfo() {
     return errors;
   };
 
-  const handleSubmit = (event) => {
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const errors = validateInfo(formData);
     setErrorField(errors);
 
     if (Object.keys(errors).length === 0) {
-      const upDataUserProfile = { ...formData };
-      navigate(0);
+      handleUpdateUserAccount();
     }
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  const handleUpdateUserAccount = async () => {
+    try {
+      const response = await axios.put(
+        `http://localhost:5000/users/${userId}`,
+        {
+          name: formData.newName,
+          email: formData.newEmail,
+          nickName: formData.nickName,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.data.success) {
+        setMessage("Аккаунт успешно обновлен.");
+        setIsIcon("/Success.svg");
+        setMessageColor("#1CCA90");
+        navigate(0);
+      } else {
+        setMessage("Ошибка при обновлении аккаунта. Попробуйте еще раз.");
+        setIsIcon("/Danger.svg");
+        setMessageColor("#FF4F42");
+      }
+    } catch (error) {
+      setMessage("Попробуйте еще раз");
+      setIsIcon("/Danger.svg");
+      setMessageColor("#FF4F42");
+      console.error("Error updating account user: ", error);
+    }
+
+    setShowMessageModal(true);
   };
 
   return (
     <div
       className={classNames(style.profile_main_info, style.profile_bg_border)}
     >
+      <ProfileMessageModal
+        isOpen={showMessageModal}
+        onClose={() => setShowMessageModal(false)}
+        message={message}
+        isIcon={isIcon}
+        messageColor={messageColor}
+      />
       <Title
         children={"Основная информация"}
         className={style.profile_main_info__title}

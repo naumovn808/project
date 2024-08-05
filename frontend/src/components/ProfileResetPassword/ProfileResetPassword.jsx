@@ -5,14 +5,25 @@ import Button from "../Button/Button";
 import { useNavigate } from "react-router-dom";
 import classNames from "classnames";
 import style from "../ProfileResetPassword/ProfileResetPassword.module.css";
+import ProfileMessageModal from "../ProfileMessageModal/ProfileMessageModal";
+import axios from "axios";
 
-export default function ProfileResetPassword({ isOpen, onClose }) {
+export default function ProfileResetPassword({
+  isOpen,
+  onClose,
+  handleUpdateUser,
+  userId,
+}) {
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [errorField, setErrorField] = useState({});
   const [touchedFields, setTouchedFields] = useState({});
-  const [hidePassword, setHidePassword] = useState();
-  const [isPasswordVisible, setIsPasswordVisible] = useState();
+  const [hidePassword, setHidePassword] = useState("password");
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [showMessageModal, setShowMessageModal] = useState(false);
+  const [message, setMessage] = useState("");
+  const [isIcon, setIsIcon] = useState("");
+  const [messageColor, setMessageColor] = useState("");
   const navigate = useNavigate();
 
   const validatePassword = () => {
@@ -39,21 +50,47 @@ export default function ProfileResetPassword({ isOpen, onClose }) {
     setHidePassword(isPasswordVisible ? "text" : "password");
   }, [isPasswordVisible]);
 
-  const changeStateEye = (e) => {
-    setIsPasswordVisible(e);
+  const changeStateEye = () => {
+    setIsPasswordVisible(!isPasswordVisible);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const errors = validatePassword();
     setErrorField(errors);
 
     if (Object.keys(errors).length === 0) {
-      const updatedUserData = {
-        newPassword,
-      };
-      console.log("new password:", newPassword);
-      navigate(0);
+      try {
+        const response = await axios.put(
+          `http://localhost:5000/users/${userId}`,
+          {
+            password: newPassword,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        if (response.data.success) {
+          setMessage("Пароль аккаунта успешно обновлен.");
+          setIsIcon("/Success.svg");
+          setMessageColor("#1CCA90");
+          navigate(0);
+        } else {
+          setMessage(
+            "Ошибка при обновлении пароля аккаунта. Попробуйте еще раз."
+          );
+          setIsIcon("/Danger.svg");
+          setMessageColor("#FF4F42");
+        }
+      } catch (error) {
+        setMessage("Попробуйте еще раз.");
+        setIsIcon("/Danger.svg");
+        setMessageColor("#FF4F42");
+        console.error("Error updating password:", error);
+      }
+      setShowMessageModal(true);
     }
   };
 
@@ -66,8 +103,17 @@ export default function ProfileResetPassword({ isOpen, onClose }) {
     setErrorField(errors);
   };
 
+  if (!isOpen) return null;
+
   return (
     <div className={style.profile_reset_password}>
+      <ProfileMessageModal
+        isOpen={showMessageModal}
+        onClose={() => setShowMessageModal(false)}
+        message={message}
+        isIcon={isIcon}
+        messageColor={messageColor}
+      />
       <div
         className={classNames(
           style.profile_reset_password__content,
@@ -75,10 +121,9 @@ export default function ProfileResetPassword({ isOpen, onClose }) {
         )}
       >
         <div className={style.profile_reset_password__top_title}>
-          <Title
-            children={"Новый пароль"}
-            className={style.profile_reset_password__top_text}
-          />
+          <Title className={style.profile_reset_password__top_text}>
+            Новый пароль
+          </Title>
           <button
             className={style.profile_reset_password__top_btn}
             onClick={onClose}
@@ -138,11 +183,9 @@ export default function ProfileResetPassword({ isOpen, onClose }) {
                 </span>
               )}
           </label>
-          {errorField.message && <span>{errorField.message}</span>}
           <Button
             className={style.profile_reset_password__form_btn}
-            title={"Сохранить и войти"}
-            onClose={onClose}
+            title="Сохранить и войти"
             type="submit"
             disabled={!newPassword || !confirmNewPassword}
           />
