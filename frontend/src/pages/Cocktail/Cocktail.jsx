@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import styles from "./Cocktail.module.css";
 import Header from "../../components/Auth_Header/Auth_Header";
 import Footer from "../../components/Auth_Footer/Auth_Footer";
+import SocialButton from "../../components/SocialButton/SocialButton";
 
 const obj = {
 	name: "Лонг-Айленд",
 	description:
 		"Классический коктейль, обладающий своеобразным характером и многогранным вкусом. Сочетание различных спиртных напитков создает гармонию пряностей, сладости, кислотности и освежающих ноток. Он отлично подходит для тех, кто предпочитает насыщенные и энергичные напитки.",
-	taste: "пряный",
+	taste: "пряный, цитрусовый, сладкий, кислый",
 	rating: "4,5",
 	peoplsAssessments: 2967,
 	strength: "Крепкий",
@@ -24,14 +25,35 @@ const obj = {
 	},
 };
 
+const imgParams = {
+	strength: {
+		безалкогольный: "Child.png",
+		слабоалкогольный: "Vector.png",
+		среднеалкогольный: "Medium.png",
+		крепкий: "Flame.png",
+	},
+	format: {
+		шот: "Shot.png",
+		шорт: "Short.png",
+		лонг: "Long.png",
+	},
+	difficult: {
+		легко: "Easy.png",
+		сложно: "Hard.png",
+		"средняя сложность": "MediumDif.png",
+	},
+};
+
 const Cocktail = () => {
+	const [cocktailParams, setCocktailParams] = useState([]);
+	const [cocktailData, setCocktailData] = useState(obj);
 	const [hoveredRating, setHoveredRating] = useState(0);
 	const [fixedRating, setFixedRating] = useState(null);
 	const [currentImageIndex, setCurrentImageIndex] = useState(0);
 	const [isShareOpen, setIsShareOpen] = useState(false);
 	const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
 	const [isSaved, setIsSaved] = useState(false);
-	const [images, setImages] = useState(Object.values(obj.images));
+	const [images, setImages] = useState(Object.values(cocktailData.images));
 	const [currentUrl, setCurrentUrl] = useState(window.location.href);
 	const [socialNetworks, setSocialNetworks] = useState([
 		{
@@ -88,6 +110,31 @@ const Cocktail = () => {
 
 		return () => clearInterval(interval);
 	}, [images.length]);
+
+	useEffect(() => {
+		const lowerCaseStrength = cocktailData.strength.toLowerCase();
+		const lowerCaseFormat = cocktailData.format.toLowerCase();
+		const lowerCaseDifficult = cocktailData.difficult.toLowerCase();
+
+		const strengthImage = Object.keys(imgParams.strength).find((key) => key.includes(lowerCaseStrength));
+		const formatImage = Object.keys(imgParams.format).find((key) => key.includes(lowerCaseFormat));
+		const difficultImage = Object.keys(imgParams.difficult).find((key) => key.includes(lowerCaseDifficult));
+
+		setCocktailParams([
+			{
+				title: lowerCaseStrength,
+				img: imgParams.strength[strengthImage],
+			},
+			{
+				title: lowerCaseFormat,
+				img: imgParams.format[formatImage],
+			},
+			{
+				title: lowerCaseDifficult,
+				img: imgParams.difficult[difficultImage],
+			},
+		]);
+	}, []);
 
 	const handleImage = (i) => {
 		setCurrentImageIndex(i);
@@ -196,43 +243,67 @@ const Cocktail = () => {
 				</div>
 
 				<div className={styles.right__side}>
-					<h1 className={styles.title}>{obj.name}</h1>
-					<div className={styles.stars}>
-						<div className={styles.rating}>
-							<p className={styles.rating__float}>{obj.rating}</p>
-							{parseInt(obj.rating) >= 4 ? (
-								<img className={styles.rating__star} src="goldStar.png" alt="goldStar" />
-							) : (
-								<img className={styles.rating__star} src="silverStar.png" alt="silverStar" />
-							)}
-							<p className={styles.peoples__assessments}>{obj.peoplsAssessments} оценок</p>
+					<div className={styles.information__cocktail}>
+						<h1 className={styles.title}>{cocktailData.name}</h1>
+						<div className={styles.stars}>
+							<div className={styles.rating}>
+								<p className={styles.rating__float}>{cocktailData.rating}</p>
+								{parseInt(cocktailData.rating) >= 4 ? (
+									<img className={styles.rating__star} src="goldStar.png" alt="goldStar" />
+								) : (
+									<img className={styles.rating__star} src="silverStar.png" alt="silverStar" />
+								)}
+								<p className={styles.peoples__assessments}>{cocktailData.peoplsAssessments} оценок</p>
+							</div>
+							<div className={styles.rating}>
+								<span className={styles.peoples__assessments}>Ваша оценка:</span>
+								{[1, 2, 3, 4, 5].map((index) => (
+									<img
+										key={index}
+										className={styles.rating__star}
+										src={getStarSrc(index)}
+										alt="error"
+										onMouseEnter={() => handleMouseEnter(index)}
+										onMouseLeave={handleMouseLeave}
+										onClick={() => handleRating(index)}
+									/>
+								))}
+							</div>
 						</div>
-						<div className={styles.rating}>
-							<span className={styles.peoples__assessments}>Ваша оценка:</span>
-							{[1, 2, 3, 4, 5].map((index) => (
-								<img
-									key={index}
-									className={styles.rating__star}
-									src={getStarSrc(index)}
-									alt="error"
-									onMouseEnter={() => handleMouseEnter(index)}
-									onMouseLeave={handleMouseLeave}
-									onClick={() => handleRating(index)}
-								/>
+
+						<div className={styles.description}>
+							<p className={`${styles.description__text} ${isDescriptionOpen ? styles.open : ""}`}>
+								{cocktailData.description}
+							</p>
+							<button onClick={toggleDesc} className={styles.share__button}>
+								{!isDescriptionOpen ? (
+									<span>Показать полное описание</span>
+								) : (
+									<span>Свернуть описание</span>
+								)}
+								<span className={`${styles.arrow} ${isDescriptionOpen ? styles.rotate : ""}`}>
+									<img className={styles.arrow__img} src="ArrowTop.png" alt="arrow" />
+								</span>
+							</button>
+						</div>
+
+						<div className={styles.tastes}>
+							<b>Вкусы: </b> <span>{cocktailData.taste}</span>
+						</div>
+
+						<div className={styles.cocktail__params}>
+							{cocktailParams.map((item, i) => (
+								<div key={i}>
+									<SocialButton
+										text={item.title}
+										iconSrc={item.img}
+										padding={5}
+										borderRadius={12}
+										backgroundColor={"#48455f"}
+									/>
+								</div>
 							))}
 						</div>
-					</div>
-					<div className={styles.description}>
-						<p className={`${styles.description__text} ${isDescriptionOpen ? styles.open : ""}`}>{obj.description}</p>
-						<button
-							onClick={toggleDesc}
-							className={styles.share__button}
-						>
-							{!isDescriptionOpen ? <span>Показать полное описание</span> : <span>Свернуть описание</span>}
-							<span className={`${styles.arrow} ${isDescriptionOpen ? styles.rotate : ""}`}>
-								<img className={styles.arrow__img} src="ArrowTop.png" alt="arrow" />
-							</span>
-						</button>
 					</div>
 				</div>
 			</div>
