@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken')
-require('../Oauth/MailRu');
 
 const authenticateToken = (req, res, next) => {
 	const token = req.cookies.accessToken
