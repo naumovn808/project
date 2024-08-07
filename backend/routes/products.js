@@ -1,9 +1,6 @@
 const express = require('express')
-const bcrypt = require('bcrypt')
-const productSchema = require('../models/ProductSchema')
 require('dotenv').config()
 const router = express.Router()
-module.exports = router
 
 let cocktails = [];
 
@@ -53,3 +50,4 @@ router.delete('/cocktails/:id', (req, res) => {
     const deletedCocktail = cocktails.splice(cocktailIndex, 1)[0];
     res.json(deletedCocktail);
 });
+module.exports = router
