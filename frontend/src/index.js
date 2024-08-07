@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Register from './pages/Auth/Register/Register.jsx';
 import AuthLayout from './pages/Layouts/AuthLayout/AuthLayout.jsx';
@@ -9,13 +8,11 @@ import RegisterSend from './pages/Auth/RegisterSend/RegisterSend.jsx';
 import Error from './pages/Error/Error.jsx';
 import Main from './pages/Layouts/Main/Main.jsx';
 import PasswordReset from './pages/Auth/PasswordReset/PasswordReset.jsx';
+import ProfileForm from './pages/ProfileForm/ProfileForm.jsx';
 import PasswordSend from './pages/Auth/PasswordSend/PasswordSend.jsx';
 import NewPassword from './pages/Auth/NewPassword/NewPassword.jsx';
-<<<<<<< HEAD
-import ProfileForm from './pages/ProfileForm/ProfileForm.jsx';
-=======
 import PageTitres from './pages/PageTitres/PageTitres.jsx';
->>>>>>> development
+import './index.css';
 
 const router = createBrowserRouter([
     {

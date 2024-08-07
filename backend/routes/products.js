@@ -1,6 +1,8 @@
 const express = require('express')
 require('dotenv').config()
 const router = express.Router()
+const multer = require('multer')
+const path = require('path')
 
 let cocktails = [];
 
