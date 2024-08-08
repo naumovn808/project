@@ -1,9 +1,11 @@
 .app {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   min-height: 100vh;
 }
 .main-content {
-  height: 800px;
-  padding: 50px;
+
+  /* padding: 50px; */
 }

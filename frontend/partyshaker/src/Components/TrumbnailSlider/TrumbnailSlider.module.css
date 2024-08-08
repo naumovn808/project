@@ -1,0 +1,21 @@
+.thumbnail-slider {
+  display: flex;
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+.thumbnail {
+  margin-right: 10px;
+  cursor: pointer;
+ 
+
+}
+
+.thumbnail img {
+
+  height: auto;
+   border: 2px solid #fad98c;
+border-radius: 12px;
+width: 72px;
+height: 72px;
+}
