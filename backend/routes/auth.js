@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const activateToken = require('../middleware/activateToken')
 const resetToken = require('../middleware/resetToken')
+const authenticateToken = require('../middleware/authenticateToken')
 const GoogleOauth = require('../Oauth/Google')
 const OkOauth = require('../Oauth/Ok')
 const VkOauth = require('../Oauth/Vk')
@@ -14,25 +15,25 @@ const router = express.Router()
 
 // Update access token middleware
 const updateAccessToken = async (req, res, next) => {
-    console.log('Updating access token');
-    const accessToken = req.headers.authorization?.split(' ')[1] || req.cookies.accessToken;
-    if (accessToken) {
-        try {
-            const decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
-            const now = Math.floor(Date.now() / 1000);
-            const expiresIn = decoded.exp - now;
-            if (expiresIn < 300) {
-                const refreshToken = req.cookies.refreshToken;
-                const decodedRefresh = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
-                const newAccessToken = jwt.sign({ _id: decodedRefresh._id }, process.env.JWT_SECRET, { expiresIn: '15m' });
-                res.cookie('accessToken', newAccessToken, { httpOnly: true });
-                res.setHeader('Authorization', `Bearer ${newAccessToken}`);
-            }
-        } catch (error) {
-            console.error(error);
-        }
-    }
-    next();
+	console.log('Updating access token');
+	const accessToken = req.headers.authorization?.split(' ')[1] || req.cookies.accessToken;
+	if (accessToken) {
+		try {
+			const decoded = jwt.verify(accessToken, process.env.JWT_SECRET);
+			const now = Math.floor(Date.now() / 1000);
+			const expiresIn = decoded.exp - now;
+			if (expiresIn < 300) {
+				const refreshToken = req.cookies.refreshToken;
+				const decodedRefresh = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+				const newAccessToken = jwt.sign({ _id: decodedRefresh._id }, process.env.JWT_SECRET, { expiresIn: '15m' });
+				res.cookie('accessToken', newAccessToken, { httpOnly: true });
+				res.setHeader('Authorization', `Bearer ${newAccessToken}`);
+			}
+		} catch (error) {
+			console.error(error);
+		}
+	}
+	next();
 };
 
 router.use(updateAccessToken);
@@ -49,6 +50,9 @@ router.get('/register', (req, res) => {
 })
 router.get('/login', (req, res) => {
 	res.redirect('http://localhost:3000/auth/login')
+})
+router.get('/profile', (req, res) => {
+	res.redirect('http://localhost:3000/profile')
 })
 ///   GEt REquest  //
 
@@ -200,6 +204,25 @@ router.post('/reset/password/:token', resetToken, async (req, res) => {
 		res.status(500).send({ message: error })
 	}
 })
+router.put('/profile', authenticateToken, async (req, res) => {
+	const { name, surname, userAvatar, nickname, email, updatePassword } = req.body;
+	try {
+		const user = await UserSchema.findById(req.user.id);
+
+		if (name) user.name = name;
+		if (surname) user.surname = surname;
+		if (userAvatar) user.userAvatar = userAvatar;
+		if (nickname) user.nickname = nickname;
+		if (email) user.email = email;
+		if (updatePassword) user.password = await bcrypt.hash(updatePassword, 10);
+
+		await user.save();
+		res.status(200).send('Profile updated successfully');
+	} catch (error) {``
+		console.error(error);
+		res.status(500).send('Error updating profile');
+	}
+});
 //
 
 // Oauth

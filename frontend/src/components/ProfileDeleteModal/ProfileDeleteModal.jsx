@@ -39,7 +39,7 @@ const ProfileDeleteModal = ({ isOpen, onClose, userId }) => {
 
     try {
       const response = await axios.delete(
-        `http://localhost:5000/users/${userId}`,
+        `http://localhost:1000/profile/${userId}`,
         {
           data: formData,
           headers: {

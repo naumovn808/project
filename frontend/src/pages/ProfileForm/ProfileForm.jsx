@@ -29,7 +29,15 @@ const ProfileForm = ({ userId }) => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/users`);
+        const response = await axios.get(
+          `http://localhost:1000/profile`,
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${document.cookie.split("=")[1]}`,
+            },
+          }
+        );
         setFormData(response.data);
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -175,3 +183,154 @@ const ProfileForm = ({ userId }) => {
 };
 
 export default ProfileForm;
+
+// import React, { useState, useEffect } from "react";
+// import Title from "../../components/Title/Title";
+// import ProfileDeleteModal from "../../components/ProfileDeleteModal/ProfileDeleteModal";
+// import ProfilePicture from "../../components/ProfilePicture/ProfilePicture";
+// import ProfileResetPassword from "../../components/ProfileResetPassword/ProfileResetPassword";
+// import ProfileMainInfo from "../../components/ProfileMainInfo/ProfileMainInfo";
+// import ProfileExit from "../../components/ProfileExit/ProfileExit";
+// import Header from "../../components/Auth_Header/Auth_Header";
+// import Footer from "../../components/Auth_Footer/Auth_Footer";
+// import Button from "../../components/Button/Button";
+// import Description from "../../components/Description/Description";
+// import axios from "axios";
+// import classNames from "classnames";
+// import style from "./ProfileForm.module.css";
+
+// const ProfileForm = ({ userId }) => {
+//   const [formData, setFormData] = useState({
+//     name: "",
+//     surname: "",
+//     email: "",
+//     password: "",
+//     picture: "",
+//   });
+//   const [isModalOpen, setIsModalOpen] = useState(false);
+//   const [isResetPassword, setIsResetPassword] = useState(false);
+//   const [isMessageModal, setIsMessageModal] = useState(false);
+//   const [message, setMessage] = useState("");
+
+//   useEffect(() => {
+//     const fetchUserData = async () => {
+//       try {
+//         const response = await axios.get(`http://localhost:1000/profile`, {
+//           headers: {
+//             Authorization: `Bearer ${document.cookie.split("=")[1]}`,
+//           },
+//         });
+//         setFormData(response.data);
+//       } catch (error) {
+//         console.error("Error fetching user data:", error);
+//       }
+//     };
+//     fetchUserData();
+//   }, [userId]);
+
+//   const handleOpenModal = () => setIsModalOpen(true);
+//   const handleCloseModal = () => setIsModalOpen(false);
+
+//   const handleResetPassword = () => setIsResetPassword((prev) => !prev);
+
+//   const handleChange = (e) => {
+//     setFormData({ ...formData, [e.target.name]: e.target.value });
+//   };
+
+//   const handleUpdateUser = async () => {
+//     try {
+//       await axios.put(`http://localhost:1000/profile`, formData, {
+//         headers: {
+//           Authorization: `Bearer ${document.cookie.split("=")[1]}`,
+//         },
+//       });
+//       setMessage("User information updated successfully");
+//       setIsMessageModal(true);
+//     } catch (error) {
+//       console.error("Error updating user data:", error);
+//       setMessage("Failed to update user information");
+//       setIsMessageModal(true);
+//     }
+//   };
+
+//   const handleDeleteAccount = async () => {
+//     try {
+//       await axios.delete(`http://localhost:1000/profile`, {
+//         headers: {
+//           Authorization: `Bearer ${document.cookie.split("=")[1]}`,
+//         },
+//       });
+//       setMessage("Account deleted successfully");
+//       setIsMessageModal(true);
+//       setIsModalOpen(false);
+//     } catch (error) {
+//       console.error("Error deleting account:", error);
+//       setMessage("Failed to delete account");
+//       setIsMessageModal(true);
+//     }
+//   };
+
+//   return (
+//     <>
+//       <Header />
+//       <div className={style.profile_container}>
+//         <Title className={style.profile_top_title}>Изменение профиля</Title>
+//         <div className={style.profile}>
+//           <ProfileMainInfo
+//             formData={formData}
+//             handleChange={handleChange}
+//             handleUpdateUser={handleUpdateUser}
+//           />
+//           <ProfilePicture
+//             picture={formData.picture}
+//             handleChange={handleChange}
+//           />
+//           <div className={style.profile_details_block}>
+//             <Button
+//               className={style.profile_btn}
+//               title={"Сменить пароль"}
+//               onClick={handleResetPassword}
+//             />
+//             <Description
+//               className={style.profile_changer_email_text}
+//               children={
+//                 "Отправим ссылку на текущий email — перейдите по ней для смены пароля"
+//               }
+//             />
+//             {isResetPassword && (
+//               <ProfileResetPassword
+//                 isOpen={isResetPassword}
+//                 onClose={handleResetPassword}
+//                 onUpdate={handleUpdateUser}
+//                 message={message}
+//               />
+//             )}
+//           </div>
+//           <div className={style.profile_details_block__delete}>
+//             <Button
+//               className={style.profile_delete_btn}
+//               title={"Удалить аккаунт"}
+//               onClick={handleOpenModal}
+//             />
+//             <ProfileDeleteModal
+//               isOpen={isModalOpen}
+//               onClose={handleCloseModal}
+//               onDelete={handleDeleteAccount}
+//               message={message}
+//             />
+//             <Description
+//               className={style.profile_delete_desc}
+//               children={
+//                 "После подтверждения мы удалим всю информацию о вас, забудем, какие коктейли вы сохранили и что есть в вашем баре. Повторно зарегистрироваться на тот же email не получится"
+//               }
+//             />
+//           </div>
+//           <ProfileExit />
+//         </div>
+//       </div>
+//       <Footer />
+//     </>
+//   );
+// };
+
+// export default ProfileForm;
