@@ -1,0 +1,58 @@
+.profile_exit_modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  padding: 0 4px;
+
+  & .profile_exit_modal__content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    & .profile_exit_modal__content_top {
+      width: 100%;
+      max-width: 769px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      & .profile_exit_modal__content_top_title {
+        font-size: clamp(1.25rem, 0.801rem + 2.25vw, 1.875rem);
+      }
+      & .profile_exit_modal__close_button {
+        border: none;
+        background: transparent;
+      }
+    }
+    & .profile_exit_modal__content_header {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      & .profile_exit_modal__content_header__text {
+        color: rgb(232, 232, 112);
+      }
+      & .profile_exit_modal__content_header__text {
+        font-size: 13px;
+      }
+      & .profile_exit_modal__content_header__buttons {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        & .profile_exit_modal__content_header__button {
+          width: 100%;
+          &:nth-child(1) {
+            background-color: #595975;
+          }
+        }
+      }
+    }
+  }
+  & .profile_bg_border {
+    padding: 16px clamp(1rem, 0.281rem + 3.6vw, 2rem);
+    border-radius: var(--Card-Border-Radius, 20px);
+    background: var(--Card-Background, #363247);
+    box-shadow: 1px 1px 0px 0px #48455f inset, 0px 4px 8px -2px #181528;
+  }
+}

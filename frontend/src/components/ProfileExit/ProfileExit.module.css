@@ -1,0 +1,31 @@
+.profile_exit {
+  display: none;
+}
+
+.profile_bg_border {
+  padding: 16px clamp(1rem, 0.286rem + 3.57vw, 2rem);
+  border-radius: var(--Card-Border-Radius, 20px);
+  background: var(--Card-Background, #363247);
+  box-shadow: 1px 1px 0px 0px #48455f inset, 0px 4px 8px -2px #181528;
+}
+
+@media screen and (max-width: 768px) {
+  .profile_exit {
+    display: block;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 769px;
+    & .profile_exit__button {
+      background: #595975;
+      &:hover {
+        background: #45454e;
+      }
+    }
+    & .profile_exit__text {
+      color: #98a1ae;
+      font-size: 13px;
+    }
+  }
+}

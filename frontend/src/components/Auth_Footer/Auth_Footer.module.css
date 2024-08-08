@@ -1,9 +1,9 @@
 .footer {
-	display: flex;
-	justify-content: space-between;
-	flex-wrap: wrap;
-	background-color: #181528;
-	padding: 27px 27px 32px 27px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  background-color: #181528;
+  padding: 27px 27px 32px 27px;
 }
 .round__mobile, .round__mobile_main {
 	display: none;
@@ -16,11 +16,11 @@
 	display: none;
 }
 .footer__logo {
-	margin-right: 11px;
+  margin-right: 11px;
 }
 .information__name {
-	font-weight: 500;
-	margin-bottom: 3px;
+  font-weight: 500;
+  margin-bottom: 3px;
 }
 .footer_drinks a, .footer_command a, .information__link, .privacy__policy {
 	color: var(--yellow-color);
@@ -47,8 +47,8 @@
 	margin-left: 190px;
 }
 .privacy__policy:hover {
-	transition: 200ms;
-	color: #ffcb72;
+  transition: 200ms;
+  color: #ffcb72;
 }
 .mobile_download_buttons {
 	display: none;
@@ -272,12 +272,12 @@
 		display: block;
 	}
 
-    .information{
-        position: relative;
-        bottom: 30px;
-		border-bottom: 1px solid rgb(72, 69, 95);
-        padding-bottom: 20px;
-    }
+  .information {
+    position: relative;
+    bottom: 30px;
+    border-bottom: 1px solid rgb(72, 69, 95);
+    padding-bottom: 20px;
+  }
 
 	.round__mobile {
 		display: block;
@@ -290,9 +290,9 @@
         padding: 6px;
 	}
 
-	.round {
-		display: none;
-	}
+  .round {
+    display: none;
+  }
 
     .information__name,
     .information__link,

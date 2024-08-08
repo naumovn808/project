@@ -20,6 +20,7 @@
 		"express-session": "^1.18.0",
 		"jsonwebtoken": "^9.0.2",
 		"mongoose": "^8.5.0",
+		"multer": "^1.4.5-lts.1",
 		"nodemailer": "^6.9.14",
 		"nodemailer-sendgrid-transport": "^0.2.0",
 		"nodemon": "^3.1.4",
@@ -31,6 +32,8 @@
 		"passport-oauth2": "^1.8.0",
 		"passport-odnoklassniki": "^0.2.0",
 		"passport-vkontakte": "^0.5.0",
-		"passport-yandex": "^0.0.5"
+		"passport-yandex": "^0.0.5",
+		"punycode": "^2.3.1",
+		"tough-cookie": "^4.1.4"
 	}
 }
