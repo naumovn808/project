@@ -200,10 +200,6 @@
 }
 
 /* right side */
-.right__side {
-	height: 900px;
-}
-
 .title {
 	font-size: 48px;
 	font-weight: 800;
@@ -280,6 +276,156 @@
 	text-transform: capitalize;
 	gap: 12px;
 	margin-top: 24px;
+}
+
+/* workplace */
+.workplace {
+	display: flex;
+	margin: 60px 0 50px 0;
+	gap: 40px;
+}
+
+/* ingredients */
+.ingredients__title {
+	color: white;
+	font-size: 20px;
+	font-weight: 500;
+	margin-bottom: 16px;
+}
+
+.ingredients {
+	max-width: 360px;
+}
+
+.ingredients__click {
+	background-color: #363247;
+	padding: 8px;
+	border-radius: 12px;
+	box-shadow: 0px 4px 8px -2px rgb(24, 21, 40), inset 1px 1px 0px 0px rgb(72, 69, 95);
+}
+
+.ingredients__click__text {
+	color: #d6dce1;
+	font-size: 13px;
+	margin-bottom: 16px;
+}
+
+.ingredients__click__buttons {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	gap: 4px;
+	
+	button {
+		font-family: "Montserrat", sans-serif;
+		color: #d6dce1;
+		font-size: 16px;
+		font-weight: 500;
+		border: 2px solid #48455f;
+		background-color: #48455f;
+		border-radius: 20px;
+		padding: 4px 21px;
+		transition: 400ms;
+		cursor: pointer;
+	}
+
+	button:hover {
+		border-color: #595975;
+		transition: 400ms;
+	}
+
+	button.active {
+		background-color: #6d45e6;
+		border-color: #6d45e6;
+		color: white;
+	}
+
+	input {
+		max-width: 48px;
+		color: white;
+		font-size: 16px;
+		font-family: "Montserrat", sans-serif;
+		background-color: #48455f;
+		border: 2px solid #48455f;
+		text-align: center;
+		border-radius: 8px;
+		outline: none;
+		transition: 400ms;
+	}
+
+	input::placeholder {
+		text-align: center;
+	}
+
+	input:hover {
+		border-color: #595975;
+	}
+
+	input.active {
+		border-color: #945c21;
+		outline: none;
+	}
+}
+
+.ingredients__values {
+	width: 100%;
+	white-space: nowrap;
+	display: flex;
+	flex-direction: column;
+	margin-top: 18px;
+	transition: 400ms;
+	cursor: pointer;
+	position: relative;
+}
+
+.ingredients__values__text {
+	height: 30px;
+	display: flex;
+	align-items: center;
+	p {
+		color: #f8c15c;
+		font-size: 16px;
+		font-weight: 500;
+	}
+	span {
+		width: 100%;
+		border-top: 1px solid #fad98c;
+		margin: 0 5px;
+	}
+}
+
+.recipe__list:hover > :not(:hover),
+.ingredients__values:hover > :not(:hover) {
+	opacity: 0.5;
+	transition: 400ms;
+}
+
+/* for cooking */
+.for__cooking{
+	min-width: 360px;
+}
+
+/* recipe */
+.recipe__list{
+	width: 680px;
+}
+
+.recipe__list__item{
+	height: 55px;
+	display: flex;
+	align-items: start;
+	color: #D6DCE1;
+	font-size: 16px;
+	font-weight: 500;
+	gap: 16px;
+	transition: 400ms;
+	cursor: pointer;
+	/* margin-bottom: 20px; */
+	span{
+		color: #98A1AE;
+		flex-shrink: 0;
+		text-wrap: nowrap;
+	}
 }
 
 @media (max-width: 490px) {

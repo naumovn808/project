@@ -77,7 +77,7 @@ const Cocktail = () => {
 			url: `https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`,
 		},
 		{
-			name: "Twitter",
+			name: "X",
 			icon: "X.png",
 			url: `https://X.com/intent/tweet?url=${currentUrl}`,
 		},
@@ -101,6 +101,38 @@ const Cocktail = () => {
 			icon: "Viber.png",
 			url: `viber://forward?text=${currentUrl}`,
 		},
+	]);
+	const [defaultValues, setDefaultValues] = useState({
+		"Белый Ром": 30,
+		Водка: 30,
+		"Серебряная текила": 30,
+		"Cухой джин": 30,
+		"Трипл сек": 30,
+		"Сахарный сироп": 30,
+		"Лимонный сок": 30,
+		Кола: 100,
+		Лимон: 40,
+		"Лёд в кубиках": 300,
+	});
+	const [inputValue, setInputValue] = useState("");
+	const [valuesIngredients, setValuesIngredients] = useState(defaultValues);
+	const [activeButton, setActiveButton] = useState(1);
+	const [isInputActive, setIsInputActive] = useState(false);
+	const [defaultThings, setDefaultThings] = useState({
+		Хайбол: 1,
+		Джиггер: 1,
+		"Коктейльная ложка": 1,
+		"Пресс для цитрусовых": 1,
+		Трубочки: 2,
+	});
+	const [recipeList, setRecipeList] = useState([
+		"В шейкере со льдом соедините светлый ром, водку, текилу, джин, ликер, лимонный сок и сахарный сироп.",
+		"Хорошо взболтайте все ингредиенты, чтобы они смешались.",
+		"Наполните льдом высокий стакан или коллинз с прозрачными стенками.",
+		"Процедите коктейль из шейкера в стакан через стрейнер, чтобы отделить лед, или просто растолките содержимое шейкера в стакан со льдом.",
+		"Долейте колу в стакан до верха, оставив место для перемешивания.",
+		"Перемешайте содержимое стакана для равномерного распределения и смешивания ингредиентов.",
+		"Украсьте коктейль ломтиком лимона.",
 	]);
 
 	useEffect(() => {
@@ -172,6 +204,46 @@ const Cocktail = () => {
 		} else {
 			return "emptStar.png";
 		}
+	};
+
+	const handleIngredientClick = (value) => {
+		setActiveButton(value);
+		setIsInputActive(false);
+
+		const newValues = {};
+		for (const key in defaultValues) {
+			newValues[key] = defaultValues[key] * value;
+		}
+		setValuesIngredients(newValues);
+	};
+
+	const handleIngredientChange = (e) => {
+		const value = e.target.value.replace(/\D/g, "");
+		if (value === "" || (parseInt(value, 10) > 0 && parseInt(value, 10) <= 100)) {
+			setInputValue(value);
+			const currentValue = parseInt(value, 10);
+			if (!isNaN(currentValue) && currentValue >= 1 && currentValue <= 100) {
+				const newValues = {};
+				for (const key in defaultValues) {
+					newValues[key] = defaultValues[key] * currentValue;
+				}
+				setValuesIngredients(newValues);
+			} else {
+				setValuesIngredients(defaultValues);
+			}
+		}
+	};
+
+	const handleIngredientFocus = () => {
+		setActiveButton(null);
+		setIsInputActive(true);
+	};
+
+	const formatValue = (key, value) => {
+		const format = value >= 1000 ? (value / 1000).toFixed(1) : value.toString();
+		const unit =
+			key === "Лимон" || key === "Лёд в кубиках" ? (value >= 1000 ? " кг" : " г") : value >= 1000 ? " л" : " мл";
+		return format.endsWith(".0") ? `${Math.floor(format)}${unit}` : `${format}${unit}`;
 	};
 
 	return (
@@ -301,6 +373,88 @@ const Cocktail = () => {
 										borderRadius={12}
 										backgroundColor={"#48455f"}
 									/>
+								</div>
+							))}
+						</div>
+					</div>
+
+					<div className={styles.workplace}>
+						<div className={styles.ingredients}>
+							<h3 className={styles.ingredients__title}>Ингредиенты</h3>
+							<div className={styles.ingredients__click}>
+								<p className={styles.ingredients__click__text}>Количество порций</p>
+								<div className={styles.ingredients__click__buttons}>
+									<button
+										className={activeButton === 1 ? styles.active : ""}
+										onClick={() => handleIngredientClick(1)}
+									>
+										1
+									</button>
+									<button
+										className={activeButton === 2 ? styles.active : ""}
+										onClick={() => handleIngredientClick(2)}
+									>
+										2
+									</button>
+									<button
+										className={activeButton === 3 ? styles.active : ""}
+										onClick={() => handleIngredientClick(3)}
+									>
+										3
+									</button>
+									<button
+										className={activeButton === 4 ? styles.active : ""}
+										onClick={() => handleIngredientClick(4)}
+									>
+										4
+									</button>
+									<button
+										className={activeButton === 5 ? styles.active : ""}
+										onClick={() => handleIngredientClick(5)}
+									>
+										5
+									</button>
+									<input
+										type="text"
+										placeholder="10"
+										value={inputValue}
+										onChange={handleIngredientChange}
+										onFocus={handleIngredientFocus}
+										className={isInputActive ? styles.active : ""}
+									/>
+								</div>
+							</div>
+							<div className={styles.ingredients__values}>
+								{Object.keys(valuesIngredients).map((ingredient, index) => (
+									<div key={index} className={styles.ingredients__values__text}>
+										<p>{ingredient}</p>
+										<span></span>
+										<b>{formatValue(ingredient, valuesIngredients[ingredient])}</b>
+									</div>
+								))}
+							</div>
+						</div>
+						<div className={styles.for__cooking}>
+							<h3 className={styles.ingredients__title}>Для приготовления</h3>
+							<div className={styles.ingredients__values}>
+								{Object.entries(defaultThings).map(([key, value], index) => (
+									<div key={index} className={styles.ingredients__values__text}>
+										<p>{key}</p>
+										<span></span>
+										<b>{value} шт.</b>
+									</div>
+								))}
+							</div>
+						</div>
+					</div>
+
+					<div className={styles.recipe}>
+						<h4 className={styles.ingredients__title}>Рецепт</h4>
+						<div className={styles.recipe__list}>
+							{recipeList.map((valeu, index) => (
+								<div key={index} className={styles.recipe__list__item}>
+									<span>{index + 1} /</span>
+									<p className={styles.list__item}>{valeu}</p>
 								</div>
 							))}
 						</div>
