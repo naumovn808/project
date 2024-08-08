@@ -7,7 +7,7 @@ const mockFilters = [
   "Сахарный сироп", "Содовая", "Тоник", "Кола"
 ];
 
-const InputWithTags = forwardRef((props, ref) => {
+const InputWithTags = forwardRef(({ dataAttribute, ...props }, ref) => {
   const [inputValue, setInputValue] = useState('');
   const [tags, setTags] = useState([]);
   const [suggestions, setSuggestions] = useState([]);
@@ -69,6 +69,7 @@ const InputWithTags = forwardRef((props, ref) => {
           onChange={handleInputChange}
           placeholder="Введите фильтр"
           className={styles.input}
+          data-attribute={dataAttribute}
         />
       </div>
       {suggestions.length > 0 && (
@@ -91,7 +92,7 @@ const InputWithTags = forwardRef((props, ref) => {
       )}
       <div className={styles.tagsContainer}>
         {tags.map(tag => (
-          <span key={tag} className={styles.tag}>
+          <span key={tag} className={styles.tag} data-attribute={dataAttribute}> 
             {tag}
             <button onClick={() => removeTag(tag)} className={styles.removeTag}>×</button>
           </span>
