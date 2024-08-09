@@ -1,6 +1,7 @@
 const express = require('express')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const nodemailer = require('nodemailer')
 const activateToken = require('../middleware/activateToken')
 const resetToken = require('../middleware/resetToken')
 const GoogleOauth = require('../Oauth/Google')
