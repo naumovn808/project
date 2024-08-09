@@ -53,7 +53,7 @@ const Cocktail = () => {
 	const [isShareOpen, setIsShareOpen] = useState(false);
 	const [isDescriptionOpen, setIsDescriptionOpen] = useState(false);
 	const [isSaved, setIsSaved] = useState(false);
-	const [images, setImages] = useState(Object.values(cocktailData.images));
+	const [images, setImages] = useState(cocktailData && cocktailData.images ? Object.values(cocktailData.images) : []);
 	const [currentUrl, setCurrentUrl] = useState(window.location.href);
 	const [socialNetworks, setSocialNetworks] = useState([
 		{
@@ -136,36 +136,40 @@ const Cocktail = () => {
 	]);
 
 	useEffect(() => {
-		const interval = setInterval(() => {
-			setCurrentImageIndex((prev) => (prev + 1) % images.length);
-		}, 4000);
+		if (images) {
+			const interval = setInterval(() => {
+				setCurrentImageIndex((prev) => (prev + 1) % images.length);
+			}, 4000);
 
-		return () => clearInterval(interval);
-	}, [images.length]);
+			return () => clearInterval(interval);
+		}
+	}, [images]);
 
 	useEffect(() => {
-		const lowerCaseStrength = cocktailData.strength.toLowerCase();
-		const lowerCaseFormat = cocktailData.format.toLowerCase();
-		const lowerCaseDifficult = cocktailData.difficult.toLowerCase();
+		if (cocktailData) {
+			const lowerCaseStrength = cocktailData.strength.toLowerCase();
+			const lowerCaseFormat = cocktailData.format.toLowerCase();
+			const lowerCaseDifficult = cocktailData.difficult.toLowerCase();
 
-		const strengthImage = Object.keys(imgParams.strength).find((key) => key.includes(lowerCaseStrength));
-		const formatImage = Object.keys(imgParams.format).find((key) => key.includes(lowerCaseFormat));
-		const difficultImage = Object.keys(imgParams.difficult).find((key) => key.includes(lowerCaseDifficult));
+			const strengthImage = Object.keys(imgParams.strength).find((key) => key.includes(lowerCaseStrength));
+			const formatImage = Object.keys(imgParams.format).find((key) => key.includes(lowerCaseFormat));
+			const difficultImage = Object.keys(imgParams.difficult).find((key) => key.includes(lowerCaseDifficult));
 
-		setCocktailParams([
-			{
-				title: lowerCaseStrength,
-				img: imgParams.strength[strengthImage],
-			},
-			{
-				title: lowerCaseFormat,
-				img: imgParams.format[formatImage],
-			},
-			{
-				title: lowerCaseDifficult,
-				img: imgParams.difficult[difficultImage],
-			},
-		]);
+			setCocktailParams([
+				{
+					title: lowerCaseStrength,
+					img: imgParams.strength[strengthImage],
+				},
+				{
+					title: lowerCaseFormat,
+					img: imgParams.format[formatImage],
+				},
+				{
+					title: lowerCaseDifficult,
+					img: imgParams.difficult[difficultImage],
+				},
+			]);
+		}
 	}, []);
 
 	const handleImage = (i) => {
@@ -246,224 +250,230 @@ const Cocktail = () => {
 		return format.endsWith(".0") ? `${Math.floor(format)}${unit}` : `${format}${unit}`;
 	};
 
-	return (
-		<div className={styles.container}>
-			<Header />
-			<div className={styles.content}>
-				<div className={styles.left__side}>
-					<div className={styles.images__container}>
-						<div className={styles.images}>
-							{images.length > 1 &&
-								images.map((value, i) => (
-									<div
-										key={i}
-										className={`${styles.image__container} ${
-											i === currentImageIndex ? styles.active : ""
-										}`}
-										onClick={() => handleImage(i)}
-									>
-										<img className={styles.gallery__img} src={value} alt="error" />
-									</div>
-								))}
-						</div>
-						<div className={styles.main__image__container}>
-							<img
-								className={styles.main__image}
-								src={
-									images[currentImageIndex] === undefined
-										? "PartyshakerCocktail.png"
-										: images[currentImageIndex]
-								}
-								alt="error"
-							/>
-						</div>
-					</div>
-
-					<div className={styles.add__save}>
-						<button
-							className={`${styles.save__button} ${isSaved ? styles.saved : ""}`}
-							onClick={handleSaved}
-						>
-							<img src={isSaved ? "Nosaved.png" : "Saved.png"} alt="error" />
-							{isSaved ? "Убрать из сохраненного" : "Добавить в сохраненное"}
-						</button>
-					</div>
-
-					<div className={styles.share}>
-						<button
-							onClick={toggleShare}
-							className={`${styles.share__button} ${isShareOpen ? styles.open : ""}`}
-						>
-							<img src="share.png" alt="share" className={styles.share__img} />
-							Поделиться
-							<span className={`${styles.arrow} ${isShareOpen ? styles.rotate : ""}`}>
-								<img className={styles.arrow__img} src="ArrowTop.png" alt="arrow" />
-							</span>
-						</button>
-						<div className={`${styles.share__menu} ${isShareOpen ? styles.open : ""}`}>
-							{socialNetworks.map((network, index) => (
-								<button
-									key={index}
-									className={styles.share__menu__button}
-									onClick={() => window.open(network.url, "_blank")}
-								>
-									<img src={network.icon} alt={network.name} /> <span>{network.name}</span>
-								</button>
-							))}
-						</div>
-					</div>
-				</div>
-
-				<div className={styles.right__side}>
-					<div className={styles.information__cocktail}>
-						<h1 className={styles.title}>{cocktailData.name}</h1>
-						<div className={styles.stars}>
-							<div className={styles.rating}>
-								<p className={styles.rating__float}>{cocktailData.rating}</p>
-								{parseInt(cocktailData.rating) >= 4 ? (
-									<img className={styles.rating__star} src="goldStar.png" alt="goldStar" />
-								) : (
-									<img className={styles.rating__star} src="silverStar.png" alt="silverStar" />
-								)}
-								<p className={styles.peoples__assessments}>{cocktailData.peoplsAssessments} оценок</p>
+	if (cocktailData) {
+		return (
+			<div className={styles.container}>
+				<Header />
+				<div className={styles.content}>
+					<div className={styles.left__side}>
+						<div className={styles.images__container}>
+							<div className={styles.images}>
+								{images.length > 1 &&
+									images.map((value, i) => (
+										<div
+											key={i}
+											className={`${styles.image__container} ${
+												i === currentImageIndex ? styles.active : ""
+											}`}
+											onClick={() => handleImage(i)}
+										>
+											<img className={styles.gallery__img} src={value} alt="error" />
+										</div>
+									))}
 							</div>
-							<div className={styles.rating}>
-								<span className={styles.peoples__assessments}>Ваша оценка:</span>
-								{[1, 2, 3, 4, 5].map((index) => (
-									<img
-										key={index}
-										className={styles.rating__star}
-										src={getStarSrc(index)}
-										alt="error"
-										onMouseEnter={() => handleMouseEnter(index)}
-										onMouseLeave={handleMouseLeave}
-										onClick={() => handleRating(index)}
-									/>
-								))}
+							<div className={styles.main__image__container}>
+								<img
+									className={styles.main__image}
+									src={
+										images[currentImageIndex] === undefined
+											? "PartyshakerCocktail.png"
+											: images[currentImageIndex]
+									}
+									alt="error"
+								/>
 							</div>
 						</div>
 
-						<div className={styles.description}>
-							<p className={`${styles.description__text} ${isDescriptionOpen ? styles.open : ""}`}>
-								{cocktailData.description}
-							</p>
-							<button onClick={toggleDesc} className={styles.share__button}>
-								{!isDescriptionOpen ? (
-									<span>Показать полное описание</span>
-								) : (
-									<span>Свернуть описание</span>
-								)}
-								<span className={`${styles.arrow} ${isDescriptionOpen ? styles.rotate : ""}`}>
-									<img className={styles.arrow__img} src="ArrowTop.png" alt="arrow" />
-								</span>
+						<div className={styles.add__save}>
+							<button
+								className={`${styles.save__button} ${isSaved ? styles.saved : ""}`}
+								onClick={handleSaved}
+							>
+								<img src={isSaved ? "Nosaved.png" : "Saved.png"} alt="error" />
+								{isSaved ? "Убрать из сохраненного" : "Добавить в сохраненное"}
 							</button>
 						</div>
 
-						<div className={styles.tastes}>
-							<b>Вкусы: </b> <span>{cocktailData.taste}</span>
-						</div>
-
-						<div className={styles.cocktail__params}>
-							{cocktailParams.map((item, i) => (
-								<div key={i}>
-									<SocialButton
-										text={item.title}
-										iconSrc={item.img}
-										padding={5}
-										borderRadius={12}
-										backgroundColor={"#48455f"}
-									/>
-								</div>
-							))}
-						</div>
-					</div>
-
-					<div className={styles.workplace}>
-						<div className={styles.ingredients}>
-							<h3 className={styles.ingredients__title}>Ингредиенты</h3>
-							<div className={styles.ingredients__click}>
-								<p className={styles.ingredients__click__text}>Количество порций</p>
-								<div className={styles.ingredients__click__buttons}>
+						<div className={styles.share}>
+							<button
+								onClick={toggleShare}
+								className={`${styles.share__button} ${isShareOpen ? styles.open : ""}`}
+							>
+								<img src="share.png" alt="share" className={styles.share__img} />
+								Поделиться
+								<span className={`${styles.arrow} ${isShareOpen ? styles.rotate : ""}`}>
+									<img className={styles.arrow__img} src="ArrowTop.png" alt="arrow" />
+								</span>
+							</button>
+							<div className={`${styles.share__menu} ${isShareOpen ? styles.open : ""}`}>
+								{socialNetworks.map((network, index) => (
 									<button
-										className={activeButton === 1 ? styles.active : ""}
-										onClick={() => handleIngredientClick(1)}
+										key={index}
+										className={styles.share__menu__button}
+										onClick={() => window.open(network.url, "_blank")}
 									>
-										1
+										<img src={network.icon} alt={network.name} /> <span>{network.name}</span>
 									</button>
-									<button
-										className={activeButton === 2 ? styles.active : ""}
-										onClick={() => handleIngredientClick(2)}
-									>
-										2
-									</button>
-									<button
-										className={activeButton === 3 ? styles.active : ""}
-										onClick={() => handleIngredientClick(3)}
-									>
-										3
-									</button>
-									<button
-										className={activeButton === 4 ? styles.active : ""}
-										onClick={() => handleIngredientClick(4)}
-									>
-										4
-									</button>
-									<button
-										className={activeButton === 5 ? styles.active : ""}
-										onClick={() => handleIngredientClick(5)}
-									>
-										5
-									</button>
-									<input
-										type="text"
-										placeholder="10"
-										value={inputValue}
-										onChange={handleIngredientChange}
-										onFocus={handleIngredientFocus}
-										className={isInputActive ? styles.active : ""}
-									/>
-								</div>
-							</div>
-							<div className={styles.ingredients__values}>
-								{Object.keys(valuesIngredients).map((ingredient, index) => (
-									<div key={index} className={styles.ingredients__values__text}>
-										<p>{ingredient}</p>
-										<span></span>
-										<b>{formatValue(ingredient, valuesIngredients[ingredient])}</b>
-									</div>
-								))}
-							</div>
-						</div>
-						<div className={styles.for__cooking}>
-							<h3 className={styles.ingredients__title}>Для приготовления</h3>
-							<div className={styles.ingredients__values}>
-								{Object.entries(defaultThings).map(([key, value], index) => (
-									<div key={index} className={styles.ingredients__values__text}>
-										<p>{key}</p>
-										<span></span>
-										<b>{value} шт.</b>
-									</div>
 								))}
 							</div>
 						</div>
 					</div>
 
-					<div className={styles.recipe}>
-						<h4 className={styles.ingredients__title}>Рецепт</h4>
-						<div className={styles.recipe__list}>
-							{recipeList.map((valeu, index) => (
-								<div key={index} className={styles.recipe__list__item}>
-									<span>{index + 1} /</span>
-									<p className={styles.list__item}>{valeu}</p>
+					<div className={styles.right__side}>
+						<div className={styles.information__cocktail}>
+							<h1 className={styles.title}>{cocktailData.name}</h1>
+							<div className={styles.stars}>
+								<div className={styles.rating}>
+									<p className={styles.rating__float}>{cocktailData.rating}</p>
+									{parseInt(cocktailData.rating) >= 4 ? (
+										<img className={styles.rating__star} src="goldStar.png" alt="goldStar" />
+									) : (
+										<img className={styles.rating__star} src="silverStar.png" alt="silverStar" />
+									)}
+									<p className={styles.peoples__assessments}>
+										{cocktailData.peoplsAssessments} оценок
+									</p>
 								</div>
-							))}
+								<div className={styles.rating}>
+									<span className={styles.peoples__assessments}>Ваша оценка:</span>
+									{[1, 2, 3, 4, 5].map((index) => (
+										<img
+											key={index}
+											className={styles.rating__star}
+											src={getStarSrc(index)}
+											alt="error"
+											onMouseEnter={() => handleMouseEnter(index)}
+											onMouseLeave={handleMouseLeave}
+											onClick={() => handleRating(index)}
+										/>
+									))}
+								</div>
+							</div>
+
+							<div className={styles.description}>
+								<p className={`${styles.description__text} ${isDescriptionOpen ? styles.open : ""}`}>
+									{cocktailData.description}
+								</p>
+								<button onClick={toggleDesc} className={styles.share__button}>
+									{!isDescriptionOpen ? (
+										<span>Показать полное описание</span>
+									) : (
+										<span>Свернуть описание</span>
+									)}
+									<span className={`${styles.arrow} ${isDescriptionOpen ? styles.rotate : ""}`}>
+										<img className={styles.arrow__img} src="ArrowTop.png" alt="arrow" />
+									</span>
+								</button>
+							</div>
+
+							<div className={styles.tastes}>
+								<b>Вкусы: </b> <span>{cocktailData.taste}</span>
+							</div>
+
+							<div className={styles.cocktail__params}>
+								{cocktailParams.map((item, i) => (
+									<div key={i}>
+										<SocialButton
+											text={item.title}
+											iconSrc={item.img}
+											padding={5}
+											borderRadius={12}
+											backgroundColor={"#48455f"}
+										/>
+									</div>
+								))}
+							</div>
+						</div>
+
+						<div className={styles.workplace}>
+							<div className={styles.ingredients}>
+								<h3 className={styles.ingredients__title}>Ингредиенты</h3>
+								<div className={styles.ingredients__click}>
+									<p className={styles.ingredients__click__text}>Количество порций</p>
+									<div className={styles.ingredients__click__buttons}>
+										<button
+											className={activeButton === 1 ? styles.active : ""}
+											onClick={() => handleIngredientClick(1)}
+										>
+											1
+										</button>
+										<button
+											className={activeButton === 2 ? styles.active : ""}
+											onClick={() => handleIngredientClick(2)}
+										>
+											2
+										</button>
+										<button
+											className={activeButton === 3 ? styles.active : ""}
+											onClick={() => handleIngredientClick(3)}
+										>
+											3
+										</button>
+										<button
+											className={activeButton === 4 ? styles.active : ""}
+											onClick={() => handleIngredientClick(4)}
+										>
+											4
+										</button>
+										<button
+											className={activeButton === 5 ? styles.active : ""}
+											onClick={() => handleIngredientClick(5)}
+										>
+											5
+										</button>
+										<input
+											type="text"
+											placeholder="10"
+											value={inputValue}
+											onChange={handleIngredientChange}
+											onFocus={handleIngredientFocus}
+											className={isInputActive ? styles.active : ""}
+										/>
+									</div>
+								</div>
+								<div className={styles.ingredients__values}>
+									{Object.keys(valuesIngredients).map((ingredient, index) => (
+										<div key={index} className={styles.ingredients__values__text}>
+											<p>{ingredient}</p>
+											<span></span>
+											<b>{formatValue(ingredient, valuesIngredients[ingredient])}</b>
+										</div>
+									))}
+								</div>
+							</div>
+							<div className={styles.for__cooking}>
+								<h3 className={styles.ingredients__title}>Для приготовления</h3>
+								<div className={styles.ingredients__values}>
+									{Object.entries(defaultThings).map(([key, value], index) => (
+										<div key={index} className={styles.ingredients__values__text}>
+											<p>{key}</p>
+											<span></span>
+											<b>{value} шт.</b>
+										</div>
+									))}
+								</div>
+							</div>
+						</div>
+
+						<div className={styles.recipe}>
+							<h4 className={styles.ingredients__title}>Рецепт</h4>
+							<div className={styles.recipe__list}>
+								{recipeList.map((valeu, index) => (
+									<div key={index} className={styles.recipe__list__item}>
+										<span>{index + 1} /</span>
+										<p className={styles.list__item}>{valeu}</p>
+									</div>
+								))}
+							</div>
 						</div>
 					</div>
 				</div>
+				<Footer />
 			</div>
-			<Footer />
-		</div>
-	);
+		);
+	} else {
+		return <>Ошибка</>;
+	}
 };
 
 export default Cocktail;

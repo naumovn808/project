@@ -411,7 +411,7 @@
 }
 
 .recipe__list__item{
-	height: 55px;
+	/* height: 55px; */
 	display: flex;
 	align-items: start;
 	color: #D6DCE1;
@@ -420,7 +420,7 @@
 	gap: 16px;
 	transition: 400ms;
 	cursor: pointer;
-	/* margin-bottom: 20px; */
+	margin-bottom: 20px;
 	span{
 		color: #98A1AE;
 		flex-shrink: 0;
