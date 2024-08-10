@@ -57,22 +57,21 @@ const CocktailsFilters = ({ isMobile, onClose }) => {
 
   const applyFilters = async () => {
     const filterData = {
+      name: [],   
+      description: selectedFlavors, 
+      taste: ingredients, 
+      difficult: activeFilters.complexity,
       strength: activeFilters.strength,
       format: activeFilters.format,
-      complexity: activeFilters.complexity,
-      flavors: selectedFlavors,
-      onlySaved: checkBoxState.isChecked,
-      ingredients: ingredients,
-      page: currentPage
+      chosens: checkBoxState.isChecked
     };
 
+
     try {
-      const response = await axios.post("http://localhost:1000/filters", filterData);
-      // Server response processing
-      console.log("Filters have been successfully submitted:", response.data)
-      // Here you can update the state of the component based on the server response
+      const response = await axios.post("http://localhost:1000/product", filterData);
+      console.log("Filters have been successfully submitted:", response.data);
     } catch (error) {
-      console.error("Error when sending filters:", error)
+      console.error("Error when sending filters:", error);
     }
   };
 
@@ -288,14 +287,14 @@ const CocktailsFilters = ({ isMobile, onClose }) => {
       {/* Input With Tags */}
       <InputWithTags ref={inputWithTagsRef} onChange={handleIngredientChange} />
         {/* Reset Filters и Apply Button для мобильной версии */}
-      {isMobile ? (
+        {isMobile ? (
         <>
           <button onClick={resetAllFilters} className={styles.resetButton}>
             Сбросить фильтры
           </button>
           <button className={styles.applyButton} onClick={() => {
-            applyFilters()
-            onClose()
+            applyFilters();
+            onClose();
           }}>
             Применить
           </button>
@@ -305,12 +304,13 @@ const CocktailsFilters = ({ isMobile, onClose }) => {
           <button onClick={resetAllFilters} className={styles.resetButton}>
             Сбросить фильтры
           </button>
-          {/* Scroll to Top Button */}
           <button onClick={scrollToTop} className={styles.scrollTopButton}>
             <span className={styles.scrollTopIcon}>^</span>
             Наверх
           </button>
-          {/* Pagination */}
+          <button className={styles.applyButton} onClick={applyFilters}>
+            Применить
+          </button>
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
