@@ -159,9 +159,8 @@
 	margin-top: 12px;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 	transition: 400ms;
-	opacity: 0;
 	overflow: hidden;
-	display: flex;
+	display: none;
 	flex-direction: column;
 	gap: 4px;
 	z-index: 1;
@@ -169,7 +168,7 @@
 
 .share__menu.open {
 	max-height: 600px;
-	opacity: 1;
+	display: flex;
 }
 
 .share__menu__button {
