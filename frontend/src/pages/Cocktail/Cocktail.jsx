@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./Cocktail.module.css";
 import Header from "../../components/Auth_Header/Auth_Header";
 import Footer from "../../components/Auth_Footer/Auth_Footer";
@@ -47,6 +47,7 @@ const imgParams = {
 const Cocktail = () => {
 	const [cocktailParams, setCocktailParams] = useState([]);
 	const [cocktailData, setCocktailData] = useState(obj);
+	const [currentIndexMobile, setCurrentIndexMobile] = useState(0);
 	const [hoveredRating, setHoveredRating] = useState(0);
 	const [fixedRating, setFixedRating] = useState(null);
 	const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -134,6 +135,7 @@ const Cocktail = () => {
 		"Перемешайте содержимое стакана для равномерного распределения и смешивания ингредиентов.",
 		"Украсьте коктейль ломтиком лимона.",
 	]);
+	const imagesMobileRef = useRef(null);
 
 	useEffect(() => {
 		if (images) {
@@ -171,6 +173,22 @@ const Cocktail = () => {
 			]);
 		}
 	}, []);
+
+	useEffect(() => {
+		const container = imagesMobileRef.current;
+
+		container.addEventListener("touchstart", handleSwipeStart);
+		container.addEventListener("touchend", handleSwipeEnd);
+		container.addEventListener("mousedown", handleSwipeStart);
+		container.addEventListener("mouseup", handleSwipeEnd);
+
+		return () => {
+			container.removeEventListener("touchstart", handleSwipeStart);
+			container.removeEventListener("touchend", handleSwipeEnd);
+			container.removeEventListener("mousedown", handleSwipeStart);
+			container.removeEventListener("mouseup", handleSwipeEnd);
+		};
+	}, [images]);
 
 	const handleImage = (i) => {
 		setCurrentImageIndex(i);
@@ -250,6 +268,21 @@ const Cocktail = () => {
 		return format.endsWith(".0") ? `${Math.floor(format)}${unit}` : `${format}${unit}`;
 	};
 
+	const handleSwipeStart = (e) => {
+		e.currentTarget.startX = e.type === "touchstart" ? e.touches[0].clientX : e.clientX;
+	};
+
+	const handleSwipeEnd = (e) => {
+		const endX = e.type === "touchend" ? e.changedTouches[0].clientX : e.clientX;
+		const setX = e.currentTarget.startX - endX;
+
+		if (setX > 50) {
+			setCurrentIndexMobile((prevIndex) => (prevIndex + 1) % images.length);
+		} else if (setX < -50) {
+			setCurrentIndexMobile((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+		}
+	};
+
 	if (cocktailData) {
 		return (
 			<div className={styles.container}>
@@ -320,6 +353,23 @@ const Cocktail = () => {
 					</div>
 
 					<div className={styles.right__side}>
+						<div ref={imagesMobileRef} className={styles.images__mobile}>
+							{images.length === 1 ? (
+								<img src={images} alt="error" className={styles.img__mobile} />
+							) : (
+								<div
+									className={styles.images__mobile__container}
+									style={{
+										transform: `translateX(-${currentIndexMobile * 264}px)`,
+									}}
+								>
+									{images.map((image, index) => (
+										<img key={index} src={image} alt="error" className={styles.img__mobile} />
+									))}
+								</div>
+							)}
+						</div>
+
 						<div className={styles.information__cocktail}>
 							<h1 className={styles.title}>{cocktailData.name}</h1>
 							<div className={styles.stars}>
@@ -468,6 +518,41 @@ const Cocktail = () => {
 										<p className={styles.list__item}>{valeu}</p>
 									</div>
 								))}
+							</div>
+						</div>
+
+						<div className={styles.save__share__mobile}>
+							<div className={styles.mobile__bottom}>
+								<div className={styles.add__save}>
+									<button
+										className={`${styles.save__button} ${isSaved ? styles.saved : ""}`}
+										onClick={handleSaved}
+									>
+										<img src={isSaved ? "Nosaved.png" : "Saved.png"} alt="error" />
+										{isSaved ? "Убрать из сохраненного" : "Добавить в сохраненное"}
+									</button>
+								</div>
+
+								<div className={styles.share__mobile}>
+									<button
+										onClick={toggleShare}
+										className={`${styles.share__button} ${isShareOpen ? styles.open : ""}`}
+									>
+										<img src="share.png" alt="share" className={styles.share__img} />
+									</button>
+									<div className={`${styles.share__menu} ${isShareOpen ? styles.open : ""}`}>
+										{socialNetworks.map((network, index) => (
+											<button
+												key={index}
+												className={styles.share__menu__button}
+												onClick={() => window.open(network.url, "_blank")}
+											>
+												<img src={network.icon} alt={network.name} />{" "}
+												<span>{network.name}</span>
+											</button>
+										))}
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>

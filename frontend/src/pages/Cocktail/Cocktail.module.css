@@ -25,6 +25,11 @@
 	display: flex;
 	flex-direction: column;
 	margin-bottom: 17px;
+	img {
+		object-fit: cover;
+		user-select: none;
+		flex-shrink: 0;
+	}
 }
 
 .images {
@@ -67,6 +72,7 @@
 	height: 392px;
 	border-radius: 12px;
 	box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+	user-select: none;
 }
 
 /* save */
@@ -88,6 +94,7 @@
 	img {
 		width: 18px;
 		height: 18px;
+		user-select: none;
 	}
 }
 
@@ -127,6 +134,7 @@
 .share__img {
 	width: 18px;
 	height: 18px;
+	user-select: none;
 }
 
 .arrow__img {
@@ -178,6 +186,9 @@
 	img {
 		width: 24px;
 		height: 24px;
+		object-fit: cover;
+		user-select: none;
+		flex-shrink: 0;
 	}
 	span {
 		font-size: 15px;
@@ -221,6 +232,7 @@
 	img {
 		width: 18px;
 		height: 17px;
+		user-select: none;
 	}
 }
 
@@ -231,6 +243,7 @@
 		width: 18px;
 		height: 17px;
 		margin-right: 5px;
+		user-select: none;
 	}
 }
 
@@ -440,6 +453,14 @@
 	}
 }
 
+.images__mobile {
+	display: none;
+}
+
+.save__share__mobile{
+	display: none;
+}
+
 @media (max-width: 1280px) {
 	.for__cooking,
 	.recipe__list {
@@ -502,6 +523,63 @@
 	.left__side {
 		display: none;
 	}
+
+	.right__side {
+		width: 100%;
+	}
+
+	.images__mobile {
+		width: 100%;
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		overflow: hidden;
+		border-radius: 12px;
+		position: relative;
+		margin-bottom: 24px;
+	}
+
+	.images__mobile__container {
+		display: flex;
+		transition: 600ms;
+		background-color: #363247;
+		/* box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); */
+		border-radius: 12px;
+	}
+
+	.img__mobile {
+		width: 256px;
+		height: 256px;
+		border-radius: 12px;
+		margin-right: 8px;
+		object-fit: cover;
+		user-select: none;
+		flex-shrink: 0;
+	}
+
+	.img__mobile:last-child {
+		margin-right: 0;
+	}
+
+	.save__share__mobile{
+		display: block;
+		margin-top: 50px;
+	}
+	
+	.mobile__bottom{
+		display: flex;
+		justify-content: center;
+		gap: 17px;
+	}
+
+	.share__img{
+		display: flex;
+		margin: 13px auto;
+	}
+	
+	.share__menu{
+		right: 100px;
+	}
 }
 
 @media (max-width: 490px) {
@@ -537,24 +615,14 @@
 		}
 	}
 
-	/* .gallery__img {
-		width: 50px;
-		height: 50px;
-		border: 2px solid #c4ccd4;
+	.share__menu{
+		right: 10px;
 	}
-
-	.gallery__img:hover {
-		border: 2px solid var(--yellow-color);
-	}
-
-	.active .gallery__img {
-		border: 2px solid #fad98c;
-	} */
 }
 
 @media (max-width: 376px) {
 	.content {
-		padding: 20px;
+		padding: 10px 20px 60px;
 	}
 
 	.right__side {
