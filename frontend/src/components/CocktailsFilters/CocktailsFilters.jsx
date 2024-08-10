@@ -245,43 +245,48 @@ const CocktailsFilters = ({ isMobile, onClose }) => {
       </div>
 
       {/* Flavor Selector */}
-      <div className={styles.flavorSelectorHeader}>
-  <button
-    onClick={toggleFlavorDropdown}
-    className={styles.flavorButton}
-    data-attribute="flavors"
-  >
-    {selectedFlavors.length > 0 ? `${selectedFlavors.length} вкуса` : '4 вкуса'}
-    <span
-      className={`${styles.dropdownArrow} ${isFlavorDropdownOpen ? styles.dropdownArrowUp : ''}`}
-    >
-      ▼
-    </span>
-  </button>
-  {isFlavorDropdownOpen && (
-    <button onClick={closeFlavorDropdown} className={styles.closeButton} data-attribute="flavors">
-      ×
-    </button>
-  )}
-  {isFlavorDropdownOpen && (
-    <div className={styles.flavorDropdown}>
-      {flavors.map((flavor) => (
-        <div
-          key={flavor}
-          className={`${styles.flavorOption} ${selectedFlavors.includes(flavor) ? styles.selected : ''}`}
-          onClick={() => handleFlavorSelect(flavor)}
-          data-attribute="flavors"
-        >
-          {flavor}
-          {selectedFlavors.includes(flavor) && <span className={styles.checkmark}>✓</span>}
+      <div className={styles.flavorSelector} ref={dropdownRef}>
+        <div className={styles.flavorSelectorHeader}>
+          <button onClick={toggleFlavorDropdown} className={styles.flavorButton}>
+            {selectedFlavors.length > 0 ? `${selectedFlavors.length} вкуса` : '4 вкуса'}
+            <span className={`${styles.dropdownArrow} ${isFlavorDropdownOpen ? styles.dropdownArrowUp : ''}`}>▼</span>
+          </button>
+          {isFlavorDropdownOpen && (
+            <button onClick={closeFlavorDropdown} className={styles.closeButton}>
+              ×
+            </button>
+          )}
         </div>
-      ))}
-    </div>
-  )}
-</div>
+        {isFlavorDropdownOpen && (
+          <div className={styles.flavorDropdown}>
+            {flavors.map(flavor => (
+              <div 
+                key={flavor} 
+                className={`${styles.flavorOption} ${selectedFlavors.includes(flavor) ? styles.selected : ''}`}
+                onClick={() => handleFlavorSelect(flavor)}
+              >
+                {flavor}
+                {selectedFlavors.includes(flavor) && <span className={styles.checkmark}>✓</span>}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Selected Flavors */}
+      <div className={styles.selectedFlavorsContainer}>
+        {selectedFlavors.map(flavor => (
+          <div key={flavor} className={styles.selectedFlavor}>
+            {flavor}
+            <button onClick={() => removeFlavor(flavor)} className={styles.removeFlavor}>
+              ×
+            </button>
+          </div>
+        ))}
+      </div>
 
       {/* Input With Tags */}
-      <InputWithTags ref={inputWithTagsRef} onChange={handleIngredientChange} dataAttribute="ingredients" />
+      <InputWithTags ref={inputWithTagsRef} onChange={handleIngredientChange} />
         {/* Reset Filters и Apply Button для мобильной версии */}
       {isMobile ? (
         <>
