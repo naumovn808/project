@@ -334,19 +334,21 @@ const Cocktail = () => {
 										{cocktailData.peoplsAssessments} оценок
 									</p>
 								</div>
-								<div className={styles.rating}>
-									<span className={styles.peoples__assessments}>Ваша оценка:</span>
-									{[1, 2, 3, 4, 5].map((index) => (
-										<img
-											key={index}
-											className={styles.rating__star}
-											src={getStarSrc(index)}
-											alt="error"
-											onMouseEnter={() => handleMouseEnter(index)}
-											onMouseLeave={handleMouseLeave}
-											onClick={() => handleRating(index)}
-										/>
-									))}
+								<div className={styles.rating__set}>
+									<span className={styles.peoples__assessments__set}>Ваша оценка:</span>
+									<div className={styles.rating__set__stars}>
+										{[1, 2, 3, 4, 5].map((index) => (
+											<img
+												key={index}
+												className={styles.rating__star}
+												src={getStarSrc(index)}
+												alt="error"
+												onMouseEnter={() => handleMouseEnter(index)}
+												onMouseLeave={handleMouseLeave}
+												onClick={() => handleRating(index)}
+											/>
+										))}
+									</div>
 								</div>
 							</div>
 
@@ -367,7 +369,9 @@ const Cocktail = () => {
 							</div>
 
 							<div className={styles.tastes}>
-								<b>Вкусы: </b> <span>{cocktailData.taste}</span>
+								<span>
+									<b>Вкусы: </b> {cocktailData.taste}
+								</span>
 							</div>
 
 							<div className={styles.cocktail__params}>
