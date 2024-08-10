@@ -10,8 +10,17 @@ const CocktailCard = ({ id, name, description, rating, images, tags }) => {
   const navigate = useNavigate();
   const timerRef = useRef(null);
 
-  const handleCardClick = () => {
-    navigate(`/cocktail/${id}`);
+  const handleCardClick = async () => {
+    try {
+      const response = await fetch(`http://localhost:1000/product/${id}`)
+      if (!response.ok) {
+        throw new Error('Failed to fetch product data');
+      }
+      const productData = await response.json();
+      navigate(`/cocktail/${id}`, { state: { productData } });
+    } catch (error) {
+      console.error('Error fetching product data', error);
+    }
   };
 
   const handleSlideChange = (swiper) => {

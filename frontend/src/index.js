@@ -57,6 +57,10 @@ const router = createBrowserRouter([
     {
         path: "cocktail",
         element: <Cocktail />
+    },
+    {
+        path: "/cocktail/:id",
+        element: <Cocktail />
     }
 ]);
 
