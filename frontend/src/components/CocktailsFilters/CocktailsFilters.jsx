@@ -5,7 +5,7 @@ import FilterButton from "../FilterButton/FilterButton";
 import InputWithTags from "../InputWithTags/InputWithTags";
 import Pagination from "../Pagination/Pagination";
 
-const CocktailsFilters = ({ isMobile, onClose }) => {
+const CocktailsFilters = ({ isMobile, onClose, onApplyFilters }) => {
   const [activeFilters, setActiveFilters] = useState({
     strength: [],
     format: [],
@@ -57,22 +57,19 @@ const CocktailsFilters = ({ isMobile, onClose }) => {
 
   const applyFilters = async () => {
     const filterData = {
+      name: [],   
+      description: selectedFlavors, 
+      taste: ingredients, 
+      difficult: activeFilters.complexity,
       strength: activeFilters.strength,
       format: activeFilters.format,
-      complexity: activeFilters.complexity,
-      flavors: selectedFlavors,
-      onlySaved: checkBoxState.isChecked,
-      ingredients: ingredients,
-      page: currentPage
+      chosens: checkBoxState.isChecked
     };
 
-    try {
-      const response = await axios.post("http://localhost:1000/filters", filterData);
-      // Server response processing
-      console.log("Filters have been successfully submitted:", response.data)
-      // Here you can update the state of the component based on the server response
-    } catch (error) {
-      console.error("Error when sending filters:", error)
+    onApplyFilters(filterData);
+
+    if (isMobile && onClose) {
+      onClose();
     }
   };
 
@@ -160,7 +157,7 @@ const CocktailsFilters = ({ isMobile, onClose }) => {
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
-    // fetchDataForPage(pageNumber)
+    applyFilters();
   };
 
   const filterCategories = [
@@ -288,15 +285,12 @@ const CocktailsFilters = ({ isMobile, onClose }) => {
       {/* Input With Tags */}
       <InputWithTags ref={inputWithTagsRef} onChange={handleIngredientChange} />
         {/* Reset Filters и Apply Button для мобильной версии */}
-      {isMobile ? (
+        {isMobile ? (
         <>
           <button onClick={resetAllFilters} className={styles.resetButton}>
             Сбросить фильтры
           </button>
-          <button className={styles.applyButton} onClick={() => {
-            applyFilters()
-            onClose()
-          }}>
+          <button className={styles.applyButton} onClick={applyFilters}>
             Применить
           </button>
         </>
@@ -305,19 +299,17 @@ const CocktailsFilters = ({ isMobile, onClose }) => {
           <button onClick={resetAllFilters} className={styles.resetButton}>
             Сбросить фильтры
           </button>
-          {/* Scroll to Top Button */}
           <button onClick={scrollToTop} className={styles.scrollTopButton}>
             <span className={styles.scrollTopIcon}>^</span>
             Наверх
           </button>
-          {/* Pagination */}
+          <button className={styles.applyButton} onClick={applyFilters}>
+            Применить
+          </button>
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
-            onPageChange={(page) => {
-              setCurrentPage(page);
-              applyFilters();
-            }}
+            onPageChange={handlePageChange}
           />
         </>
       )}

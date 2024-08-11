@@ -3,6 +3,7 @@ import styles from "./Cocktail.module.css";
 import Header from "../../components/Auth_Header/Auth_Header";
 import Footer from "../../components/Auth_Footer/Auth_Footer";
 import SocialButton from "../../components/SocialButton/SocialButton";
+import { useParams } from "react-router-dom";
 
 const obj = {
 	name: "Лонг-Айленд",
@@ -45,8 +46,11 @@ const imgParams = {
 };
 
 const Cocktail = () => {
+	const { id } = useParams();
 	const [cocktailParams, setCocktailParams] = useState([]);
-	const [cocktailData, setCocktailData] = useState(obj);
+	const [cocktailData, setCocktailData] = useState(null);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(null);
 	const [currentIndexMobile, setCurrentIndexMobile] = useState(0);
 	const [hoveredRating, setHoveredRating] = useState(0);
 	const [fixedRating, setFixedRating] = useState(null);
@@ -176,19 +180,20 @@ const Cocktail = () => {
 
 	useEffect(() => {
 		const container = imagesMobileRef.current;
-
-		container.addEventListener("touchstart", handleSwipeStart);
-		container.addEventListener("touchend", handleSwipeEnd);
-		container.addEventListener("mousedown", handleSwipeStart);
-		container.addEventListener("mouseup", handleSwipeEnd);
-
-		return () => {
+		if (container) {
+		  container.addEventListener("touchstart", handleSwipeStart);
+		  container.addEventListener("touchend", handleSwipeEnd);
+		  container.addEventListener("mousedown", handleSwipeStart);
+		  container.addEventListener("mouseup", handleSwipeEnd);
+	  
+		  return () => {
 			container.removeEventListener("touchstart", handleSwipeStart);
 			container.removeEventListener("touchend", handleSwipeEnd);
 			container.removeEventListener("mousedown", handleSwipeStart);
 			container.removeEventListener("mouseup", handleSwipeEnd);
-		};
-	}, [images]);
+		  };
+		}
+	  }, [images, cocktailData]);
 
 	const handleImage = (i) => {
 		setCurrentImageIndex(i);
@@ -282,7 +287,42 @@ const Cocktail = () => {
 			setCurrentIndexMobile((prevIndex) => (prevIndex - 1 + images.length) % images.length);
 		}
 	};
+	useEffect(() => {
+		const fetchCocktailData = async () => {
+			setLoading(true);
+			setError(null);
+			try {
+			  const response = await fetch(`http://localhost:1000/product/${id}`);
+			  if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
+			  }
+			  const data = await response.json();
+			  setCocktailData(data);
+			  setImages(data.images ? Object.values(data.images) : []);
+			} catch (err) {
+			  console.error('Error fetching cocktail data:', err);
+			  setError(err.message || 'An error occurred while loading data');
+			} finally {
+			  setLoading(false);
+			}
+		};
+		fetchCocktailData();
+	}, [id]);
+	useEffect(() => {
+		console.log('Error state:', error);
+	  }, [error]);
 
+	  if (loading) {
+		return <div>Загрузка...</div>;
+	  }
+	  
+	  if (error) {
+		return <div>Ошибка: {error}</div>;
+	  }
+	  
+	  if (!cocktailData) {
+		return <div>Данные о коктейле не найдены</div>;
+	  }
 	if (cocktailData) {
 		return (
 			<div className={styles.container}>
@@ -560,9 +600,9 @@ const Cocktail = () => {
 				<Footer />
 			</div>
 		);
-	} else {
-		return <>Ошибка</>;
-	}
+	} 
+
+	return null;
 };
 
 export default Cocktail;
