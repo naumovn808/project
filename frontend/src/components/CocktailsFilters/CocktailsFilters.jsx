@@ -5,7 +5,7 @@ import FilterButton from "../FilterButton/FilterButton";
 import InputWithTags from "../InputWithTags/InputWithTags";
 import Pagination from "../Pagination/Pagination";
 
-const CocktailsFilters = ({ isMobile, onClose }) => {
+const CocktailsFilters = ({ isMobile, onClose, onApplyFilters }) => {
   const [activeFilters, setActiveFilters] = useState({
     strength: [],
     format: [],
@@ -66,12 +66,10 @@ const CocktailsFilters = ({ isMobile, onClose }) => {
       chosens: checkBoxState.isChecked
     };
 
+    onApplyFilters(filterData);
 
-    try {
-      const response = await axios.post("http://localhost:1000/product", filterData);
-      console.log("Filters have been successfully submitted:", response.data);
-    } catch (error) {
-      console.error("Error when sending filters:", error);
+    if (isMobile && onClose) {
+      onClose();
     }
   };
 
@@ -159,7 +157,7 @@ const CocktailsFilters = ({ isMobile, onClose }) => {
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
-    // fetchDataForPage(pageNumber)
+    applyFilters();
   };
 
   const filterCategories = [
@@ -292,10 +290,7 @@ const CocktailsFilters = ({ isMobile, onClose }) => {
           <button onClick={resetAllFilters} className={styles.resetButton}>
             Сбросить фильтры
           </button>
-          <button className={styles.applyButton} onClick={() => {
-            applyFilters();
-            onClose();
-          }}>
+          <button className={styles.applyButton} onClick={applyFilters}>
             Применить
           </button>
         </>
@@ -314,10 +309,7 @@ const CocktailsFilters = ({ isMobile, onClose }) => {
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
-            onPageChange={(page) => {
-              setCurrentPage(page);
-              applyFilters();
-            }}
+            onPageChange={handlePageChange}
           />
         </>
       )}
