@@ -13,6 +13,25 @@ router.get('/', async (req, res) => {
 		res.status(500).send({ message: error })
 	}
 })
+// get data for certainly product
+
+router.get('/:id', async (req, res) => {
+	try {
+		const id = req.params.id
+		const product = await productSchema.findOne({ _id: id })
+		if (!product)
+			res.status(404).send({ message: "Current product hasn't found" })
+		res
+			.status(200)
+			.send({
+				message: product,
+				prikol: 'https://youtu.be/dQw4w9WgXcQ?si=VmPKJbE76mDZdE2C',
+			})
+	} catch (error) {
+		res.status(500).send({ message: error })
+	}
+})
+
 // show more
 router.get('/more', async (req, res) => {
 	try {
