@@ -54,6 +54,18 @@ const router = createBrowserRouter([
 		path: 'main',
 		element: <Main />,
 	},
+	{
+		path: 'cocktail',
+		element: <Cocktail />,
+	},
+	{
+		path: '/cocktail/:id',
+		element: <Cocktail />,
+	},
+	{
+		path: 'titres',
+		element: <PageTitres />,
+	},
 ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
