@@ -12,6 +12,7 @@ const ProductSchema = new mongoose.Schema(
 		difficult: { type: Number, required: true },
 		strength: { type: String, require: true },
 		image: { type: String, require: true },
+		chosen: { type: Boolean, default: false, required: true },
 	},
 
 	{ timestamps: true }
