@@ -30,12 +30,6 @@ router.get('/more', async (req, res) => {
 router.post('/filter', async (req, res) => {
 	try {
 		const filters = req.body
-		if (filters.chosens) {
-			const chosenProductId = await userSchema.findOne(
-				{ _id: req.user.id },
-				{ chosen }
-			)
-		}
 		const FindParameter = Object.keys(filters).forEach(key => {
 			if (filters[key] != 'chosens') filters[key] = { $in: filters[key] }
 		})
