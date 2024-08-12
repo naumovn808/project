@@ -35,7 +35,7 @@ app.get('/', authenticateToken, (req, res) => {
 })
 
 mongoose.connect(
-	'mongodb+srv://azamat2007pro:Partyshaker@partyshaker.qdklfng.mongodb.net/',
+	'mongodb+srv://azamat2007pro:Partyshaker@partyshaker.qdklfng.mongodb.net',
 	{ useNewUrlParser: true, useUnifiedTopology: true }
 )
 

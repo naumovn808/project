@@ -14,10 +14,9 @@ router.get('/', async (req, res) => {
 	}
 })
 // show more
-
 router.get('/more', async (req, res) => {
 	try {
-		const amount = req.params.amount
+		const amount = req.query.amount
 		const products = await productSchema.find({}).limit(amount + 12)
 		res.status(200).send({ message: products })
 	} catch (error) {
@@ -30,13 +29,12 @@ router.get('/more', async (req, res) => {
 router.post('/filter', async (req, res) => {
 	try {
 		const filters = req.body
-		const FindParameter = Object.keys(filters).forEach(key => {
-			if (filters[key] != 'chosens') filters[key] = { $in: filters[key] }
+		Object.keys(filters).forEach(key => {
+			if (key != 'chosen') filters[key] = { $in: filters[key] }
 		})
-		const filteredProducts = await productSchema
-			.find(FindParameter)
-			.limit(12)
-			.lean()
+		console.log(filters)
+		const filteredProducts = await productSchema.find(filters).limit(12)
+		console.log(filteredProducts)
 		res.status(200).send({ message: filteredProducts })
 	} catch (error) {
 		console.log(error)
