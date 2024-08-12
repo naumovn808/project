@@ -6,7 +6,7 @@ const ProductSchema = new mongoose.Schema(
 			type: String,
 			required: true,
 		},
-		description: { type: String, required: true },
+		stars: { type: String, required: true },
 		taste: [{ type: String, required: true }],
 		format: { type: String, required: true },
 		difficult: { type: Number, required: true },
