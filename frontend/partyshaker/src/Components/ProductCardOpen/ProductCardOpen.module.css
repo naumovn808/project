@@ -54,13 +54,33 @@
   line-height: 150%;
   color: #fff;
 }
+
 .buttonAdd > img {
   margin-right: 5px;
+}
+.buttonAddDel {
+  display: flex;
+  align-items: center;
+justify-content: center;
+   margin: 50px 10px 30px 0;
+   gap: 10px;
+  border-radius: 16px;
+padding: 12px 16px;
+width: 270px;
+height: 48px;
+min-width: 48px;
+box-shadow: 0 2px 1px 0 #181528;
+background: #595975;
+font-family: var(--font-family);
+font-weight: 500;
+font-size: 16px;
+line-height: 150%;
+color: #edf0f2;
 }
 .buttonShare {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
   font-family: var(--font-family);
   font-weight: 500;
   font-size: 16px;
@@ -70,7 +90,7 @@
   padding: 12px 0px;
   width: 165px;
   height: 48px;
-  min-width: 48px;
+ 
   backdrop-filter: blur(16px);
   background: rgba(255, 255, 255, 0);
   border-style: none;
@@ -130,6 +150,17 @@
   font-size: 16px;
   line-height: 150%;
   color: #d6dce1;
+}
+.descriptionFullClosed {
+  display: none;
+}
+.descriptionFullOpen{
+   font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  color: #d6dce1;
+
 }
 .descriptionButton {
   display: flex;
@@ -231,6 +262,58 @@
   line-height: 150%;
   color: #d6dce1;
 }
+.portionQuantityBtn:active {
+  background: #6d45e6;
+
+}
+.buttonShare {
+
+}
+.socialMediaDropdown {
+  margin-top: 5px;
+  border-radius: 16px;
+  padding: -8px;
+  width: 200px;
+  height: 480px;
+  gap: 20px;
+}
+.socialMediaDropdownClosed {
+  display: none;
+}
+.socialMediaBlock {
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  padding: 8px;
+  width: 200px;
+  gap: 10px;
+
+  box-shadow: 0 8px 24px 0 #101828;
+  background: #363247;
+}
+.socialMedias {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  border-radius: 12px;
+  padding: 12px 8px;
+  width: 184px;
+  gap: 10px;
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  color: #d6dce1;
+  /* background: #252232; */
+}
+.socialMedias:active {
+  background: #252232;
+}
+.socialMedias > img {
+  width: 24px;
+  height: 24px;
+}
+
 .ingredientLine {
   display: flex;
   flex-direction: row;
@@ -303,63 +386,57 @@
 }
 .recipes {
   width: 760px;
-  
 }
 .recipes > h4 {
-
-font-family: var(--font-family);
-font-weight: 500;
-font-size: 16px;
-line-height: 150%;
-color: #d6dce1;
-
+  font-family: var(--font-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  color: #d6dce1;
 }
 .recipe {
-  
 }
 .recipeDescription {
   margin-right: -20px;
 
   font-family: var(--font-family);
-font-weight: 500;
-font-size: 16px;
-line-height: 150%;
-color: #d6dce1;
-width: 565px;
-padding-bottom: 10px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  color: #d6dce1;
+  width: 565px;
+  padding-bottom: 10px;
 }
-.recipeText  {
+.recipeText {
   font-family: var(--font-family);
-font-weight: 500;
-font-size: 16px;
-line-height: 150%;
-color: #d6dce1;
-
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  color: #d6dce1;
 }
 
 ol {
   counter-reset: item;
   list-style-type: none;
-   margin: 0;
-   padding: 0;
+  margin: 0;
+  padding: 0;
 }
 li {
- display: flex;
- align-items: flex-start;
+  display: flex;
+  align-items: flex-start;
 
-padding: 0;
+  padding: 0;
 }
 li::before {
   counter-increment: item;
   content: counter(item) " /    ";
   font-family: var(--font-family);
-   flex-shrink: 0; /* Предотвращает уменьшение ширины */
+  flex-shrink: 0; /* Предотвращает уменьшение ширины */
   width: 30px;
-font-weight: 500;
-font-size: 16px;
-line-height: 150%;
-text-align: right;
-color: #98a1ae;
-margin-right: 10px;
-
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  text-align: right;
+  color: #98a1ae;
+  margin-right: 10px;
 }
