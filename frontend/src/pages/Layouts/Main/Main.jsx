@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, act } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLoaderData } from "react-router-dom";
 import styles from "./Main.module.css";
 import Auth_Footer from "../../../components/Auth_Footer/Auth_Footer";
 import Auth_Header from "../../../components/Auth_Header/Auth_Header";
@@ -9,10 +9,11 @@ import CocktailCard from "../../../components/CocktailCard/CocktailCard";
 import axios from "axios";
 
 const Main = () => {
+	const { initialCocktails } = useLoaderData();
 	const [isButtonsVisible, setIsButtonsVisible] = useState(true);
 	const [isMobile, setIsMobile] = useState(false);
 	const [isFilterOpen, setIsFilterOpen] = useState(false);
-	const [cocktails, setCocktails] = useState([]);
+	const [cocktails, setCocktails] = useState(initialCocktails);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [hasMore, setHasMore] = useState(true);
 	const [activeFilters, setActiveFilters] = useState({});
@@ -88,6 +89,12 @@ const Main = () => {
 			return [];
 		}
 	};
+
+	useEffect(() => {
+		if (initialCocktails > 0) {
+			setHasMore(initialCocktails.length === 10);
+		}
+	}, [initialCocktails]);
 
 	const handleApplyFilters = async (filters) => {
 		setActiveFilters(filters);

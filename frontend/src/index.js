@@ -12,6 +12,17 @@ import PasswordReset from './pages/Auth/PasswordReset/PasswordReset.jsx';
 import PasswordSend from './pages/Auth/PasswordSend/PasswordSend.jsx';
 import NewPassword from './pages/Auth/NewPassword/NewPassword.jsx';
 import Cocktail from './pages/Cocktail/Cocktail.jsx';
+import axios from 'axios';
+
+const mainLoader = async () => {
+    try {
+      const response = await axios.post("http://localhost:1000/product", { page: 1 });
+      return { initialCocktails: response.data };
+    } catch (error) {
+      console.error("Error fetching initial cocktails:", error);
+      return { initialCocktails: [] };
+    }
+  };
 
 const router = createBrowserRouter([
     {
@@ -52,7 +63,8 @@ const router = createBrowserRouter([
     },
     {
         path: "/",
-        element: <Main />
+        element: <Main />,
+        loader: mainLoader
     },
     {
         path: "cocktail",
