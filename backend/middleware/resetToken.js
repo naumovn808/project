@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken')
 
 const resetToken = (req, res, next) => {
-	const token = req.params.token
+	const token = req.params.token || req.cookies.resetToken
 	if (!token) {
 		return res.status(403).send({ message: 'Token is not valid' })
 	}

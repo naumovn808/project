@@ -1,9 +1,30 @@
 {
-    "name": "Party Shaker",
-    "icons": [
-    ],
-    "start_url": ".",
-    "display": "standalone",
-    "theme_color": "#48455F",
-    "background_color": "#ffffff"
-  }
+  "name": "Party Shaker",
+  "short_name": "PartyShaker",
+  "icons": [
+    {
+      "src": "PartyIcon/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/ico"
+    },
+    {
+      "src": "PartyIcon/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "PartyIcon/favicon-32x32.ico",
+      "sizes": "32x32",
+      "type": "image/ico"
+    },
+    {
+      "src": "PartyIcon/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "",
+  "display": "standalone",
+  "theme_color": "#48455F",
+  "background_color": "#343448"
+}

@@ -3,6 +3,7 @@ import styles from "./PasswordReset.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../../components/Button/Button";
 import Input from "../../../components/Input/Input.jsx";
+import MSG from "../../../components/popUpNotification/popUpNotification.jsx";
 
 const PasswordReset = () => {
 	const navigate = useNavigate();
@@ -55,7 +56,7 @@ const PasswordReset = () => {
 						<Input required id="email" name="email" type="email" value={email} onChange={handleChange} />
 					</label>
 				</div>
-				{message}
+				{!message ? <></> : <MSG iconColor={'brown'} isSuccess={false} message={message}/>}
 				<div className={styles.links}>
 					<Button type="submit" title={"Получить ссылку"} />
 					<div className={styles.links__login}>

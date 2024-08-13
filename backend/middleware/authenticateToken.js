@@ -1,11 +1,12 @@
 const jwt = require('jsonwebtoken')
 
-function authenticateToken(req, res, next) {
-	const token = req.cookies.accessToken
+const authenticateToken = (req, res, next) => {
+	const token =
+		req.cookies.accessToken || req.headers['authorization'].split(' ')[1]
+	console.log(token)
 	if (!token) {
 		return res.status(401).send({ message: 'Unauthorized User!!!' })
 	}
-
 	jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
 		if (err) {
 			console.log('Error verifying token:', err)
@@ -18,4 +19,3 @@ function authenticateToken(req, res, next) {
 }
 
 module.exports = authenticateToken
-
