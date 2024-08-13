@@ -72,7 +72,7 @@ export default function ProfileMainInfo({ userId }) {
   const handleUpdateUserAccount = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:5000/users/${userId}`,
+        `http://localhost:1000/profile/update/`,
         {
           name: formData.newName,
           email: formData.newEmail,
@@ -84,6 +84,7 @@ export default function ProfileMainInfo({ userId }) {
           },
         }
       );
+      console.log(response);
 
       if (response.data.success) {
         setMessage("Аккаунт успешно обновлен.");
@@ -181,43 +182,3 @@ export default function ProfileMainInfo({ userId }) {
     </div>
   );
 }
-
-// import React from "react";
-
-// const ProfileMainInfo = ({ formData, handleChange, handleUpdateUser }) => {
-//   return (
-//     <div>
-//       <input
-//         type="text"
-//         name="name"
-//         value={formData.name}
-//         onChange={handleChange}
-//         placeholder="Name"
-//       />
-//       <input
-//         type="text"
-//         name="surname"
-//         value={formData.surname}
-//         onChange={handleChange}
-//         placeholder="Surname"
-//       />
-//       <input
-//         type="email"
-//         name="email"
-//         value={formData.email}
-//         onChange={handleChange}
-//         placeholder="Email"
-//       />
-//       <input
-//         type="password"
-//         name="password"
-//         value={formData.password}
-//         onChange={handleChange}
-//         placeholder="Password"
-//       />
-//       <button onClick={handleUpdateUser}>Update</button>
-//     </div>
-//   );
-// };
-
-// export default ProfileMainInfo;

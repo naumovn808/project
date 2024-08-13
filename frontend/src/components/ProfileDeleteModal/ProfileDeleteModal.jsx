@@ -29,7 +29,6 @@ const ProfileDeleteModal = ({ isOpen, onClose, userId }) => {
 
   const handleDeleteAccount = async () => {
     if (!formData.password) {
-      console.log(formData.password);
       setMessage("Введите пароль для удаления аккаунта.");
       setIsIcon("/Danger.svg");
       setMessageColor("#FF4F42");
@@ -39,9 +38,9 @@ const ProfileDeleteModal = ({ isOpen, onClose, userId }) => {
 
     try {
       const response = await axios.delete(
-        `http://localhost:1000/profile/${userId}`,
+        `http://localhost:1000/profile/delete-account/${userId}`,
         {
-          data: formData,
+          data: { password: formData.password },
           headers: {
             "Content-Type": "application/json",
           },

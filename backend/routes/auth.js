@@ -5,10 +5,12 @@ const activateToken = require('../middleware/activateToken')
 const resetToken = require('../middleware/resetToken')
 const authenticateToken = require('../middleware/authenticateToken')
 const GoogleOauth = require('../Oauth/Google')
+const nodemailer = require('nodemailer')
 const OkOauth = require('../Oauth/Ok')
 const VkOauth = require('../Oauth/Vk')
 const MailRuOauth = require('../Oauth/MailRu')
 const YandexOauth = require('../Oauth/Yandex')
+const UserSchema = require('../models/UserSchema')
 require('dotenv').config()
 
 const router = express.Router()
@@ -204,25 +206,6 @@ router.post('/reset/password/:token', resetToken, async (req, res) => {
 		res.status(500).send({ message: error })
 	}
 })
-router.put('/profile', authenticateToken, async (req, res) => {
-	const { name, surname, userAvatar, nickname, email, updatePassword } = req.body;
-	try {
-		const user = await UserSchema.findById(req.user.id);
-
-		if (name) user.name = name;
-		if (surname) user.surname = surname;
-		if (userAvatar) user.userAvatar = userAvatar;
-		if (nickname) user.nickname = nickname;
-		if (email) user.email = email;
-		if (updatePassword) user.password = await bcrypt.hash(updatePassword, 10);
-
-		await user.save();
-		res.status(200).send('Profile updated successfully');
-	} catch (error) {``
-		console.error(error);
-		res.status(500).send('Error updating profile');
-	}
-});
 //
 
 // Oauth
