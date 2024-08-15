@@ -1,6 +1,6 @@
 import styles from './ProductCardOpen.module.css';
 import { useState } from 'react';
-import  CardSlider  from '../CardSlider/CardSlider';
+
 import ThumbnailSlider from '../TrumbnailSlider/TrumbnailSlider';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -18,18 +18,29 @@ function ProductCartOpen() {
         { id: 5, image: './cartImg5.png', title: 'Card 5' },
 
     ];
+const buttons = [
+    { id: 1, btn: 1},
+    { id: 2, btn: 2 },
+    { id: 3, btn: 3 },
+    { id: 4, btn: 4 },
+    { id: 5, btn: 5 },
+    { id: 10, btn: 10 },
+    
 
+]
     const ingredients = [
-        { id: 1, mark: './icons/IconEmpty.PNG', name: 'Белый ром', qty: '30 мл'  },
-        { id: 2, mark: './icons/IconMark.svg', name: 'Водка', qty: '30 мл' },
-        { id: 3, mark: './icons/IconEmpty.PNG', name: 'Серебряная текила', qty: '30 мл' },
-        { id: 4, mark: './icons/IconEmpty.PNG', name: 'Сухой джин', qty: '30 мл' },
-        { id: 4, mark: './icons/IconEmpty.PNG', name: 'Трипл сек', qty: '30 мл' },
-        { id: 4, mark: './icons/IconMark.svg', name: 'Сахарный сироп', qty: '30 мл' },
-        { id: 4, mark: './icons/IconMark.svg', name: 'Лимонный сок', qty: '30 мл' },
-        { id: 4, mark: './icons/IconMark.svg', name: 'Кола', qty: '100 мл' },
-        { id: 4, mark: './icons/IconMark.svg', name: 'Лимон', qty: '40 г' },
-        { id: 4, mark: './icons/IconMark.svg', name: 'Лед в кубиках', qty: '300 г' },
+
+
+        { id: 1, mark: './icons/IconEmpty.PNG', name: 'Белый ром', qty: 30, measurement: ' мл' },
+        { id: 2, mark: './icons/IconMark.svg', name: 'Водка', qty: 30, measurement: ' мл' },
+        { id: 3, mark: './icons/IconEmpty.PNG', name: 'Серебряная текила', qty: 30, measurement: ' мл' },
+        { id: 4, mark: './icons/IconEmpty.PNG', name: 'Сухой джин', qty: 30, measurement: ' мл' },
+        { id: 4, mark: './icons/IconEmpty.PNG', name: 'Трипл сек', qty: 30, measurement: ' мл' },
+        { id: 4, mark: './icons/IconMark.svg', name: 'Сахарный сироп', qty: 30, measurement: ' мл' },
+        { id: 4, mark: './icons/IconMark.svg', name: 'Лимонный сок', qty: 30, measurement: ' мл' },
+        { id: 4, mark: './icons/IconMark.svg', name: 'Кола', qty: 100, measurement: ' мл' },
+        { id: 4, mark: './icons/IconMark.svg', name: 'Лимон', qty: 40, measurement: ' г' },
+        { id: 4, mark: './icons/IconMark.svg', name: 'Лед в кубиках', qty: 300, measurement: ' г' },
     ] 
     const equipments = [
         { id: 1, mark: './icons/IconMark.svg', name: 'Хайбол', qty: '1 шт' },
@@ -65,13 +76,19 @@ function ProductCartOpen() {
         { id: 7, icon: '/WhatsApp.svg', name: 'WhatsApp' },
         { id: 8, icon: '/Viber.svg', name: 'Viber' }
     ];
-    const description = [
+    const informations = [
         {   id: 1,
             title: 'Лонг-Айленд',
             mark: '4,5',
             quantitymark: '2458',
+            markStar1: './icons/IconYourStarsFull.svg', markStar1Text: 'fullstar',
+            markStar2: './icons/IconYourStarsFull.svg', markStar2Text: 'fullstar',
+            markStar3: './icons/IconYourStarsFull.svg', markStar3Text: 'fullstar',
+            markStar4: './icons/IconYourStarsFull.svg', markStar4Text: 'fullstar',
+            markStar5: './icons/IconYourStarsEmpty.svg', markStar5Text: 'emptystar',
+ 
             text: 'Классический коктейль, обладающий своеобразным характером и многогранным вкусом. Сочетание различных спиртных напитков создает гармонию пряностей, сладости, кислотности и освежающих ноток.Он отлично подходит для тех, кто предпочитает насыщенные и энергичные напитки',
-            fullText: '',
+            fullText: 'Классический коктейль, обладающий своеобразным характером и многогранным вкусом. Сочетание различных спиртных напитков создает гармонию пряностей, сладости, кислотности и освежающих ноток.Он отлично подходит для тех, кто предпочитает насыщенные и энергичные напитки',
             taste: ' пряный, цитрусовый, сладкий, кислы',
             fortress: 'Крепкий',
             fortressImg: './icons/semiAlcogol.svg',
@@ -81,7 +98,7 @@ function ProductCartOpen() {
             complexityImg: './icons/mediumDift.svg'
           
 
-      } 
+      } ,
     ]
 
    
@@ -100,6 +117,10 @@ function ProductCartOpen() {
     const toggleStyleFullText = () => {
         setIsFullTextStyled(!isFullTextStyled);
     };
+
+    const [result, setResult] = useState(0);
+
+  
 
   return(
     <div className={styles['container']}>
@@ -139,27 +160,28 @@ function ProductCartOpen() {
 </div>
 
         </div>
-          <div className={styles['containerRight']}>
+        { informations.map((information) => (
+          <div className={styles['containerRight']} key = {information.id} >
 
-              <h1 className={styles['title']}> Лонг-Айленд </h1>
+              <h1 className={styles['title']}> {information.title} </h1>
               <div className={styles['reitings']}>
                   <div className={styles['reitingStar']} >
-                      <span>4.2</span>
+                      <span>{information.mark}</span>
                       <img width='12px' height='12px' src="./icons/iconStar.svg" alt="" />
                   </div>
                   <div className={styles['reitingQuantity']}>
-                      <span>2458</span>
+                        <span>{information.quantitymark}</span>
                       <p>оценок</p>
                     
                   </div>
                   <div className={styles['reitingYours']} >
                       <p>Ваша оценка:</p>
                       <span>
-                        <img src="./icons/IconYourStarsFull.svg" alt="" /> 
-                          <img src="./icons/IconYourStarsFull.svg" alt="" /> 
-                          <img src="./icons/IconYourStarsFull.svg" alt="" /> 
-                          <img src="./icons/IconYourStarsFull.svg" alt="" /> 
-                          <img src="./icons/IconYourStarsEmpty.svg" alt="" /> 
+                            <img src={information.markStar1} alt={information.markStar1Text} /> 
+                            <img src={information.markStar2} alt={information.markStar2Text} /> 
+                            <img src={information.markStar3} alt={information.markStar3Text} /> 
+                            <img src={information.markStar4} alt={information.markStar4Text} /> 
+                            <img src={information.markStar5} alt={information.markStar5Text} /> 
                       
                       
                        </span>
@@ -170,21 +192,20 @@ function ProductCartOpen() {
 
               </div>
 
-              <p className={styles['description']}>Классический коктейль, обладающий своеобразным характером и многогранным вкусом. Сочетание различных спиртных напитков создает гармонию пряностей, сладости, кислотности и освежающих ноток.
-                      Он отлично подходит для тех, кто предпочитает насыщенные и энергичны</p>
-              <p className={isFullTextStyled ? styles.descriptionFullClosed : styles.descriptionFullOpen}>1111</p>
+              <p className={styles['description']}>{information.text}</p>
+              <p className={isFullTextStyled ? styles.descriptionFullClosed : styles.descriptionFullOpen}>{information.fullText}</p>
               <button className={styles['descriptionButton']} onClick={toggleStyleFullText} > {isFullTextStyled ? 'Показать полное описание' : 'Свернуть описание'}
                   <img src={isFullTextStyled ? './IconArrowDown.svg' : './IconShare.svg'}/>
                   <path fill-rule="evenodd" clip-rule="evenodd" d="M3.20452 7.73527C3.4888 7.43401 3.96348 7.42024 4.26474 7.70452L12 15.0038L19.7353 7.70452C20.0365 7.42024 20.5112 7.43401 20.7955 7.73527C21.0798 8.03653 21.066 8.5112 20.7647 8.79548L13.0295 16.0948C12.4515 16.6401 11.5485 16.6401 10.9705 16.0948L3.23527 8.79548C2.93401 8.5112 2.92024 8.03653 3.20452 7.73527Z" fill="#CABAFF" />
               </button>
-              <div className={styles['tastes']}><h4>Вкусы:</h4><p>пряный, цитрусовый, сладкий, кислый</p></div>
+                <div className={styles['tastes']}><h4>Вкусы:</h4><p>{information.taste}</p></div>
               <div className={styles['filters']} >
-                  <div className={styles['filter']} > <img src="./icons/semiAlcogol.svg" alt="" /> <span>Крепкий</span> </div>
-                  <div className={styles['filter']}> <img src="./icons/iconShort.svg" alt="" /><span>Лонг</span> </div>
-                  <div className={styles['filter']}><img src="./icons/mediumDift.svg" alt="" /> <span>Cредняя сложность</span></div>
+                  <div className={styles['filter']} > <img src={information.fortressImg} alt="" /> <span>{information.fortress}</span> </div>
+                    <div className={styles['filter']}> <img src={information.shortImg} alt="" /><span>{information.short}</span> </div>
+                    <div className={styles['filter']}><img src={information.complexityImg} alt="" /> <span>{information.complexity}</span></div>
                  
                   
-              </div>
+              </div>     
 
               <div className={styles['ingredients']} >
 
@@ -196,12 +217,9 @@ function ProductCartOpen() {
                       <div className={styles['portionQuantity']}>
                           <h4>Количество порций</h4>
                           <div>
-                              <button className={styles['portionQuantityBtn']}>1</button>
-                              <button className={styles['portionQuantityBtn']}>2</button>
-                              <button className={styles['portionQuantityBtn']}>3</button>
-                              <button className={styles['portionQuantityBtn']}>4</button>
-                              <button className={styles['portionQuantityBtn']}>5</button>
-                              <button className={styles['portionQuantityBtn']}>10</button>
+                                {buttons.map(button => (<button className={styles['portionQuantityBtn']} key={button.id} > {button.btn}</button>))}
+                         
+                           
                           </div>
                       </div>
                      
@@ -215,8 +233,15 @@ function ProductCartOpen() {
                             <p className={styles['ingredientName']}>{ingredient.name}</p>
                           <div className={styles['ingredientBand']} >
                              
-                          </div>
-                            <p className={styles['ingredientMl']}>{ingredient.qty}</p>
+                          </div> 
+
+                           
+                            <p className={styles['ingredientMl']} >
+
+                            
+
+                                 {ingredient.qty}  {ingredient.measurement} 
+                                 </p>
                           
 
 
@@ -273,7 +298,7 @@ function ProductCartOpen() {
 
 
         </div>
-    
+    ))}
     
      </div>
 )
