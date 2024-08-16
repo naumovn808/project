@@ -98,7 +98,7 @@ router.post('/register', async (req, res) => {
 			`,
 		})
 		res.cookie('activeToken', activeToken, { httpOnly: true })
-		res.status(200).send('email has sended')
+	 return	res.status(200).send('email has sended')
 	} catch (error) {
 		console.error(error)
 		res.status(500).send('Error registering user')

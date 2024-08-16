@@ -1,0 +1,26 @@
+.skeleton-card{
+    width: 200px !important;
+    height: 200px;
+    border-radius: 10px !important;
+    animation: skeleton-loading 1s linear infinite alternate;
+    border: none !important;
+    opacity: .7;
+}
+.skeleton{
+    width: 200px !important;
+    height: 50px;
+    margin-top: 10px;
+    border-radius: 10px !important;
+    animation: skeleton-loading 1s linear infinite alternate;
+    border: none !important;
+    opacity: .7;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-color: hsl(206, 5%, 26%);
+    }
+    100% {
+        background-color: hsl(180, 1%, 32%);
+    }
+}
