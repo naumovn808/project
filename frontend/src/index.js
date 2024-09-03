@@ -13,6 +13,8 @@ import PasswordSend from './pages/Auth/PasswordSend/PasswordSend.jsx'
 import NewPassword from './pages/Auth/NewPassword/NewPassword.jsx'
 import PageTitres from './pages/PageTitres/PageTitres.jsx'
 import Cocktail from './pages/Cocktail/Cocktail.jsx'
+import SavedProducts from './pages/SavedProducts/SavedProducts.jsx'
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 const router = createBrowserRouter([
 	{
@@ -65,6 +67,10 @@ const router = createBrowserRouter([
 	{
 		path: 'titres',
 		element: <PageTitres />,
+	},
+	{
+		path: 'saved-products',
+		element: <SavedProducts />
 	},
 ])
 
